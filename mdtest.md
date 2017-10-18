@@ -13,6 +13,7 @@
 - [Writing on GitHub](https://help.github.com/categories/writing-on-github/)
 - [Markdown home page](https://daringfireball.net/projects/markdown/)
 - John Gruber: [Dive Into Markdown](https://daringfireball.net/2004/03/dive_into_markdown)
+- codebase: [Syntax highlighting in markdown](https://support.codebasehq.com/articles/tips-tricks/syntax-highlighting-in-markdown)
 
 # Overview
 From Wikipedia:
@@ -64,5 +65,28 @@ Note that the above bullets are separated by spaces because each uses a differen
 # Blockquotes
 > The syntax is based on the way email programs
 > usually do quotations. You don't need to hard-wrap
-> the paragraphs in your blockquotes, but it looks much nicer if you do.  
-> Depends how lazy you feel.
+> the paragraphs in your blockquotes, but it looks much nicer if you do.  Depends how lazy you feel.
+
+# Language-specific highlighting
+```ruby
+def index
+  puts "hello world"
+end
+```
+or
+```csharp
+private void index(){
+  MessageBox.Show("hello world");
+}
+```
+or
+```python
+print("hello world!")
+print("hello moon")
+```
+
+without the highlighting:
+```
+print("hello world!")
+print("hello moon")
+```
