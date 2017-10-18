@@ -35,10 +35,10 @@ Force URLs by enclosing them in angle brackets:
 Have you seen <http://example.com>?
 
 # Bold & italic
-*This text will be italic*  
-_This will also be italic_
+*This text will be italic*.  
+_This will also be italic_.
 
-**This text will be bold**  
-__This will also be bold__
+**This text will be bold**.  
+__This will also be bold__.
 
 _You **can** combine them_ _**like so**_.
