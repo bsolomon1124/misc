@@ -13,3 +13,9 @@ Option 2 (neither)
 --------
 How do I love thee?
 Let me count the ways.
+
+Bare urls
+---------
+I often visit http://example.com.
+
+Have you seen <http://example.com>?
