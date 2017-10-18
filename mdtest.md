@@ -68,18 +68,21 @@ Note that the above bullets are separated by spaces because each uses a differen
 > the paragraphs in your blockquotes, but it looks much nicer if you do.  Depends how lazy you feel.
 
 # Language-specific highlighting
+Ruby:
 ```ruby
 def index
   puts "hello world"
 end
 ```
-or
+
+CSharp:
 ```csharp
 private void index(){
   MessageBox.Show("hello world");
 }
 ```
-or
+
+Python:
 ```python
 print("hello world!")
 print("hello moon")
