@@ -53,8 +53,16 @@ _You **can** combine them_ _**like so**_.
 - Use a minus sign for a bullet
 + Or plus sign
 * Or an asterisk
+* Another "asterisk" bullet
 
+Note that the above bullets are separated by spaces because each uses a different symbol in its code.
 # Numbered lists
 1. Numbered lists are easy
 2. Markdown keeps track of the numbers for you
 7. So this will be item 3.
+
+# Blockquotes
+> The syntax is based on the way email programs
+> usually do quotations. You don't need to hard-wrap
+> the paragraphs in your blockquotes, but it looks much nicer if you do.  
+> Depends how lazy you feel.
