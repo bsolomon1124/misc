@@ -67,6 +67,13 @@ Note that the above bullets are separated by spaces because each uses a differen
 > usually do quotations. You don't need to hard-wrap
 > the paragraphs in your blockquotes, but it looks much nicer if you do.  Depends how lazy you feel.
 
+# Images
+Images are exactly like links, but they have an exclamation point in front of them:
+![Valid XHTML](http://w3.org/Icons/valid-xhtml10).
+
+
+# Inline HTML
+
 # Language-specific highlighting
 Ruby:
 ```ruby
@@ -106,9 +113,22 @@ Here's a very readable link to [Yahoo!][yahoo].
   [1]: http://www.google.com/
   [yahoo]: http://www.yahoo.com/
 
+Note that the link references don't need to necessarily be at the bottom
+of the document.
+
 
 # Tables
 First Header | Second Header
 ------------ | -------------
 Content from cell 1 | Content from cell 2
 Content in the first column | Content in the second column
+
+# LaTex
+Does LaTex work in .md?  We shall see...
+
+The *Gamma function* satisfying $\Gamma(n) = (n-1)!\quad\forall
+n\in\mathbb N$ is via through the Euler integral
+
+$$
+\Gamma(z) = \int_0^\infty t^{z-1}e^{-t}dt\,.
+$$
