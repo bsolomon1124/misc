@@ -6,7 +6,7 @@
 - Math Overflow: [Markdown help](https://mathoverflow.net/editing-help)
 - GitHub Guides: [Mastering Markdown](https://guides.github.com/features/mastering-markdown/)
 - MakeUsOf: [What Is Markdown? 4 Reasons Why You Should Learn It Now](http://www.makeuseof.com/tag/markdown-4-reasons-learn-now/)
-- aaronsw: [](http://www.aaronsw.com/weblog/001189)
+- aaronsw: [Markdown](http://www.aaronsw.com/weblog/001189)
 - Stack Overflow: [Markdown help](https://stackoverflow.com/editing-help)
 - SourceForge: [Markdown Syntax Guide](https://sourceforge.net/p/forge/documentation/markdown_syntax/)
 - Reddit: [Markdown Primer](https://www.reddit.com/r/reddit.com/comments/6ewgt/reddit_markdown_primer_or_how_do_you_do_all_that/)
@@ -48,3 +48,13 @@ _This will also be italic_.
 __This will also be bold__.
 
 _You **can** combine them_ _**like so**_.
+
+# Simple lists
+- Use a minus sign for a bullet
++ Or plus sign
+* Or an asterisk
+
+# Numbered lists
+1. Numbered lists are easy
+2. Markdown keeps track of the numbers for you
+7. So this will be item 3.
