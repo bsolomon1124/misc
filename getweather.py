@@ -12,7 +12,7 @@ Logo: https://icons.wxug.com/logos/JPG/wundergroundLogo_4c.jpg
 # My key is fec1d891d64ec80a; Project name: Philly Weather
 
 __author__ = 'Brad Solomon <brad.solomon.1124@gmail.com>'
-__all__ = ['get_current', 'CityWeather', 'get_json', ]
+__all__ = ['get_current', 'CityWeather', 'get_json']
 
 import requests
 
