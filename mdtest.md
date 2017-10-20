@@ -12,13 +12,11 @@
 - [Images](#images)
 - [Inline HTML](#inline-html)
 - [Inline code](#inline-code)
-- [Language-specific highlighting](#inline-html)
+- [Language-specific highlighting](#language-specific-highlighting)
 - [Links](#links)
 - [LaTex](#latex)
 - [Superscripts](#superscripts)
 - [Github Flavored Markdown](#github-flavored-markdown)
-
-
 
 # Resources & References
 - The official Markdown syntax reference [page](https://daringfireball.net/projects/markdown/syntax) and the [Markdown home page](https://daringfireball.net/projects/markdown/)
