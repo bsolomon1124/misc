@@ -258,6 +258,6 @@ See the many questions tagged [tag:elephants] to learn more.
 
 # Superscript
 
-See ^note.
+See^note.
 
-See ^(Paper(2010)).
+See^(Paper(2010)).
