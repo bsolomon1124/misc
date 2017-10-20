@@ -245,6 +245,7 @@ Content from cell 1 | Content from cell 2
 Content in the first column | Content in the second column
 
 Colons can be used to align columns:
+
 | Tables        | Are           | Cool  |
 | ------------- |:-------------:| -----:|
 | col 3 is      | right-aligned | $1600 |
