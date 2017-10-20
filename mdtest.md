@@ -32,12 +32,6 @@ Preface with the '#' sign.
 ##### Header 5
 ###### Header 6
 
-# This is an <h1> tag
-
-## This is an <h2> tag
-
-###### This is an <h6> tag
-
 # Line breaks
 End a line with two spaces to add a `<br/>` linebreak or add a literal newline.
 
