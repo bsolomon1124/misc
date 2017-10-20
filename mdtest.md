@@ -105,6 +105,13 @@ Result:
 
 # Inline code
 Blocks of code are either fenced by lines with three back-ticks, \`\`\`, or are indented with four spaces. Only fenced code blocks support syntax highlighting (see below).
+```
+def a(x):
+    pass
+```
+
+    def b(x):
+        pass
 
 # Language-specific highlighting
 Ruby:
