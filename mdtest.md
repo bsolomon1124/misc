@@ -250,3 +250,6 @@ However, pandoc, a "universal document converter," [does](http://www.juanshishid
 - [x] list syntax required (any unordered or ordered list supported)
 - [x] this is a complete item
 - [ ] this is an incomplete item
+
+# Stack overflow tags
+See the many questions tagged [tag:elephants] to learn more.
