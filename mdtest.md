@@ -4,7 +4,7 @@
 - [Line breaks](#line-breaks)
 - [Sepration lines](separation-lines)
 - [Bare URLs](bare-urls)
-- [Bold, italic, & strikethrough]()
+- [Bold, italic, & strikethrough](#bold-italic--strikethrough)
 - [Simple lists](#simple-lists)
 - [Numbered lists](#numbered-lists)
 - [Nested lists](#nested-lists)
