@@ -55,7 +55,6 @@ Hyphens
 ***
 Asterisks
 ___
-
 Underscores
 
 # Bare URLs
@@ -85,6 +84,36 @@ Note that the above bullets are separated by spaces because each uses a differen
 1. Numbered lists are easy
 2. Markdown keeps track of the numbers for you
 7. So this will be item 3.
+
+# Nested lists
+To put other Markdown blocks in a list; just indent four spaces for each nesting level:
+
+1. Lists in a list item:
+    - Indented four spaces.
+        * indented eight spaces.
+    - Four spaces again.
+2.  Multiple paragraphs in a list items:
+    It's best to indent the paragraphs four spaces
+    You can get away with three, but it can get
+    confusing when you nest other things.
+    Stick to four.
+ 
+    We indented the first line an extra space to align
+    it with these paragraphs. In real use, we might do
+    that to the entire list so that all items line up.
+ 
+    This paragraph is still part of the list item, but it looks messy to humans. So it's a good idea to wrap your nested paragraphs manually, as we did with the first two.
+ 
+3. Blockquotes in a list item:
+ 
+    > Skip a line and
+    > indent the >'s four spaces.
+ 
+4. Preformatted text in a list item:
+ 
+        Skip a line and indent eight spaces.
+        That's four spaces for the list
+        and four to trigger the code block.
 
 # Blockquotes
 > The syntax is based on the way email programs
