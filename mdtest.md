@@ -94,6 +94,7 @@ Images are exactly like links, but they have an exclamation point in front of th
   <dd>Does *not* work **very** well. Use HTML <em>tags</em>.</dd>
 </dl>
 ```
+Result:
 
 <dl>
   <dt>Definition list</dt>
