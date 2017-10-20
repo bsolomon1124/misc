@@ -49,7 +49,7 @@ How do I love thee?
 Let me count the ways.
 
 # Separation lines
-You can use three or more of: hyphens, asterisks, or underscores.  Note that headers in markdown automatically have a thin separation line underneath.
+You can use three or more of: hyphens, asterisks, or underscores.  Note that headers in markdown automatically have a thin separation line underneath.  Note that this text itself needs a newline under it prior to the '---'.
 
 ---
 Hyphens
@@ -123,8 +123,8 @@ To put other Markdown blocks in a list; just indent four spaces for each nesting
 
 # Images
 Images are exactly like links, but they have an exclamation point in front of them:
-![Valid XHTML](http://w3.org/Icons/valid-xhtml10).
 
+![Valid XHTML](http://w3.org/Icons/valid-xhtml10).
 
 # Inline HTML
 ```html
