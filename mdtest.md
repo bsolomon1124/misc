@@ -16,7 +16,7 @@
 - [Links](#links)
 - [Tables](#tables)
 - [LaTex](#latex)
-- [Superscripts](#superscripts)
+- [Superscripts](#superscript)
 - [Github Flavored Markdown](#github-flavored-markdown)
 
 # Resources & References
