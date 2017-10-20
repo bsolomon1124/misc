@@ -57,7 +57,7 @@ How do I love thee?
 Let me count the ways.
 
 # Separation lines
-You can use three or more of: hyphens, asterisks, or underscores.  Note that headers in markdown automatically have a thin separation line underneath.  Note that this text itself needs a newline under it prior to the '---'.
+You can use three or more of: hyphens, asterisks, or underscores.  Note that headers in markdown automatically have a thin separation line underneath.  Note that this text itself needs a newline under it prior to the '---'.  I.e., make sure to have a blank line above hyphens unless you'd like it to indicate a header.
 
 ---
 Hyphens
