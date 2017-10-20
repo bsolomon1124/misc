@@ -32,6 +32,14 @@ Preface with the '#' sign.
 ##### Header 5
 ###### Header 6
 
+You can also include HTML within headers to make them easier for referencing.  For instance,
+
+## <a name="section-a"></a>1) Line Breaks 
+
+could be referenced as 
+
+[1)  Line Breaks](#section-a)
+
 # Line breaks
 End a line with two spaces to add a `<br/>` linebreak or add a literal newline.
 
