@@ -38,7 +38,7 @@ How do I love thee?
 Let me count the ways.
 
 # Separation lines
-You can use three or more of: hyphens, asterisks, or underscores:
+You can use three or more of: hyphens, asterisks, or underscores.  Note that headers in markdown automatically have a thin separation line underneath.
 ---
 Hyphens
 ***
@@ -84,6 +84,24 @@ Images are exactly like links, but they have an exclamation point in front of th
 
 
 # Inline HTML
+
+```
+<dl>
+  <dt>Definition list</dt>
+  <dd>Is something people use sometimes.</dd>
+
+  <dt>Markdown in HTML</dt>
+  <dd>Does *not* work **very** well. Use HTML <em>tags</em>.</dd>
+</dl>
+```
+
+<dl>
+  <dt>Definition list</dt>
+  <dd>Is something people use sometimes.</dd>
+
+  <dt>Markdown in HTML</dt>
+  <dd>Does *not* work **very** well. Use HTML <em>tags</em>.</dd>
+</dl>
 
 # Language-specific highlighting
 Ruby:
