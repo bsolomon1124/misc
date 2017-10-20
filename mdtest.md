@@ -146,6 +146,20 @@ Result:
   <dd>Does *not* work **very** well. Use HTML <em>tags</em>.</dd>
 </dl>
 
+Note that [Markdown only supports a very strict subset of HTML]https://meta.stackexchange.com/questions/1777/what-html-tags-are-allowed-on-stack-exchange-sites).
+
+To reboot your computer, press <kbd>ctrl</kbd>+<kbd>alt</kbd>+<kbd>del</kbd>.
+
+Block-level HTML elements have a few restrictions:
+
+1. They must be separated from surrounding text by blank lines.
+2. The begin and end tags of the outermost block element must not be indented.
+3. Markdown can't be used within HTML blocks.
+
+<pre>
+    You can <em>not</em> use Markdown in here.
+</pre>
+
 # Inline code
 Blocks of code are either fenced by lines with three back-ticks, \`\`\`, or are indented with four spaces. Only fenced code blocks support syntax highlighting (see below).
 ```
