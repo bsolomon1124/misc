@@ -257,7 +257,9 @@ However, pandoc, a "universal document converter," [does](http://www.juanshishid
 See the many questions tagged [tag:elephants] to learn more.
 
 # Superscript
+This is some <sup>superscript</sup> text.  Prefer this over the carat, '^'.
 
-See^note.
+# Escapes
+If you need to display any of the special characters, you can escape that character with a backslash (\). For example:
 
-See^(Paper(2010)).
+Escaped \*italics\*
