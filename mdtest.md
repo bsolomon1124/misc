@@ -2,6 +2,7 @@
 
 
 # Resources & References
+- The official Markdown syntax reference [page](https://daringfireball.net/projects/markdown/syntax) and the [Markdown home page](https://daringfireball.net/projects/markdown/)
 - Metis: [Markdown](https://github.com/thisismetis/dsp/blob/master/00a-markdown.md)
 - Math Overflow: [Markdown help](https://mathoverflow.net/editing-help)
 - GitHub Guides: [Mastering Markdown](https://guides.github.com/features/mastering-markdown/)
@@ -11,7 +12,6 @@
 - SourceForge: [Markdown Syntax Guide](https://sourceforge.net/p/forge/documentation/markdown_syntax/)
 - Reddit: [Markdown Primer](https://www.reddit.com/r/reddit.com/comments/6ewgt/reddit_markdown_primer_or_how_do_you_do_all_that/)
 - [Writing on GitHub](https://help.github.com/categories/writing-on-github/)
-- [Markdown home page](https://daringfireball.net/projects/markdown/)
 - John Gruber: [Dive Into Markdown](https://daringfireball.net/2004/03/dive_into_markdown)
 - codebase: [Syntax highlighting in markdown](https://support.codebasehq.com/articles/tips-tricks/syntax-highlighting-in-markdown)
 - [Markdown Cheat Sheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Here-Cheatsheet)
