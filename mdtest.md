@@ -255,3 +255,9 @@ However, pandoc, a "universal document converter," [does](http://www.juanshishid
 
 # Stack overflow tags
 See the many questions tagged [tag:elephants] to learn more.
+
+# Superscript
+
+See ^note.
+
+See ^(Paper(2010)).
