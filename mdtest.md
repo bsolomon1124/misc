@@ -14,6 +14,7 @@
 - [Inline code](#inline-code)
 - [Language-specific highlighting](#language-specific-highlighting)
 - [Links](#links)
+- [Tables](#tables)
 - [LaTex](#latex)
 - [Superscripts](#superscripts)
 - [Github Flavored Markdown](#github-flavored-markdown)
