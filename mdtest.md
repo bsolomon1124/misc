@@ -103,6 +103,11 @@ Result:
   <dd>Does *not* work **very** well. Use HTML <em>tags</em>.</dd>
 </dl>
 
+# Inline code
+Blocks of code are either fenced by lines with three back-ticks `\`\`\``, or are indented with four spaces. I recommend only using the fenced code blocks -- they're easier and only they support syntax highlighting.
+
+
+
 # Language-specific highlighting
 Ruby:
 ```ruby
