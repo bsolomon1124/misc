@@ -39,15 +39,10 @@ Let me count the ways.
 
 # Separation lines
 You can use three or more of: hyphens, asterisks, or underscores:
-
 ---
-
 Hyphens
-
 ***
-
 Asterisks
-
 ___
 
 Underscores
