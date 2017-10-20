@@ -154,11 +154,10 @@ Content from cell 1 | Content from cell 2
 Content in the first column | Content in the second column
 
 # LaTex
-Does LaTex work in .md?  We shall see...
-
-The *Gamma function* satisfying $\Gamma(n) = (n-1)!\quad\forall
-n\in\mathbb N$ is via through the Euler integral
+Markdown doesn't natively support LaTex: 
 
 $$
 \Gamma(z) = \int_0^\infty t^{z-1}e^{-t}dt\,.
 $$
+
+However, pandoc, a "universal document converter," [does](http://www.juanshishido.com/markdownlatex.html).
