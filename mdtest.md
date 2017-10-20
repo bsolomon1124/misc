@@ -21,6 +21,17 @@ From Wikipedia:
 
 _Markdown is a lightweight markup language with plain text formatting syntax. It is designed so that it can be converted to HTML and many other formats using a tool by the same name. Markdown is often used to format readme files, for writing messages in online discussion forums, and to create rich text using a plain text editor. As the initial description of Markdown contained ambiguities and unanswered questions, many implementations and extensions of Markdown appeared over the years to answer these issues._
 
+# Headers
+
+Preface with the '#' sign.
+
+# Header 1
+## Header 2
+### Header 3
+#### Header 4
+##### Header 5
+###### Header 6
+
 # Line breaks
 End a line with two spaces to add a `<br/>` linebreak or add a literal newline.
 
@@ -52,7 +63,7 @@ The Markdown parser now supports "naked" URLs: I often visit http://example.com.
 
 Force URLs by enclosing them in angle brackets: Have you seen <http://example.com>?
 
-# Bold & italic
+# Bold, italic, & strikethrough
 *This text will be italic*.  
 _This will also be italic_.
 
@@ -60,6 +71,8 @@ _This will also be italic_.
 __This will also be bold__.
 
 _You **can** combine them_ _**like so**_.
+
+Strikethrough uses two tildes. ~~Scratch this.~~
 
 # Simple lists
 - Use a minus sign for a bullet
