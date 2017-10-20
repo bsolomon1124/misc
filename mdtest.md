@@ -85,7 +85,7 @@ Images are exactly like links, but they have an exclamation point in front of th
 
 # Inline HTML
 
-```
+```html
 <dl>
   <dt>Definition list</dt>
   <dd>Is something people use sometimes.</dd>
