@@ -59,7 +59,7 @@ ___
 Underscores
 
 # Bare URLs
-The Markdown parser now supports "naked" URLs: I often visit http://example.com.
+The Markdown parser now supports "naked" URLs: I often visit http://example.com.  Any URL (like http://www.github.com/) will be automatically converted into a clickable link.
 
 Force URLs by enclosing them in angle brackets: Have you seen <http://example.com>?
 
