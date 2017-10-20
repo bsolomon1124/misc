@@ -37,6 +37,21 @@ Let me count the ways.
 How do I love thee?
 Let me count the ways.
 
+# Separation lines
+You can use three or more of: hyphens, asterisks, or underscores:
+
+---
+
+Hyphens
+
+***
+
+Asterisks
+
+___
+
+Underscores
+
 # Bare URLs
 The Markdown parser now supports "naked" URLs: I often visit http://example.com.
 
