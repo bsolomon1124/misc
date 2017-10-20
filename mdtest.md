@@ -84,7 +84,6 @@ Images are exactly like links, but they have an exclamation point in front of th
 
 
 # Inline HTML
-
 ```html
 <dl>
   <dt>Definition list</dt>
@@ -152,6 +151,14 @@ First Header | Second Header
 ------------ | -------------
 Content from cell 1 | Content from cell 2
 Content in the first column | Content in the second column
+
+Colons can be used to align columns:
+| Tables        | Are           | Cool  |
+| ------------- |:-------------:| -----:|
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |
+
 
 # LaTex
 Markdown doesn't natively support LaTex: 
