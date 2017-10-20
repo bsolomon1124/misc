@@ -246,16 +246,6 @@ $$
 
 However, pandoc, a "universal document converter," [does](http://www.juanshishido.com/markdownlatex.html).
 
-# Task lists
-
-- [x] @mentions, #refs, [links](), **formatting**, and <del>tags</del> supported
-- [x] list syntax required (any unordered or ordered list supported)
-- [x] this is a complete item
-- [ ] this is an incomplete item
-
-# Stack overflow tags
-See the many questions tagged [tag:elephants] to learn more.
-
 # Superscript
 This is some <sup>superscript</sup> text.  Prefer this over the carat, '^'.
 
@@ -263,3 +253,11 @@ This is some <sup>superscript</sup> text.  Prefer this over the carat, '^'.
 If you need to display any of the special characters, you can escape that character with a backslash (\). For example:
 
 Escaped \*italics\*
+
+# Github Flavored Markdown
+GitHub combines a syntax for formatting text called GitHub Flavored Markdown with a few unique writing features, such as tasks lists (below).  See [Writing on GitHub](https://help.github.com/categories/writing-on-github/) for more.
+
+- [x] @mentions, #refs, [links](), **formatting**, and <del>tags</del> supported
+- [x] list syntax required (any unordered or ordered list supported)
+- [x] this is a complete item
+- [ ] this is an incomplete item
