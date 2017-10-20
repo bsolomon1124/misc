@@ -2,10 +2,22 @@
 - [Overview](#overview)
 - [Headers](#headers)
 - [Line breaks](#line-breaks)
-- []()
-- []()
-- []()
-- []()
+- [Sepration lines](separation-lines)
+- [Bare URLs](bare-urls)
+- [Bold, italic, & strikethrough]()
+- [Simple lists](#simple-lists)
+- [Numbered lists](#numbered-lists)
+- [Nested lists](#nested-lists)
+- [Blockquotes](#blockquotes)
+- [Images](#images)
+- [Inline HTML](#inline-html)
+- [Inline code](#inline-code)
+- [Language-specific highlighting](#inline-html)
+- [Links](#links)
+- [LaTex](#latex)
+- [Superscripts](#superscripts)
+- [Github Flavored Markdown](#github-flavored-markdown)
+
 
 
 # Resources & References
@@ -213,7 +225,6 @@ without the highlighting:
 print("hello world!")
 print("hello moon")
 ```
-
 # Links
 There are three ways to write links. Each is easier to read than the last:
 
@@ -229,7 +240,6 @@ Here's a very readable link to [Yahoo!][yahoo].
 Note that the link references don't need to necessarily be at the bottom
 of the document.
 
-
 # Tables
 First Header | Second Header
 ------------ | -------------
@@ -242,7 +252,6 @@ Colons can be used to align columns:
 | col 3 is      | right-aligned | $1600 |
 | col 2 is      | centered      |   $12 |
 | zebra stripes | are neat      |    $1 |
-
 
 # LaTex
 Markdown doesn't natively support LaTex: 
