@@ -49,8 +49,8 @@ How do I love thee?
 Let me count the ways.
 
 # Separation lines
-
 You can use three or more of: hyphens, asterisks, or underscores.  Note that headers in markdown automatically have a thin separation line underneath.
+
 ---
 Hyphens
 ***
