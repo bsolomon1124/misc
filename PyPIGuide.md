@@ -39,10 +39,30 @@ You can confirm with `conda list` at the command line.
 
 File | Use | Note(s)
 ------------ | ------------- | -------------
-`setup.py` | asdf | asdf
-`setup.cfg` | asdf | asdf
-`README.rst/.md` | asdf | asdf
-`MANIFEST.in` | asdf | asdf
+`setup.py` | TODO | TODO
+`setup.cfg` | TODO | TODO
+`README.rst/.md` | TODO | TODO
+`MANIFEST.in` | TODO | TODO
+`LICENSE` | TODO | TODO
+
+## Example directory structure
+
+```
+pyfinance                       # the "project folder"
+|-- LICENSE
+|-- MANIFEST.in
+|-- README.rst                   # or: README.md`
+|-- setup.py
+|-- pyfinance                    # this is the package folder itself
+    |-- __init__.py
+    |-- datasets.py
+    |-- ols.py
+    |-- options.py
+    |-- general.py
+    |-- returns.py
+    |-- utils.py
+
+```
 
 ## `setup()` arguments
 
