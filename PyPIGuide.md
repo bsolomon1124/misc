@@ -41,6 +41,8 @@ File | Use | Note(s)
 ------------ | ------------- | -------------
 `setup.py` | asdf | asdf
 `setup.cfg` | asdf | asdf
+`README.rst/.md` | asdf | asdf
+`MANIFEST.in` | asdf | asdf
 
 ## `setup()` arguments
 
