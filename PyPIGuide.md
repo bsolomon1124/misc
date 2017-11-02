@@ -43,7 +43,7 @@ packagename
 ...with the final (desired) step to be able to allow others to simply `pip install` the package rather than needing to download the GitHub repository itself.  **This guide is oriented towards people who have followed some form of the progression above, but should also be generalizable, to an extent.**
 
 # Overview
-A **packaging index** (for example, PyPI) is a repository of distributions with a web interface to automate package discovery and consumption.
+A **packaging index** is a repository of distributions with a web interface to automate package discovery and consumption.  The Python Package Index (PyPI) is a repository of software for the Python programming language.
 
 Python's packaging ecosystem, while having recently underwent major improvements, has been condemned over the years as overly complicated and disorganized.  One result of the recent transformation is that many links are outdated; as a result, it is smart to be wary of the publish date and have a higher bar for implementing suggestions from a single article.  For instance, `disutils` is largely unused now.
 
@@ -78,6 +78,28 @@ File | Use | Note(s)
 `LICENSE` | Details the terms of distribution. In many jurisdictions, packages without an explicit license can not be legally used or distributed by anyone other than the copyright holder. | GitHub: [Choose an open source license](https://choosealicense.com/)
 `changelog.txt` | Helps users know what to expect from each relese. | An [example](https://github.com/cmcginty/PyWeather/blob/master/CHANGELOG.txt) from the `PyWeather` package.
 `contributing.rst` | A guide on how users and viewers can contribute. | An [example](https://github.com/python-attrs/attrs/blob/master/CONTRIBUTING.rst) from `attrs`.
+`.pypirc` | This file holds your information for authenticating with PyPI, both the live and the test versions. | Make sure to put this file in your home folder – its path should be `~/.pypirc`.
+
+### More on `setup.cfg`
+From hynek.me: For our minimal Python-only project, we’ll only need four lines in setup.cfg:
+
+```
+[bdist_wheel]
+universal = 1
+
+[metadata]
+license_file = LICENSE
+```
+
+Walkthrough of the above:
+1. First part will make wheel build a universal wheel file (e.g. attrs-15.1.0-py2.py3-none-any.whl) and you won’t have to circle through virtual environments of all supported Python versions to build them separately.  Note that you'll need `wheel` installed for this. 
+2. The second part ensures that your LICENSE file is part of the wheel files which is a common license requirement.
+
+### A note on `README`
+
+As noted above, .rst files can be properly rendered by PyPI without additional effort; .md files require some additional work to have PyPI render them on your project page.
+
+**If you're using a markdown-formatted README file you'll also need a `setup.cfg` file.**
 
 ## Example directory structure
 
@@ -111,28 +133,12 @@ Argument | Use | Note(s)
 `author_email` | -- | I.e. `author_email='pypa-dev@googlegroups.com'`.
 `license` | Provide the **type** of license you are using. | Note that this doesn't need to refer to the license file itself.
 `classifiers` | Provide a list of classifiers that categorize your project.  **These must fall under a prespecified set of classifiers; PyPI will refuse to accept packages with unknown classifiers.** This information is used for searching and browing projects on PyPI. | [Full listing of classifiers](https://pypi.python.org/pypi?%3Aaction=list_classifiers).
-`keywords` | List keywords that describe your project. | A single space-separated string i.e. `keywords='sample setuptools development'`.
+`keywords` | List keywords that describe your project. | Can be a single space-separated string (`keywords='sample setuptools development'`) or a list (`keywords = ['testing', 'logging', 'example']`).
 `packages` | It’s required to list the packages to be included in your project. Although they can be listed manually, `setuptools.find_packages` finds them automatically. Use the `exclude` keyword argument to omit packages that are not intended to be released and installed. | `find_packages()` takes a source directory and two lists of package name patterns to exclude and include. If omitted, the source directory defaults to the same directory as the setup script.  A common specification is `packages=find_packages(exclude=['contrib', 'docs', 'tests*'])`.
 `install_requires` | Specify what dependencies a project minimally needs to run.  More on declaring dependencies [here](https://setuptools.readthedocs.io/en/latest/setuptools.html#declaring-dependencies). | **When the project is installed by pip, this is the specification that is used to install its dependencies.**
 `python_requires` | If your project only runs on certain Python versions, setting the `python_requires` argument to the appropriate [PEP 440 version specifier](https://www.python.org/dev/peps/pep-0440/#version-specifiers) string will prevent pip from installing the project on other Python versions. | Some [examples](https://packaging.python.org/tutorials/distributing-packages/#python-requires) from the docs.
 
 Note that the above list is not exhaustive.  Other kwargs include `scripts`, `data_files`, and `package_data`.
-
-## More on `setup.cfg`
-From hynek.me: For our minimal Python-only project, we’ll only need four lines in setup.cfg:
-
-```
-[bdist_wheel]
-universal = 1
-
-[metadata]
-license_file = LICENSE
-```
-
-Walkthrough of the above:
-1. First part will make wheel build a universal wheel file (e.g. attrs-15.1.0-py2.py3-none-any.whl) and you won’t have to circle through virtual environments of all supported Python versions to build them separately.  Note that you'll need `wheel` installed for this. 
-2. The second part ensures that your LICENSE file is part of the wheel files which is a common license requirement.
-
 
 # Uploading to PyPI
 ## About uploading
@@ -195,14 +201,61 @@ Before releasing on the main PyPI repo, you might prefer training with the PyPI 
 - [Binary distributions](https://packaging.python.org/glossary/#term-binary-distribution)
 - TODO: hynek.me article unfinished
 
-## Keyring
-You can use `keyring` to store your PyPI credentials in a secure system storage.
+## `.pypirc` & `keyring`
+
+A `.pypirc` file holds your information for authenticating with PyPI, both the live and the test versions.  Make sure to put this file in your home folder – its path should be `~/.pypirc`.  Example from peterdowns.com:
+
+```
+[distutils]
+index-servers =
+  pypi
+  pypitest
+
+[pypi]
+repository=https://pypi.python.org/pypi
+username=your_username
+password=your_password
+
+[pypitest]
+repository=https://testpypi.python.org/pypi
+username=your_username
+password=your_password
+```
+
+Conforming example (hynek.me):
+```
+[distutils]
+index-servers=
+    pypi
+    test
+
+[test]
+repository = https://test.pypi.org/legacy/
+username = <your test user name goes here>
+
+[pypi]
+username = <your production user name goes here>
+```
+
+You can use alternately `keyring` to store your PyPI credentials in a secure system storage.
 
 Setuptools augments the upload command with support for `keyring`, allowing the password to be stored in a secure location and not in plaintext in the `.pypirc` file. To use `keyring`, first install `keyring` and set the password for the relevant repository, e.g.:
 
 ```
 python -m keyring set <repository> <username>
 Password for '<username>' in '<repository>': ********
+```
+
+I.e.
+
+```
+$ keyring set https://test.pypi.org/legacy/ <your user name>
+Password for '<your user name>' in 'https://test.pypi.org/legacy/':
+```
+
+```
+$ keyring set https://upload.pypi.org/legacy/ <your production user name>
+Password for '<your production user name>' in 'https://upload.pypi.org/legacy/':
 ```
 
 Then, in `.pypirc`, set the repository configuration as normal, but omit the password. Thereafter, uploads will use the password from the keyring.
