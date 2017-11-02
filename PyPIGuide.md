@@ -103,11 +103,9 @@ Argument | Use | Note(s)
 `classifiers` | Provide a list of classifiers that categorize your project.  **These must fall under a prespecified set of classifiers.** This information is used for searching and browing projects on PyPI. | [Full listing of classifiers](https://pypi.python.org/pypi?%3Aaction=list_classifiers).
 `keywords` | List keywords that describe your project. | A single space-separated string i.e. `keywords='sample setuptools development'`.
 `packages` | It’s required to list the packages to be included in your project. Although they can be listed manually, `setuptools.find_packages` finds them automatically. Use the `exclude` keyword argument to omit packages that are not intended to be released and installed. | A common specification is `packages=find_packages(exclude=['contrib', 'docs', 'tests*'])`.
-`install_requires` | asdf | asdf
-`python_requires` | asdf | asdf
-`package_data` | asdf | asdf
-`data_files` | asdf | asdf
-`scripts` | asdf | asdf
-`entry_points` | asdf | asdf
+`install_requires` | Specify what dependencies a project minimally needs to run. **When the project is installed by pip, this is the specification that is used to install its dependencies.** | asdf
+`python_requires` | If your project only runs on certain Python versions, setting the `python_requires` argument to the appropriate [PEP 440 version specifier](https://www.python.org/dev/peps/pep-0440/#version-specifiers) string will prevent pip from installing the project on other Python versions. | Some [examples](https://packaging.python.org/tutorials/distributing-packages/#python-requires) from the docs.
+
+Note that the above list is not exhaustive.  Other kwargs include `scripts`, `data_files`, and `package_data`.
 
 # Uploading to PyPI
