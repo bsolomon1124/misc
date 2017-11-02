@@ -45,7 +45,7 @@ packagename
 # Overview
 A **packaging index** is a repository of distributions with a web interface to automate package discovery and consumption.  The Python Package Index (PyPI) is a repository of software for the Python programming language.
 
-Python's packaging ecosystem, while having recently underwent major improvements, has been condemned over the years as overly complicated and disorganized.  One result of the recent transformation is that many links are outdated; as a result, it is smart to be wary of the publish date and have a higher bar for implementing suggestions from a single article.  For instance, `disutils` is largely unused now.
+Python's packaging ecosystem, while having recently underwent major improvements, has been condemned over the years as overly complicated and disorganized.  One result of the recent transformation is that many links are outdated; as a result, it is smart to be wary of the publish date and have a higher bar for implementing suggestions from a single article.  For instance, while `setuptools` and `disutils` are similar, `setuptools` is more modernized and fixes some of the problems with `distutils`.
 
 ## What is a _distribution package_?
 A [distribution package](https://packaging.python.org/glossary/#term-distribution-package), or just distribution, is different from a "simple" package that just contains modules or other packages.  A distribution package is
@@ -74,7 +74,7 @@ File | Use | Note(s)
 `setup.py` | The project specification file for both `setuptools` and `disutils`.  The primary feature of `setup.py` is that it contains a global `setup()` function. The keyword arguments to this function are how specific details of your project are defined. | The most relevant arguments are explained in the section [below](#setup-arguments).
 `setup.cfg` | An ini file that contains option defaults for `setup.py` commands.  Note that metadata and other options normally supplied to `setup()` _can_ be specified here. | Not needed in all cases.  See setuptools docs: [Configuring `setup()` using setup.cfg files](https://setuptools.readthedocs.io/en/latest/setuptools.html#configuring-setup-using-setup-cfg-files).
 `README.rst/.md` | Covers the goal of the project. | Common extensions are `.rst` (reStructuredText) and `.md` (Markdown).  The former can be rendered by PyPI to the project page without additional specification, while the latter requires additional setup to be rendered correctly by PyPI.
-`MANIFEST.in` | Needed in certain cases where you need to package additional files that are not automatically included in a source distribution. | To see a list of what’s included by default, see the [Specifying the files to distribute](https://docs.python.org/3.4/distutils/sourcedist.html#specifying-the-files-to-distribute) section from the `distutils` documentation.
+`MANIFEST.in` | Needed in certain cases where you need to package additional files that are not automatically included in a source distribution.  When `setup.py` builds your package, it includes `.py` files in your package folder by default. If you want any other files included in the `.tar.gz` file that gets created and uploaded to PyPI, you need to include those filenames in `MANIFEST.in`.  | To see a list of what’s included by default, see the [Specifying the files to distribute](https://docs.python.org/3.4/distutils/sourcedist.html#specifying-the-files-to-distribute) section from the `distutils` documentation.  See [here](https://tom-christie.github.io/articles/pypi/) for an example MANIFEST.
 `LICENSE` | Details the terms of distribution. In many jurisdictions, packages without an explicit license can not be legally used or distributed by anyone other than the copyright holder. | GitHub: [Choose an open source license](https://choosealicense.com/)
 `changelog.txt` | Helps users know what to expect from each relese. | An [example](https://github.com/cmcginty/PyWeather/blob/master/CHANGELOG.txt) from the `PyWeather` package.
 `contributing.rst` | A guide on how users and viewers can contribute. | An [example](https://github.com/python-attrs/attrs/blob/master/CONTRIBUTING.rst) from `attrs`.
@@ -99,7 +99,27 @@ Walkthrough of the above:
 
 As noted above, .rst files can be properly rendered by PyPI without additional effort; .md files require some additional work to have PyPI render them on your project page.
 
-**If you're using a markdown-formatted README file you'll also need a `setup.cfg` file.**
+**If you're using a markdown-formatted README file you'll also need a `setup.cfg` file** with the following:
+
+```
+[metadata]
+description-file = README.md
+```
+
+This is necessary if you're using a markdown readme file. At upload time, you may still get some errors about the lack of a readme — don't worry about it.
+
+**Alternate**: use `pypandoc`, which converts from .rst to .md.  Install `pypandoc`, then navigate in the terminal to the location of your `README` file, launch Python, and do:
+
+```python
+import pypandoc
+
+#converts markdown to reStructured
+z = pypandoc.convert('README','rst',format='markdown')
+
+#writes converted file
+with open('README.rst','w') as outfile:
+    outfile.write(z)
+```
 
 ## Example directory structure
 
@@ -111,7 +131,7 @@ pyfinance                        # the "project folder"
 |-- MANIFEST.in                  # <--
 |-- README.rst                   # or: README.md`
 |-- setup.py
-|-- pyfinance                    # this is the package folder itself
+|-- pyfinance                    # this is the package folder itself*
     |-- __init__.py
     |-- datasets.py
     |-- ols.py
@@ -121,10 +141,12 @@ pyfinance                        # the "project folder"
     |-- utils.py
 ```
 
+\* This is the name you'll use to import the package.
+
 **Example 2:**
 
 ```
-root-dir/                       # arbitrary working directory name
+root-dir/                       # arbitrary working directory name*
   setup.py
   setup.cfg
   LICENSE.txt
@@ -136,6 +158,29 @@ root-dir/                       # arbitrary working directory name
     baz.py
 ```
 
+\*Note that the name of the project folder doesn’t have to be the same as the package name.
+
+**Example 2:**
+
+```
+YOUR-PROJECT-FOLDER
+|-- CHANGES.txt (OPTIONAL)
+|-- LICENSE.txt
+|-- MANIFEST.in
+|-- README
+|-- docs (FOLDER)
+|-- setup.py
+|-- PACKAGENAME (FOLDER)
+    |-- __init__.py
+    |-- Makefile (OPTIONAL)
+    |-- FILE1.py
+    |-- FILE2.py
+    |-- data (FOLDER, OPTIONAL)
+        |-- included_data.dat
+    |-- example (FOLDER)
+        |-- EXAMPLE.txt
+```
+
 ## `setup()` keyword arguments
 An example `setup.py`: [pypa/sampleproject/setup.py](https://github.com/pypa/sampleproject/blob/master/setup.py).
 
@@ -144,8 +189,9 @@ Argument | Use | Note(s)
 `name` | The name of your project, determining how your project is listed on PyPI. | [PEP 508](https://www.python.org/dev/peps/pep-0508/) discusses valid project names.
 `version` | This is the current version of your project, allowing your users to determine whether or not they have the latest version, and to indicate which specific versions they’ve tested their own software against. | See [choosing a versioning scheme](https://packaging.python.org/tutorials/distributing-packages/#choosing-a-versioning-scheme) and [PEP 440](https://www.python.org/dev/peps/pep-0440/).
 `description` | -- | Displayed on PyPI.
-`long_description` | -- | Displayed on PyPI.
+`long_description` | -- | Displayed on PyPI.  See code below for automatically grabbing it from `README.rst`.
 `url` | A homepage URL for your project. | I.e. `url='https://github.com/pypa/sampleproject'`.
+`download_url` | A link to a hosted file with your repository's code. | Github will host this for you, but only if you create a git tag. In your repository, type: `git tag 0.1 -m "Adds a tag so that we can put this on PyPI."`. Then, type `git tag` to show a list of tags — you should see 0.1 in the list. Type `git push --tags origin master` to update your code on Github with the latest tag information. Github creates tarballs for download at `https://github.com/{username}/{module_name}/archive/{tag}.tar.gz`.
 `author` | -- | I.e. `author='The Python Packaging Authority'`.
 `author_email` | -- | I.e. `author_email='pypa-dev@googlegroups.com'`.
 `license` | Provide the **type** of license you are using. | Note that this doesn't need to refer to the license file itself.
@@ -154,9 +200,22 @@ Argument | Use | Note(s)
 `packages` | It’s required to list the packages to be included in your project. Although they can be listed manually, `setuptools.find_packages` finds them automatically. Use the `exclude` keyword argument to omit packages that are not intended to be released and installed. | `find_packages()` takes a source directory and two lists of package name patterns to exclude and include. If omitted, the source directory defaults to the same directory as the setup script.  A common specification is `packages=find_packages(exclude=['contrib', 'docs', 'tests*'])`.
 `install_requires` | Specify what dependencies a project minimally needs to run.  More on declaring dependencies [here](https://setuptools.readthedocs.io/en/latest/setuptools.html#declaring-dependencies). | **When the project is installed by pip, this is the specification that is used to install its dependencies.**
 `python_requires` | If your project only runs on certain Python versions, setting the `python_requires` argument to the appropriate [PEP 440 version specifier](https://www.python.org/dev/peps/pep-0440/#version-specifiers) string will prevent pip from installing the project on other Python versions. | Some [examples](https://packaging.python.org/tutorials/distributing-packages/#python-requires) from the docs.
-`download_url` | A link to a hosted file with your repository's code. | Github will host this for you, but only if you create a git tag. In your repository, type: `git tag 0.1 -m "Adds a tag so that we can put this on PyPI."`. Then, type `git tag` to show a list of tags — you should see 0.1 in the list. Type `git push --tags origin master` to update your code on Github with the latest tag information. Github creates tarballs for download at `https://github.com/{username}/{module_name}/archive/{tag}.tar.gz`.
 
 Note that the above list is not exhaustive.  Other kwargs include `scripts`, `data_files`, and `package_data`.
+
+### Having `long_description` pull from your `README`:
+
+```python
+from codecs import open
+
+# __file__ is the pathname of the file from which the module was loaded.
+# Then `here` would be something like 'C:\Users\bsolomon\anaconda3\pyfinance'
+here = path.abspath(path.dirname(__file__))
+
+# Get the long description from the README file
+with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
+    long_description = f.read()
+```
 
 # Uploading to PyPI
 ## About uploading
@@ -166,9 +225,11 @@ _Official docs:_
 - [Packaging your project](https://packaging.python.org/tutorials/distributing-packages/#packaging-your-project)
 - [Uploading your project to PyPI](https://packaging.python.org/tutorials/distributing-packages/#uploading-your-project-to-pypi)
 
-Note that the above are two separate steps.  The first consists of creating your distribution, mainly via putting a new directory `dist/` under your project’s root directory.  The project is actually uploaded in the second step.
+Note that the above are two separate steps.  
+1. The first consists of creating your distribution, mainly via putting a new directory `dist/` under your project’s root directory.  When you build your package, `setup.py` creates a `dist/` directory in your project directory and puts everything on the specified packages along with everything in the `MANIFEST.in` file in a single `.tar.gz` file in that directory.
+2. The project is actually uploaded in the second step.
 
-You **invoke setup from the command line** to _produce eggs, upload to PyPI, and automatically include all packages in the directory where the setup.py lives_.  See the [command reference](https://setuptools.readthedocs.io/en/latest/setuptools.html#command-reference) section of the `setuptools` docs for detail on each command.  One of particular importance is the [upload](https://setuptools.readthedocs.io/en/latest/setuptools.html#upload-upload-source-and-or-egg-distributions-to-pypi) command.
+You **invoke setup from the command line** to _produce eggs, upload to PyPI, and automatically include all packages in the directory where the setup.py lives_.  See the [command reference](https://setuptools.readthedocs.io/en/latest/setuptools.html#command-reference) section of the `setuptools` docs for detail on each command.  One of particular importance is the [upload](https://setuptools.readthedocs.io/en/latest/setuptools.html#upload-upload-source-and-or-egg-distributions-to-pypi) command.  `setup()` is also called when you run `python setup.py install` within the project directory.
 
 > _Note_: Most examples will shown snippets such as
 > 
@@ -210,10 +271,29 @@ $ python setup.py sdist bdist_wheel
 $ twine upload dist/*
 ```
 
+From peterdowns.com:
+
+```
+python setup.py register -r pypi
+python setup.py sdist upload -r pypi
+```
+
 ## Using TestPyPI
 _Official guide: [Using TestPyPI](https://packaging.python.org/guides/using-testpypi/)_
 
 Before releasing on the main PyPI repo, you might prefer training with the PyPI test site, which is cleaned on a semi regular basis.
+
+From peterdowns.com:
+
+```
+python setup.py register -r pypitest
+python setup.py sdist upload -r pypitest
+```
+
+Walkthrough of above:
+- `register` will attempt to register your package against PyPI's test server, just to make sure you've set up everything correctly.
+- After the second command, you should get no errors, and should also now be able to see your library in the [TestPyPI repository](https://testpypi.python.org/pypi).
+
 
 # Other
 - [Binary distributions](https://packaging.python.org/glossary/#term-binary-distribution)
