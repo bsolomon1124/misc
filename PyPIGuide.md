@@ -103,6 +103,8 @@ As noted above, .rst files can be properly rendered by PyPI without additional e
 
 ## Example directory structure
 
+**Example 1:**
+
 ```
 pyfinance                        # the "project folder"
 |-- LICENSE                      # <-- *this level is the directory root!*
@@ -117,6 +119,21 @@ pyfinance                        # the "project folder"
     |-- general.py
     |-- returns.py
     |-- utils.py
+```
+
+**Example 2:**
+
+```
+root-dir/                       # arbitrary working directory name
+  setup.py
+  setup.cfg
+  LICENSE.txt
+  README.md
+  mypackage/
+    __init__.py
+    foo.py
+    bar.py
+    baz.py
 ```
 
 ## `setup()` keyword arguments
@@ -137,6 +154,7 @@ Argument | Use | Note(s)
 `packages` | It’s required to list the packages to be included in your project. Although they can be listed manually, `setuptools.find_packages` finds them automatically. Use the `exclude` keyword argument to omit packages that are not intended to be released and installed. | `find_packages()` takes a source directory and two lists of package name patterns to exclude and include. If omitted, the source directory defaults to the same directory as the setup script.  A common specification is `packages=find_packages(exclude=['contrib', 'docs', 'tests*'])`.
 `install_requires` | Specify what dependencies a project minimally needs to run.  More on declaring dependencies [here](https://setuptools.readthedocs.io/en/latest/setuptools.html#declaring-dependencies). | **When the project is installed by pip, this is the specification that is used to install its dependencies.**
 `python_requires` | If your project only runs on certain Python versions, setting the `python_requires` argument to the appropriate [PEP 440 version specifier](https://www.python.org/dev/peps/pep-0440/#version-specifiers) string will prevent pip from installing the project on other Python versions. | Some [examples](https://packaging.python.org/tutorials/distributing-packages/#python-requires) from the docs.
+`download_url` | A link to a hosted file with your repository's code. | Github will host this for you, but only if you create a git tag. In your repository, type: `git tag 0.1 -m "Adds a tag so that we can put this on PyPI."`. Then, type `git tag` to show a list of tags — you should see 0.1 in the list. Type `git push --tags origin master` to update your code on Github with the latest tag information. Github creates tarballs for download at `https://github.com/{username}/{module_name}/archive/{tag}.tar.gz`.
 
 Note that the above list is not exhaustive.  Other kwargs include `scripts`, `data_files`, and `package_data`.
 
