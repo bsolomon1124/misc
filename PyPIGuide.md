@@ -85,7 +85,6 @@ pyfinance                        # the "project folder"
     |-- general.py
     |-- returns.py
     |-- utils.py
-
 ```
 
 ## `setup()` keyword arguments
@@ -93,8 +92,8 @@ An example `setup.py`: [pypa/sampleproject/setup.py](https://github.com/pypa/sam
 
 Argument | Use | Note(s)
 ------------ | ------------- | -------------
-`name` | asdf | asdf
-`version` | asdf | asdf
+`name` | The name of your project, determining how your project is listed on PyPI. | [PEP 508](https://www.python.org/dev/peps/pep-0508/) discusses valid project names.
+`version` | This is the current version of your project, allowing your users to determine whether or not they have the latest version, and to indicate which specific versions they’ve tested their own software against. | See [choosing a versioning scheme](https://packaging.python.org/tutorials/distributing-packages/#choosing-a-versioning-scheme) and [PEP 440](https://www.python.org/dev/peps/pep-0440/)
 `description` | asdf | asdf
 `url` | asdf | asdf
 `author` | asdf | asdf
