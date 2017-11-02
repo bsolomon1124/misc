@@ -63,10 +63,10 @@ You can confirm with `conda list` at the command line.
 
 File | Use | Note(s)
 ------------ | ------------- | -------------
-`setup.py` | The primary feature of `setup.py` is that it contains a global `setup()` function. The keyword arguments to this function are how specific details of your project are defined. The most relevant arguments are explained in the section [below](#setup-arguments). | TODO
-`setup.cfg` | An ini file that contains option defaults for `setup.py` commands. | TODO
+`setup.py` | The primary feature of `setup.py` is that it contains a global `setup()` function. The keyword arguments to this function are how specific details of your project are defined. | The most relevant arguments are explained in the section [below](#setup-arguments).
+`setup.cfg` | An ini file that contains option defaults for `setup.py` commands. | Not needed in all cases.
 `README.rst/.md` | Covers the goal of the project. | Common extensions are `.rst` (reStructuredText) and `.md` (Markdown).  The former can be read by PyPI without additional specification, while the latter requires additional setup to be rendered correctly by PyPI.
-`MANIFEST.in` | TODO | TODO
+`MANIFEST.in` | Needed in certain cases where you need to package additional files that are not automatically included in a source distribution. | To see a list of what’s included by default, see the [Specifying the files to distribute](https://docs.python.org/3.4/distutils/sourcedist.html#specifying-the-files-to-distribute) section from the `distutils` documentation.
 `LICENSE` | TODO | TODO
 
 ## Example directory structure
