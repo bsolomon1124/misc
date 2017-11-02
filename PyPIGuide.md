@@ -63,9 +63,9 @@ You can confirm with `conda list` at the command line.
 
 File | Use | Note(s)
 ------------ | ------------- | -------------
-`setup.py` | The primary feature of setup.py is that it contains a global `setup()` function. The keyword arguments to this function are how specific details of your project are defined. The most relevant arguments are explained in the section [below](#setup-arguments). | TODO
-`setup.cfg` | TODO | TODO
-`README.rst/.md` | TODO | TODO
+`setup.py` | The primary feature of `setup.py` is that it contains a global `setup()` function. The keyword arguments to this function are how specific details of your project are defined. The most relevant arguments are explained in the section [below](#setup-arguments). | TODO
+`setup.cfg` | An ini file that contains option defaults for `setup.py` commands. | TODO
+`README.rst/.md` | Covers the goal of the project. | Common extensions are `.rst` (reStructuredText) and `.md` (Markdown).  The former can be read by PyPI without additional specification, while the latter requires additional setup to be rendered correctly by PyPI.
 `MANIFEST.in` | TODO | TODO
 `LICENSE` | TODO | TODO
 
