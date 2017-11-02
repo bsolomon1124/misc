@@ -22,7 +22,7 @@
     - [PEP 427](https://www.python.org/dev/peps/pep-0427/): The Wheel Binary Package Format 1.0
 
 # Background
-Beginning (particularly self-taught) programmers often undergo something resembling this evolution:
+Beginner (particularly self-taught) Python programmers often undergo something resembling this evolution:
 1. Scripting directly within the interpreter.
 2. Saving scripts to .py files or just .txt files without formally using them as modules.
 3. Writing standalone .py modules.
@@ -35,6 +35,7 @@ packagename
 |-- folder1
     |-- __init__.py
     |-- module2.py
+    |-- module3.py
 ```
 5. Uploading the aforementioned packages to GitHub.
 
@@ -134,6 +135,8 @@ Keep in mind that you need to reference the full `setup.py` path if `setup` isn'
 ```python C:/Users/Brad/anaconda3/pyfinance/setup.py --help-commands```
 
 ## Using TestPyPI
+_Official guide: [Using TestPyPI](https://packaging.python.org/guides/using-testpypi/)_
+
 Before releasing on the main PyPI repo, you might prefer training with the PyPI test site, which is cleaned on a semi regular basis.
 
 # TODO
