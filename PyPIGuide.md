@@ -115,6 +115,13 @@ Argument | Use | Note(s)
 Note that the above list is not exhaustive.  Other kwargs include `scripts`, `data_files`, and `package_data`.
 
 # Uploading to PyPI
+[unfinished] - see links below.
+
+_Official docs:_
+- [Packaging your project](https://packaging.python.org/tutorials/distributing-packages/#packaging-your-project)
+- [Uploading your project to PyPI](https://packaging.python.org/tutorials/distributing-packages/#uploading-your-project-to-pypi)
+
+Note that the above are two separate steps.  The first consists of creating your distribution, mainly via putting a new directory `dist/` under your project’s root directory.  The project is actually uploaded in the second step.
 
 Most examples will shown snippets such as
 
@@ -125,6 +132,9 @@ python setup.py sdist
 Keep in mind that you need to reference the full `setup.py` path if `setup` isn't in your `cd`.  For example,
 
 ```python C:/Users/Brad/anaconda3/pyfinance/setup.py --help-commands```
+
+## Using TestPyPI
+Before releasing on the main PyPI repo, you might prefer training with the PyPI test site, which is cleaned on a semi regular basis.
 
 # TODO
 - [Binary distributions](https://packaging.python.org/glossary/#term-binary-distribution)
