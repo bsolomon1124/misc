@@ -118,7 +118,9 @@ Note that the above list is not exhaustive.  Other kwargs include `scripts`, `da
 
 Most examples will shown snippets such as
 
-```python setup.py sdist```
+```
+python setup.py sdist
+```
 
 Keep in mind that you need to reference the full `setup.py` path if `setup` isn't in your `cd`.  For example,
 
