@@ -124,15 +124,18 @@ _Official docs:_
 
 Note that the above are two separate steps.  The first consists of creating your distribution, mainly via putting a new directory `dist/` under your project’s root directory.  The project is actually uploaded in the second step.
 
-Most examples will shown snippets such as
+You **invoke setup from the command line** to _produce eggs, upload to PyPI, and automatically include all packages in the directory where the setup.py lives_
 
-```
-python setup.py sdist
-```
-
-Keep in mind that you need to reference the full `setup.py` path if `setup` isn't in your `cd`.  For example,
-
-```python C:/Users/Brad/anaconda3/pyfinance/setup.py --help-commands```
+> _Note_: Most examples will shown snippets such as
+> 
+> ```
+> python setup.py sdist
+> ```
+> 
+> Keep in mind that you need to reference the full `setup.py` path if `setup` isn't in your `cd`.  For example,
+> 
+> ```python C:/Users/Brad/anaconda3/pyfinance/setup.py --help-commands```
+>
 
 ## Using TestPyPI
 _Official guide: [Using TestPyPI](https://packaging.python.org/guides/using-testpypi/)_
