@@ -67,7 +67,7 @@ File | Use | Note(s)
 `setup.cfg` | An ini file that contains option defaults for `setup.py` commands. | Not needed in all cases.
 `README.rst/.md` | Covers the goal of the project. | Common extensions are `.rst` (reStructuredText) and `.md` (Markdown).  The former can be read by PyPI without additional specification, while the latter requires additional setup to be rendered correctly by PyPI.
 `MANIFEST.in` | Needed in certain cases where you need to package additional files that are not automatically included in a source distribution. | To see a list of what’s included by default, see the [Specifying the files to distribute](https://docs.python.org/3.4/distutils/sourcedist.html#specifying-the-files-to-distribute) section from the `distutils` documentation.
-`LICENSE` | TODO | TODO
+`LICENSE` | Details the terms of distribution. In many jurisdictions, packages without an explicit license can not be legally used or distributed by anyone other than the copyright holder. | GitHub: [Choose an open source license](https://choosealicense.com/)
 
 ## Example directory structure
 
@@ -88,36 +88,25 @@ pyfinance                        # the "project folder"
 
 ```
 
-## `setup()` arguments
+## `setup()` keyword arguments
+An example `setup.py`: [pypa/sampleproject/setup.py](https://github.com/pypa/sampleproject/blob/master/setup.py).
 
-### `name`
-
-### `version`
-
-### `description`
-
-### `url`
-
-### `author`
-
-### `license`
-
-### `classifiers`
-
-### `keywords`
-
-### `packages`
-
-### `install_requires`
-
-### `python_requires`
-
-### `package_data`
-
-### `data_files`
-
-### `scripts`
-
-### `entry_points`
+Argument | Use | Note(s)
+------------ | ------------- | -------------
+`name` | asdf | asdf
+`version` | asdf | asdf
+`description` | asdf | asdf
+`url` | asdf | asdf
+`author` | asdf | asdf
+`license` | asdf | asdf
+`classifiers` | asdf | asdf
+`keywords` | asdf | asdf
+`packages` | asdf | asdf
+`install_requires` | asdf | asdf
+`python_requires` | asdf | asdf
+`package_data` | asdf | asdf
+`data_files` | asdf | asdf
+`scripts` | asdf | asdf
+`entry_points` | asdf | asdf
 
 # Uploading to PyPI
