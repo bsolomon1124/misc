@@ -41,12 +41,18 @@ packagename
 ...with the final (desired) step to be able to allow others to simply `pip install` the package rather than needing to download the GitHub repository itself.  **This guide is oriented towards people who have followed some form of the progression above, but should also be generalizable, to an extent.**
 
 # Overview
+A **packaging index** (for example, PyPI) is a repository of distributions with a web interface to automate package discovery and consumption.
+
 Python's packaging ecosystem, while having recently underwent major improvements, has been condemned over the years as overly complicated and disorganized.  One result of the recent transformation is that many links are outdated; as a result, it is smart to be wary of the publish date and have a higher bar for implementing suggestions from a single article.  For instance, `disutils` is largely unused now.
 
 ## What is a _distribution package_?
 A [distribution package](https://packaging.python.org/glossary/#term-distribution-package), or just distribution, is different from a "simple" package that just contains modules or other packages.  A distribution package is
 
 > A versioned archive file that contains Python packages, modules, and other resource files that are used to distribute a Release. The archive file is what an end-user will download from the internet and install.
+
+Note that a _project_ is also defined separately.  A project is
+
+> A library, framework, script, plugin, application, or collection of data or other resources, or some combination thereof that is intended to be packaged into a Distribution.  [However,] most projects create Distributions using `distutils` or `setuptools`.
 
 # Prerequisites
 - [Register](https://pypi.python.org/pypi?%3Aaction=register_form) on PyPI
@@ -63,7 +69,7 @@ You can confirm with `conda list` at the command line.
 
 File | Use | Note(s)
 ------------ | ------------- | -------------
-`setup.py` | The primary feature of `setup.py` is that it contains a global `setup()` function. The keyword arguments to this function are how specific details of your project are defined. | The most relevant arguments are explained in the section [below](#setup-arguments).
+`setup.py` | The project specification file for both `setuptools` and `disutils`.  The primary feature of `setup.py` is that it contains a global `setup()` function. The keyword arguments to this function are how specific details of your project are defined. | The most relevant arguments are explained in the section [below](#setup-arguments).
 `setup.cfg` | An ini file that contains option defaults for `setup.py` commands. | Not needed in all cases.
 `README.rst/.md` | Covers the goal of the project. | Common extensions are `.rst` (reStructuredText) and `.md` (Markdown).  The former can be read by PyPI without additional specification, while the latter requires additional setup to be rendered correctly by PyPI.
 `MANIFEST.in` | Needed in certain cases where you need to package additional files that are not automatically included in a source distribution. | To see a list of what’s included by default, see the [Specifying the files to distribute](https://docs.python.org/3.4/distutils/sourcedist.html#specifying-the-files-to-distribute) section from the `distutils` documentation.
@@ -103,9 +109,20 @@ Argument | Use | Note(s)
 `classifiers` | Provide a list of classifiers that categorize your project.  **These must fall under a prespecified set of classifiers.** This information is used for searching and browing projects on PyPI. | [Full listing of classifiers](https://pypi.python.org/pypi?%3Aaction=list_classifiers).
 `keywords` | List keywords that describe your project. | A single space-separated string i.e. `keywords='sample setuptools development'`.
 `packages` | It’s required to list the packages to be included in your project. Although they can be listed manually, `setuptools.find_packages` finds them automatically. Use the `exclude` keyword argument to omit packages that are not intended to be released and installed. | A common specification is `packages=find_packages(exclude=['contrib', 'docs', 'tests*'])`.
-`install_requires` | Specify what dependencies a project minimally needs to run. **When the project is installed by pip, this is the specification that is used to install its dependencies.** | asdf
+`install_requires` | Specify what dependencies a project minimally needs to run. | **When the project is installed by pip, this is the specification that is used to install its dependencies.**
 `python_requires` | If your project only runs on certain Python versions, setting the `python_requires` argument to the appropriate [PEP 440 version specifier](https://www.python.org/dev/peps/pep-0440/#version-specifiers) string will prevent pip from installing the project on other Python versions. | Some [examples](https://packaging.python.org/tutorials/distributing-packages/#python-requires) from the docs.
 
 Note that the above list is not exhaustive.  Other kwargs include `scripts`, `data_files`, and `package_data`.
 
 # Uploading to PyPI
+
+Most examples will shown snippets such as
+
+```python setup.py sdist```
+
+Keep in mind that you need to reference the full `setup.py` path if `setup` isn't in your `cd`.  For example,
+
+```python C:/Users/Brad/anaconda3/pyfinance/setup.py --help-commands```
+
+# TODO
+- [Binary distributions](https://packaging.python.org/glossary/#term-binary-distribution)
