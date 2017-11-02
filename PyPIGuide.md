@@ -11,6 +11,7 @@
         - Using [TestPyPI](https://packaging.python.org/guides/using-testpypi/)
 - `Setuptools` docs: [Building and Distributing Packages with Setuptools](https://setuptools.readthedocs.io/en/latest/setuptools.html)
     - [Command reference](https://setuptools.readthedocs.io/en/latest/setuptools.html#command-reference)
+- Scott Torborg: [How To Package Your Python Code](http://python-packaging.readthedocs.io/en/latest/)
 - Blogs:
     - effbot.org: [How does the Python version numbering scheme work?](http://effbot.org/pyfaq/how-does-the-python-version-numbering-scheme-work.htm)
     - Deciphering Glyph: [Python Packaging Is Good Now](https://glyph.twistedmatrix.com/2016/08/python-packaging.html) [Aug 2016]
@@ -18,6 +19,7 @@
     - Peter Downs: [How to submit a package to PyPI](http://peterdowns.com/posts/first-time-with-pypi.html)
     - Tom Christie: [Uploading to PyPI](https://tom-christie.github.io/articles/pypi/) [Jun 2014]
     - Ewen Cheslack-Postava: [A Brief Introduction to Packaging Python](https://ewencp.org/blog/a-brief-introduction-to-packaging-python/) [Jun 2013]
+    - Armin Ronacher: [Python Packaging: Hate, hate, hate everywhere](http://lucumr.pocoo.org/2012/6/22/hate-hate-hate-everywhere/) [Jun 2012]
 - Relevant PEPs:
     - [PEP 440](https://www.python.org/dev/peps/pep-0440/): Version Identification and Dependency Specification
     - [PEP 427](https://www.python.org/dev/peps/pep-0427/): The Wheel Binary Package Format 1.0
@@ -243,10 +245,24 @@ You **invoke setup from the command line** to _produce eggs, upload to PyPI, and
 > python C:/Users/Brad/anaconda3/pyfinance/setup.py --help-commands
 > ```
 
-The parameter above, `sdist`, produces a _source distribution_.
+The parameter above, `sdist`, produces a _source distribution_.  (Generates a source tar folder.)
+
+## Development mode
+Running
+
+```
+python setup.py develop
+```
+
+links the current directory into your `site-packages`, where regular packages are installed via `pip` (e.g. in /usr/local/lib/python2.7/site-packages/ or in a virtualenv). It then works as if it were installed normally, but can be easily disconnected later.
+
+When you’re ready to stop developing (e.g. later when you want to actually install the package), run
+
+```
+python setup.py develop --uninstall
+```
 
 ## The upload process
-
 From tom-christie: Navigate to the directory of your `setup.py` file. First, make sure everything is configured properly using:
 
 ```
