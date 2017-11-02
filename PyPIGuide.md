@@ -81,7 +81,7 @@ File | Use | Note(s)
 `changelog.txt` | Helps users know what to expect from each relese. | An [example](https://github.com/cmcginty/PyWeather/blob/master/CHANGELOG.txt) from the `PyWeather` package.
 `contributing.rst` | A guide on how users and viewers can contribute. | An [example](https://github.com/python-attrs/attrs/blob/master/CONTRIBUTING.rst) from `attrs`.
 `.pypirc` | This file holds your information for authenticating with PyPI, both the live and the test versions. | Make sure to put this file in your home folder – its path should be `~/.pypirc`.
-`.gitignore`. | Specifies which (intermediary) files should _not_ be commited to source control. |
+`.gitignore`. | Specifies which (intermediary) files should _not_ be commited to source control. | --
 
 ### More on `setup.cfg`
 From hynek.me: For our minimal Python-only project, we’ll only need four lines in setup.cfg:
@@ -143,9 +143,9 @@ with open('README.rst','w') as outfile:
 
 ```
 pyfinance                        # the "project folder"
-|-- LICENSE                      # <-- *this level is the directory root!*
+|-- LICENSE                      # <-- this level is the directory root!
 |-- MANIFEST.in                  # <--
-|-- README.rst                   # or: README.md`
+|-- README.rst                   # or: README.md
 |-- setup.py
 |-- pyfinance                    # this is the package folder itself*
     |-- __init__.py
@@ -220,6 +220,7 @@ Argument | Use | Note(s)
 Note that the above list is not exhaustive.  Other kwargs include `scripts`, `data_files`, and `package_data`.
 
 ### Having `long_description` pull from your `README`:
+Put the following in `setup.py`:
 
 ```python
 from codecs import open
@@ -247,6 +248,54 @@ Note that the above are two separate steps.
 
 You **invoke setup from the command line** to _produce eggs, upload to PyPI, and automatically include all packages in the directory where the setup.py lives_.  See the [command reference](https://setuptools.readthedocs.io/en/latest/setuptools.html#command-reference) section of the `setuptools` docs for detail on each command.  One of particular importance is the [upload](https://setuptools.readthedocs.io/en/latest/setuptools.html#upload-upload-source-and-or-egg-distributions-to-pypi) command.  `setup()` is also called when you run `python setup.py install` within the project directory.
 
+Here are those commmands:
+
+Command | Use
+------------ | -------------
+`build`             | build everything needed to install
+`build_py`          | "build" pure Python modules (copy to build directory)
+`build_ext`         | build C/C++ and Cython extensions (compile/link to build directory)
+`build_clib`        | build C/C++ libraries used by Python extensions
+`build_scripts`     | "build" scripts (copy and fixup #! line)
+`clean`             | clean up temporary files from 'build' command
+`install`           | install everything from build directory
+`install_lib`       | install all Python modules (extensions and pure Python)
+`install_headers`   | install C/C++ header files
+`install_scripts`   | install scripts (Python or otherwise)
+`install_data`      | install data files
+`sdist`             | create a source distribution (tarball, zip file, etc.)
+`register`          | register the distribution with the Python package index
+`bdist`             | create a built (binary) distribution
+`bdist_dumb`        | create a "dumb" built distribution
+`bdist_rpm`         | create an RPM distribution
+`bdist_wininst`     | create an executable installer for MS Windows
+`check`             | perform some checks on the package
+`upload`            | upload binary package to PyPI
+`bdist_wheel`       | create a wheel distribution
+`build_sphinx`      | Build Sphinx documentation
+`alias`             | define a shortcut to invoke one or more commands
+`bdist_egg`         | create an "egg" distribution
+`develop`           | install package in 'development mode'
+`easy_install`      | Find/get/install Python packages
+`egg_info`          | create a distribution's .egg-info directory
+`install_egg_info`  | Install an .egg-info directory for the package
+`rotate`            | delete older distributions, keeping N newest files
+`saveopts`          | save supplied options to setup.cfg or other config file
+`setopt`            | set an option in setup.cfg or another config file
+`test`              | run unit tests after in-place build
+`upload_docs`       | Upload documentation to PyPI
+`nosetests`         | Run unit tests using nosetests
+`isort`             | Run isort on modules registered in setuptools
+`compile_catalog`   | compile message catalogs to binary MO files
+`extract_messages`  | extract localizable strings from the project code
+`init_catalog`      | create a new catalog based on a POT file
+`update_catalog`    | update message catalogs from a POT file
+
+usage: `setup.py [global_opts] cmd1 [cmd1_opts] [cmd2 [cmd2_opts] ...]`
+   or: `setup.py --help [cmd1 cmd2 ...]`
+   or: `setup.py --help-commands`
+   or: `setup.py cmd --help`
+
 > _Note_: Most examples will shown snippets such as
 > 
 > ```
@@ -260,6 +309,8 @@ You **invoke setup from the command line** to _produce eggs, upload to PyPI, and
 > ```
 
 The parameter above, `sdist`, produces a _source distribution_.  (Generates a source tar folder.)
+
+Note: tar is a computer software utility for collecting many files into one archive file, often referred to as a tarball, for distribution or backup purposes.
 
 ## Development mode
 Running
