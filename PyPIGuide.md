@@ -10,6 +10,7 @@
     - [Guides](https://packaging.python.org/guides/), which are focused on accomplishing a specific task
         - Using [TestPyPI](https://packaging.python.org/guides/using-testpypi/)
 - `Setuptools` docs: [Building and Distributing Packages with Setuptools](https://setuptools.readthedocs.io/en/latest/setuptools.html)
+    - [Command reference](https://setuptools.readthedocs.io/en/latest/setuptools.html#command-reference)
 - Blogs:
     - effbot.org: [How does the Python version numbering scheme work?](http://effbot.org/pyfaq/how-does-the-python-version-numbering-scheme-work.htm)
     - Deciphering Glyph: [Python Packaging Is Good Now](https://glyph.twistedmatrix.com/2016/08/python-packaging.html) [Aug 2016]
@@ -71,10 +72,12 @@ You can confirm with `conda list` at the command line.
 File | Use | Note(s)
 ------------ | ------------- | -------------
 `setup.py` | The project specification file for both `setuptools` and `disutils`.  The primary feature of `setup.py` is that it contains a global `setup()` function. The keyword arguments to this function are how specific details of your project are defined. | The most relevant arguments are explained in the section [below](#setup-arguments).
-`setup.cfg` | An ini file that contains option defaults for `setup.py` commands. | Not needed in all cases.
-`README.rst/.md` | Covers the goal of the project. | Common extensions are `.rst` (reStructuredText) and `.md` (Markdown).  The former can be read by PyPI without additional specification, while the latter requires additional setup to be rendered correctly by PyPI.
+`setup.cfg` | An ini file that contains option defaults for `setup.py` commands.  Note that metadata and other options normally supplied to `setup()` _can_ be specified here. | Not needed in all cases.  See setuptools docs: [Configuring `setup()` using setup.cfg files](https://setuptools.readthedocs.io/en/latest/setuptools.html#configuring-setup-using-setup-cfg-files).
+`README.rst/.md` | Covers the goal of the project. | Common extensions are `.rst` (reStructuredText) and `.md` (Markdown).  The former can be rendered by PyPI to the project page without additional specification, while the latter requires additional setup to be rendered correctly by PyPI.
 `MANIFEST.in` | Needed in certain cases where you need to package additional files that are not automatically included in a source distribution. | To see a list of what’s included by default, see the [Specifying the files to distribute](https://docs.python.org/3.4/distutils/sourcedist.html#specifying-the-files-to-distribute) section from the `distutils` documentation.
 `LICENSE` | Details the terms of distribution. In many jurisdictions, packages without an explicit license can not be legally used or distributed by anyone other than the copyright holder. | GitHub: [Choose an open source license](https://choosealicense.com/)
+`changelog.txt` | Helps users know what to expect from each relese. | An [example](https://github.com/cmcginty/PyWeather/blob/master/CHANGELOG.txt) from the `PyWeather` package.
+`contributing.rst` | A guide on how users and viewers can contribute. | An [example](https://github.com/python-attrs/attrs/blob/master/CONTRIBUTING.rst) from `attrs`.
 
 ## Example directory structure
 
@@ -107,15 +110,32 @@ Argument | Use | Note(s)
 `author` | -- | I.e. `author='The Python Packaging Authority'`.
 `author_email` | -- | I.e. `author_email='pypa-dev@googlegroups.com'`.
 `license` | Provide the **type** of license you are using. | Note that this doesn't need to refer to the license file itself.
-`classifiers` | Provide a list of classifiers that categorize your project.  **These must fall under a prespecified set of classifiers.** This information is used for searching and browing projects on PyPI. | [Full listing of classifiers](https://pypi.python.org/pypi?%3Aaction=list_classifiers).
+`classifiers` | Provide a list of classifiers that categorize your project.  **These must fall under a prespecified set of classifiers; PyPI will refuse to accept packages with unknown classifiers.** This information is used for searching and browing projects on PyPI. | [Full listing of classifiers](https://pypi.python.org/pypi?%3Aaction=list_classifiers).
 `keywords` | List keywords that describe your project. | A single space-separated string i.e. `keywords='sample setuptools development'`.
-`packages` | It’s required to list the packages to be included in your project. Although they can be listed manually, `setuptools.find_packages` finds them automatically. Use the `exclude` keyword argument to omit packages that are not intended to be released and installed. | A common specification is `packages=find_packages(exclude=['contrib', 'docs', 'tests*'])`.
-`install_requires` | Specify what dependencies a project minimally needs to run. | **When the project is installed by pip, this is the specification that is used to install its dependencies.**
+`packages` | It’s required to list the packages to be included in your project. Although they can be listed manually, `setuptools.find_packages` finds them automatically. Use the `exclude` keyword argument to omit packages that are not intended to be released and installed. | `find_packages()` takes a source directory and two lists of package name patterns to exclude and include. If omitted, the source directory defaults to the same directory as the setup script.  A common specification is `packages=find_packages(exclude=['contrib', 'docs', 'tests*'])`.
+`install_requires` | Specify what dependencies a project minimally needs to run.  More on declaring dependencies [here](https://setuptools.readthedocs.io/en/latest/setuptools.html#declaring-dependencies). | **When the project is installed by pip, this is the specification that is used to install its dependencies.**
 `python_requires` | If your project only runs on certain Python versions, setting the `python_requires` argument to the appropriate [PEP 440 version specifier](https://www.python.org/dev/peps/pep-0440/#version-specifiers) string will prevent pip from installing the project on other Python versions. | Some [examples](https://packaging.python.org/tutorials/distributing-packages/#python-requires) from the docs.
 
 Note that the above list is not exhaustive.  Other kwargs include `scripts`, `data_files`, and `package_data`.
 
+## More on `setup.cfg`
+From hynek.me: For our minimal Python-only project, we’ll only need four lines in setup.cfg:
+
+```
+[bdist_wheel]
+universal = 1
+
+[metadata]
+license_file = LICENSE
+```
+
+Walkthrough of the above:
+1. First part will make wheel build a universal wheel file (e.g. attrs-15.1.0-py2.py3-none-any.whl) and you won’t have to circle through virtual environments of all supported Python versions to build them separately.  Note that you'll need `wheel` installed for this. 
+2. The second part ensures that your LICENSE file is part of the wheel files which is a common license requirement.
+
+
 # Uploading to PyPI
+## About uploading
 [unfinished] - see links below.
 
 _Official docs:_
@@ -124,7 +144,7 @@ _Official docs:_
 
 Note that the above are two separate steps.  The first consists of creating your distribution, mainly via putting a new directory `dist/` under your project’s root directory.  The project is actually uploaded in the second step.
 
-You **invoke setup from the command line** to _produce eggs, upload to PyPI, and automatically include all packages in the directory where the setup.py lives_
+You **invoke setup from the command line** to _produce eggs, upload to PyPI, and automatically include all packages in the directory where the setup.py lives_.  See the [command reference](https://setuptools.readthedocs.io/en/latest/setuptools.html#command-reference) section of the `setuptools` docs for detail on each command.  One of particular importance is the [upload](https://setuptools.readthedocs.io/en/latest/setuptools.html#upload-upload-source-and-or-egg-distributions-to-pypi) command.
 
 > _Note_: Most examples will shown snippets such as
 > 
@@ -134,13 +154,58 @@ You **invoke setup from the command line** to _produce eggs, upload to PyPI, and
 > 
 > Keep in mind that you need to reference the full `setup.py` path if `setup` isn't in your `cd`.  For example,
 > 
-> ```python C:/Users/Brad/anaconda3/pyfinance/setup.py --help-commands```
->
+> ```
+> python C:/Users/Brad/anaconda3/pyfinance/setup.py --help-commands
+> ```
+
+The parameter above, `sdist`, produces a _source distribution_.
+
+## The upload process
+
+From hynke.me: Building a source distribution and a wheel of your project is just a matter of
+
+```
+$ rm -rf build
+$ python setup.py sdist bdist_wheel
+```
+
+Now you should have a **new directory called `dist`** under the root containing (1) a source distribution file and (2) a wheel file.  Example:
+
+```
+dist
+|-- attrs-15.1.0-py2.py3-none-any.whl
+└-- attrs-15.1.0.tar.gz
+```
+
+The first line accounts for a bug in wheel that won’t clean up the build directory between builds, which puts you at risk of shipping stale build files.
+
+From glpyh: Want to upload some stuff to PyPI? This should do it for almost any project:
+```
+$ pip install twine
+$ python setup.py sdist bdist_wheel
+$ twine upload dist/*
+```
 
 ## Using TestPyPI
 _Official guide: [Using TestPyPI](https://packaging.python.org/guides/using-testpypi/)_
 
 Before releasing on the main PyPI repo, you might prefer training with the PyPI test site, which is cleaned on a semi regular basis.
 
-# TODO
+# Other
 - [Binary distributions](https://packaging.python.org/glossary/#term-binary-distribution)
+- TODO: hynek.me article unfinished
+
+## Keyring
+You can use `keyring` to store your PyPI credentials in a secure system storage.
+
+Setuptools augments the upload command with support for `keyring`, allowing the password to be stored in a secure location and not in plaintext in the `.pypirc` file. To use `keyring`, first install `keyring` and set the password for the relevant repository, e.g.:
+
+```
+python -m keyring set <repository> <username>
+Password for '<username>' in '<repository>': ********
+```
+
+Then, in `.pypirc`, set the repository configuration as normal, but omit the password. Thereafter, uploads will use the password from the keyring.
+
+
+
