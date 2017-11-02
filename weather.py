@@ -26,11 +26,8 @@ UN = {
 
 
 def _check_units(units):
-    units = units.upper()
-    if units in UN:
-        units = UN[units]
-        return units
-    else:
+    units = UN.get(units.upper())
+    if not units:
         raise ValueError("`units` must one in ('imperial', 'metric'),"
                          " case-insensitive.")       
 
