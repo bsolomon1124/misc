@@ -81,6 +81,7 @@ File | Use | Note(s)
 `changelog.txt` | Helps users know what to expect from each relese. | An [example](https://github.com/cmcginty/PyWeather/blob/master/CHANGELOG.txt) from the `PyWeather` package.
 `contributing.rst` | A guide on how users and viewers can contribute. | An [example](https://github.com/python-attrs/attrs/blob/master/CONTRIBUTING.rst) from `attrs`.
 `.pypirc` | This file holds your information for authenticating with PyPI, both the live and the test versions. | Make sure to put this file in your home folder – its path should be `~/.pypirc`.
+`.gitignore`. | Specifies which (intermediary) files should _not_ be commited to source control. |
 
 ### More on `setup.cfg`
 From hynek.me: For our minimal Python-only project, we’ll only need four lines in setup.cfg:
@@ -121,6 +122,19 @@ z = pypandoc.convert('README','rst',format='markdown')
 # Writes converted file
 with open('README.rst','w') as outfile:
     outfile.write(z)
+```
+
+### An example `.gitignore`
+
+```
+# Compiled python modules.
+*.pyc
+
+# Setuptools distribution folder.
+/dist/
+
+# Python egg metadata, regenerated from source files by setuptools.
+/*.egg-info
 ```
 
 ## Example directory structure
@@ -263,13 +277,40 @@ python setup.py develop --uninstall
 ```
 
 ## The upload process
+You need to register your pacakge with PyPI (ewencp.org):
+
+```
+python setup.py register
+```
+
+All the relevant information is pulled from your `setup.py`. You just need to enter your username and password.  What `register` does:
+- Reserves the name of the package with PyPI.
+- Uploads package metadata.
+- Creates the _pypi.python.org_ webpage.
+- **no files have been uploaded yet**.
+
+You could check on PyPI that the package is now there without any files.  Here's an example of a registered-but-not-uploaded project: https://pypi.python.org/pypi/funniest/0.1.
+
+
 From tom-christie: Navigate to the directory of your `setup.py` file. First, make sure everything is configured properly using:
 
 ```
 $ python setup.py test
 ```
 
-This creates a `.tar.gz` package of your source files. It also creates a new subfolder in your project folder called `dist/`, and puts the `.tar.gz` file in there.
+This creates a `.tar.gz` package of your source files. It also creates a new subfolder in your project folder called `dist/`, and puts the `.tar.gz` file in there.  If you like, copy that file to another host and try unpacking it and install it, just to verify that it works.
+
+You can combine all of these steps, to update metadata and publish a new build in a single step:
+
+```
+$ python setup.py register sdist upload
+```
+
+For a detailed list of all available `setup.py` commands, do:
+
+```
+$ python setup.py --help-commands
+```
 
 [unfinished] - https://tom-christie.github.io/articles/pypi/ - more here!
 
@@ -302,6 +343,12 @@ From peterdowns.com:
 ```
 python setup.py register -r pypi
 python setup.py sdist upload -r pypi
+```
+
+From ewencp.org:
+
+```
+python setup.py sdist upload
 ```
 
 ## Using TestPyPI
