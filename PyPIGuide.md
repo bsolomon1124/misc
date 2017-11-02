@@ -38,7 +38,7 @@ packagename
 ```
 5. Uploading the aforementioned packages to GitHub.
 
-With the final (desired) step to be able to allow others to simply `pip install` the package rather than needing to download the GitHub repository itself.
+...with the final (desired) step to be able to allow others to simply `pip install` the package rather than needing to download the GitHub repository itself.  **This guide is oriented towards people who have followed some form of the progression above, but should also be generalizable, to an extent.**
 
 # Overview
 Python's packaging ecosystem, while having recently underwent major improvements, has been condemned over the years as overly complicated and disorganized.  One result of the recent transformation is that many links are outdated; as a result, it is smart to be wary of the publish date and have a higher bar for implementing suggestions from a single article.  For instance, `disutils` is largely unused now.
