@@ -113,10 +113,10 @@ This is necessary if you're using a markdown readme file. At upload time, you ma
 ```python
 import pypandoc
 
-#converts markdown to reStructured
+# Converts markdown to reStructured
 z = pypandoc.convert('README','rst',format='markdown')
 
-#writes converted file
+# Writes converted file
 with open('README.rst','w') as outfile:
     outfile.write(z)
 ```
@@ -246,6 +246,16 @@ You **invoke setup from the command line** to _produce eggs, upload to PyPI, and
 The parameter above, `sdist`, produces a _source distribution_.
 
 ## The upload process
+
+From tom-christie: Navigate to the directory of your `setup.py` file. First, make sure everything is configured properly using:
+
+```
+$ python setup.py test
+```
+
+This creates a `.tar.gz` package of your source files. It also creates a new subfolder in your project folder called `dist/`, and puts the `.tar.gz` file in there.
+
+[unfinished] - https://tom-christie.github.io/articles/pypi/ - more here!
 
 From hynke.me: Building a source distribution and a wheel of your project is just a matter of
 
