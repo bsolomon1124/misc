@@ -1,8 +1,8 @@
 # Contents
 - [Overview](#overview)
 - [Prerequisites](#prerequisites)
-- [Configuration: directory setup](#)
-- [Uploading to PyPI](#)
+- [Configuration: directory setup](#configuration-directory-setup)
+- [Uploading to PyPI](#uploading-to-pypi)
 
 # Resources & References
 - The official [Python Packaging User Guide](https://packaging.python.org/)
@@ -42,6 +42,11 @@ packagename
 
 # Overview
 Python's packaging ecosystem, while having recently underwent major improvements, has been condemned over the years as overly complicated and disorganized.  One result of the recent transformation is that many links are outdated; as a result, it is smart to be wary of the publish date and have a higher bar for implementing suggestions from a single article.  For instance, `disutils` is largely unused now.
+
+## What is a _distribution package_?
+A [distribution package](https://packaging.python.org/glossary/#term-distribution-package), or just distribution, is different from a "simple" package that just contains modules or other packages.  A distribution packages is
+
+> A versioned archive file that contains Python packages, modules, and other resource files that are used to distribute a Release. The archive file is what an end-user will download from the internet and install.
 
 # Prerequisites
 - [Register](https://pypi.python.org/pypi?%3Aaction=register_form) on PyPI
