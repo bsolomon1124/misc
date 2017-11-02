@@ -21,8 +21,25 @@
     - [PEP 440](https://www.python.org/dev/peps/pep-0440/): Version Identification and Dependency Specification
     - [PEP 427](https://www.python.org/dev/peps/pep-0427/): The Wheel Binary Package Format 1.0
 
+# Background
+Beginning (particularly self-taught) programmers often undergo something resembling this evolution:
+1. Scripting directly within the interpreter.
+2. Saving scripts to .py files or just .txt files without formally using them as modules.
+3. Writing standalone .py modules.
+4. Structuring packages to be used on the local machine (placing them somewhere in PATH, with something resembling the structure below):
+
+```
+packagename
+|-- __init__.py
+|-- modeule1.py
+|-- folder1
+    |-- __init__.py
+    |-- module2.py
+
+5.
+
 # Overview
-TODO
+Python's packaging ecosystem, while having recently underwent major improvements, has been condemned over the years as overly complicated and disorganized.  One result of the recent transformation is that many links are outdated; as a result, it is smart to be wary of the publish date and have a higher bar for implementing suggestions from a single article.  For instance, `disutils` is largely unused now.
 
 # Prerequisites
 - [Register](https://pypi.python.org/pypi?%3Aaction=register_form) on PyPI
@@ -48,7 +65,7 @@ File | Use | Note(s)
 ## Example directory structure
 
 ```
-pyfinance                       # the "project folder"
+pyfinance                        # the "project folder"
 |-- LICENSE
 |-- MANIFEST.in
 |-- README.rst                   # or: README.md`
