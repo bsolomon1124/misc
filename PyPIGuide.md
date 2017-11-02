@@ -93,14 +93,16 @@ An example `setup.py`: [pypa/sampleproject/setup.py](https://github.com/pypa/sam
 Argument | Use | Note(s)
 ------------ | ------------- | -------------
 `name` | The name of your project, determining how your project is listed on PyPI. | [PEP 508](https://www.python.org/dev/peps/pep-0508/) discusses valid project names.
-`version` | This is the current version of your project, allowing your users to determine whether or not they have the latest version, and to indicate which specific versions they’ve tested their own software against. | See [choosing a versioning scheme](https://packaging.python.org/tutorials/distributing-packages/#choosing-a-versioning-scheme) and [PEP 440](https://www.python.org/dev/peps/pep-0440/)
-`description` | asdf | asdf
-`url` | asdf | asdf
-`author` | asdf | asdf
-`license` | asdf | asdf
-`classifiers` | asdf | asdf
-`keywords` | asdf | asdf
-`packages` | asdf | asdf
+`version` | This is the current version of your project, allowing your users to determine whether or not they have the latest version, and to indicate which specific versions they’ve tested their own software against. | See [choosing a versioning scheme](https://packaging.python.org/tutorials/distributing-packages/#choosing-a-versioning-scheme) and [PEP 440](https://www.python.org/dev/peps/pep-0440/).
+`description` | -- | Displayed on PyPI.
+`long_description` | -- | Displayed on PyPI.
+`url` | A homepage URL for your project. | I.e. `url='https://github.com/pypa/sampleproject'`.
+`author` | -- | I.e. `author='The Python Packaging Authority'`.
+`author_email` | -- | I.e. `author_email='pypa-dev@googlegroups.com'`.
+`license` | Provide the **type** of license you are using. | Note that this doesn't need to refer to the license file itself.
+`classifiers` | Provide a list of classifiers that categorize your project.  **These must fall under a prespecified set of classifiers.** This information is used for searching and browing projects on PyPI. | [Full listing of classifiers](https://pypi.python.org/pypi?%3Aaction=list_classifiers).
+`keywords` | List keywords that describe your project. | A single space-separated string i.e. `keywords='sample setuptools development'`.
+`packages` | It’s required to list the packages to be included in your project. Although they can be listed manually, `setuptools.find_packages` finds them automatically. Use the `exclude` keyword argument to omit packages that are not intended to be released and installed. | A common specification is `packages=find_packages(exclude=['contrib', 'docs', 'tests*'])`.
 `install_requires` | asdf | asdf
 `python_requires` | asdf | asdf
 `package_data` | asdf | asdf
