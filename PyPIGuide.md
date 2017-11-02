@@ -20,6 +20,7 @@
     - Tom Christie: [Uploading to PyPI](https://tom-christie.github.io/articles/pypi/) [Jun 2014]
     - Ewen Cheslack-Postava: [A Brief Introduction to Packaging Python](https://ewencp.org/blog/a-brief-introduction-to-packaging-python/) [Jun 2013]
     - Armin Ronacher: [Python Packaging: Hate, hate, hate everywhere](http://lucumr.pocoo.org/2012/6/22/hate-hate-hate-everywhere/) [Jun 2012]
+    - Chuan Ji: [How To Add Custom Build Steps and Commands To `setup.py`](https://seasonofcode.com/posts/how-to-add-custom-build-steps-and-commands-to-setuppy.html)
 - Relevant PEPs:
     - [PEP 440](https://www.python.org/dev/peps/pep-0440/): Version Identification and Dependency Specification
     - [PEP 427](https://www.python.org/dev/peps/pep-0427/): The Wheel Binary Package Format 1.0
@@ -248,7 +249,13 @@ Note that the above are two separate steps.
 
 You **invoke setup from the command line** to _produce eggs, upload to PyPI, and automatically include all packages in the directory where the setup.py lives_.  See the [command reference](https://setuptools.readthedocs.io/en/latest/setuptools.html#command-reference) section of the `setuptools` docs for detail on each command.  One of particular importance is the [upload](https://setuptools.readthedocs.io/en/latest/setuptools.html#upload-upload-source-and-or-egg-distributions-to-pypi) command.  `setup()` is also called when you run `python setup.py install` within the project directory.
 
-Here are those commmands:
+The general format is
+
+```
+$ python setup.py <some_command> <options>
+```
+
+Here is the full list of commmands:
 
 Command | Use
 ------------ | -------------
@@ -263,18 +270,18 @@ Command | Use
 `install_headers`   | install C/C++ header files
 `install_scripts`   | install scripts (Python or otherwise)
 `install_data`      | install data files
-`sdist`             | create a source distribution (tarball, zip file, etc.)
+`sdist`             | create a source distribution (tarball, zip file, etc.) (1)
 `register`          | register the distribution with the Python package index
 `bdist`             | create a built (binary) distribution
 `bdist_dumb`        | create a "dumb" built distribution
 `bdist_rpm`         | create an RPM distribution
-`bdist_wininst`     | create an executable installer for MS Windows
+`bdist_wininst`     | create an executable installer for MS Windows (2)
 `check`             | perform some checks on the package
 `upload`            | upload binary package to PyPI
 `bdist_wheel`       | create a wheel distribution
 `build_sphinx`      | Build Sphinx documentation
 `alias`             | define a shortcut to invoke one or more commands
-`bdist_egg`         | create an "egg" distribution
+`bdist_egg`         | create an "egg" distribution (3)
 `develop`           | install package in 'development mode'
 `easy_install`      | Find/get/install Python packages
 `egg_info`          | create a distribution's .egg-info directory
@@ -290,6 +297,11 @@ Command | Use
 `extract_messages`  | extract localizable strings from the project code
 `init_catalog`      | create a new catalog based on a POT file
 `update_catalog`    | update message catalogs from a POT file
+
+Notes:
+(1) This create a raw source distribution which someone can download and run `python setup.py` directly.
+(2) This will create an .exe that will install your project on a windows machine.
+(3) This creates an egg file. This is what is necessary so someone can use `easy_install` your project.
 
 usage: `setup.py [global_opts] cmd1 [cmd1_opts] [cmd2 [cmd2_opts] ...]`
    or: `setup.py --help [cmd1 cmd2 ...]`
@@ -425,7 +437,12 @@ Walkthrough of above:
 
 ## `.pypirc` & `keyring`
 
-A `.pypirc` file holds your information for authenticating with PyPI, both the live and the test versions.  Make sure to put this file in your home folder – its path should be `~/.pypirc`.  Example from peterdowns.com:
+A `.pypirc` file holds your information for authenticating with PyPI, both the live and the test versions.  Make sure to put this file in your home folder – its path should be `~/.pypirc`.  (From pythonhosted.org: "To get around this, place a `.pypirc` file in your $HOME directory on linux. On windows, an you’ll need to set a HOME environ var to point to the directory where this file lives.")  
+
+The alternate route if you do _not_ have this file is that, when you run `setup.py` commands that interact with PyPI, you’ll have to enter your username and password each time.
+
+
+Example from peterdowns.com:
 
 ```
 [distutils]
@@ -461,7 +478,7 @@ username = <your production user name goes here>
 
 You can use alternately `keyring` to store your PyPI credentials in a secure system storage.
 
-Setuptools augments the upload command with support for `keyring`, allowing the password to be stored in a secure location and not in plaintext in the `.pypirc` file. To use `keyring`, first install `keyring` and set the password for the relevant repository, e.g.:
+Setuptools augments the `upload` command with support for `keyring`, allowing the password to be stored in a secure location and not in plaintext in the `.pypirc` file. To use `keyring`, first install `keyring` and set the password for the relevant repository, e.g.:
 
 ```
 python -m keyring set <repository> <username>
@@ -481,6 +498,3 @@ Password for '<your production user name>' in 'https://upload.pypi.org/legacy/':
 ```
 
 Then, in `.pypirc`, set the repository configuration as normal, but omit the password. Thereafter, uploads will use the password from the keyring.
-
-
-
