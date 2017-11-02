@@ -44,7 +44,7 @@ packagename
 Python's packaging ecosystem, while having recently underwent major improvements, has been condemned over the years as overly complicated and disorganized.  One result of the recent transformation is that many links are outdated; as a result, it is smart to be wary of the publish date and have a higher bar for implementing suggestions from a single article.  For instance, `disutils` is largely unused now.
 
 ## What is a _distribution package_?
-A [distribution package](https://packaging.python.org/glossary/#term-distribution-package), or just distribution, is different from a "simple" package that just contains modules or other packages.  A distribution packages is
+A [distribution package](https://packaging.python.org/glossary/#term-distribution-package), or just distribution, is different from a "simple" package that just contains modules or other packages.  A distribution package is
 
 > A versioned archive file that contains Python packages, modules, and other resource files that are used to distribute a Release. The archive file is what an end-user will download from the internet and install.
 
@@ -63,7 +63,7 @@ You can confirm with `conda list` at the command line.
 
 File | Use | Note(s)
 ------------ | ------------- | -------------
-`setup.py` | TODO | TODO
+`setup.py` | The primary feature of setup.py is that it contains a global `setup()` function. The keyword arguments to this function are how specific details of your project are defined. The most relevant arguments are explained in the section [below](#setup-arguments). | TODO
 `setup.cfg` | TODO | TODO
 `README.rst/.md` | TODO | TODO
 `MANIFEST.in` | TODO | TODO
@@ -73,8 +73,8 @@ File | Use | Note(s)
 
 ```
 pyfinance                        # the "project folder"
-|-- LICENSE
-|-- MANIFEST.in
+|-- LICENSE                      # <-- *this level is the directory root!*
+|-- MANIFEST.in                  # <--
 |-- README.rst                   # or: README.md`
 |-- setup.py
 |-- pyfinance                    # this is the package folder itself
