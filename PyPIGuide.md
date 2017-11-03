@@ -96,7 +96,7 @@ license_file = LICENSE
 ```
 
 Walkthrough of the above:
-1. First part will make wheel build a universal wheel file (e.g. attrs-15.1.0-py2.py3-none-any.whl) and you won’t have to circle through virtual environments of all supported Python versions to build them separately.  Note that you'll need `wheel` installed for this. 
+1. First part will make wheel build a universal wheel file (e.g. attrs-15.1.0-py2.py3-none-any.whl) and you won’t have to circle through virtual environments of all supported Python versions to build them separately.  Note that you'll need `wheel` installed for this.
 2. The second part ensures that your LICENSE file is part of the wheel files which is a common license requirement.
 
 ### A note on `README`
@@ -215,7 +215,7 @@ Argument | Use | Note(s)
 `classifiers` | Provide a list of classifiers that categorize your project.  **These must fall under a prespecified set of classifiers; PyPI will refuse to accept packages with unknown classifiers.** This information is used for searching and browing projects on PyPI. | [Full listing of classifiers](https://pypi.python.org/pypi?%3Aaction=list_classifiers).
 `keywords` | List keywords that describe your project. | Can be a single space-separated string (`keywords='sample setuptools development'`) or a list (`keywords = ['testing', 'logging', 'example']`).
 `packages` | It’s required to list the packages to be included in your project. Although they can be listed manually, `setuptools.find_packages` finds them automatically. Use the `exclude` keyword argument to omit packages that are not intended to be released and installed. | `find_packages()` takes a source directory and two lists of package name patterns to exclude and include. If omitted, the source directory defaults to the same directory as the setup script.  A common specification is `packages=find_packages(exclude=['contrib', 'docs', 'tests*'])`.
-`install_requires` | Specify what dependencies a project minimally needs to run.  More on declaring dependencies [here](https://setuptools.readthedocs.io/en/latest/setuptools.html#declaring-dependencies). | **When the project is installed by pip, this is the specification that is used to install its dependencies.**
+`install_requires` | Specify what dependencies a project minimally needs to run.  More on declaring dependencies [here](https://setuptools.readthedocs.io/en/latest/setuptools.html#declaring-dependencies). | **When the project is installed by pip, this is the specification that is used to install its dependencies.**  Make sure that you're using the package names as they're given on PyPI; for instance, [beautifulsoup4](https://pypi.python.org/pypi/beautifulsoup4) rather than "bs4."
 `python_requires` | If your project only runs on certain Python versions, setting the `python_requires` argument to the appropriate [PEP 440 version specifier](https://www.python.org/dev/peps/pep-0440/#version-specifiers) string will prevent pip from installing the project on other Python versions. | Some [examples](https://packaging.python.org/tutorials/distributing-packages/#python-requires) from the docs.
 
 Note that the above list is not exhaustive.  Other kwargs include `scripts`, `data_files`, and `package_data`.
@@ -243,7 +243,7 @@ _Official docs:_
 - [Packaging your project](https://packaging.python.org/tutorials/distributing-packages/#packaging-your-project)
 - [Uploading your project to PyPI](https://packaging.python.org/tutorials/distributing-packages/#uploading-your-project-to-pypi)
 
-Note that the above are two separate steps.  
+Note that the above are two separate steps.
 1. The first consists of creating your distribution, mainly via putting a new directory `dist/` under your project’s root directory.  When you build your package, `setup.py` creates a `dist/` directory in your project directory and puts everything on the specified packages along with everything in the `MANIFEST.in` file in a single `.tar.gz` file in that directory.
 2. The project is actually uploaded in the second step.
 
@@ -303,19 +303,20 @@ Notes:
 (2) This will create an .exe that will install your project on a windows machine.
 (3) This creates an egg file. This is what is necessary so someone can use `easy_install` your project.
 
-usage: `setup.py [global_opts] cmd1 [cmd1_opts] [cmd2 [cmd2_opts] ...]`
-   or: `setup.py --help [cmd1 cmd2 ...]`
-   or: `setup.py --help-commands`
-   or: `setup.py cmd --help`
+Usage:
+- `setup.py [global_opts] cmd1 [cmd1_opts] [cmd2 [cmd2_opts] ...]`
+- or: `setup.py --help [cmd1 cmd2 ...]`
+- or: `setup.py --help-commands`
+- or: `setup.py cmd --help`
 
 > _Note_: Most examples will shown snippets such as
-> 
+>
 > ```
 > python setup.py sdist
 > ```
-> 
+>
 > Keep in mind that you need to reference the full `setup.py` path if `setup` isn't in your `cd`.  For example,
-> 
+>
 > ```
 > python C:/Users/Brad/anaconda3/pyfinance/setup.py --help-commands
 > ```
@@ -437,7 +438,7 @@ Walkthrough of above:
 
 ## `.pypirc` & `keyring`
 
-A `.pypirc` file holds your information for authenticating with PyPI, both the live and the test versions.  Make sure to put this file in your home folder – its path should be `~/.pypirc`.  (From pythonhosted.org: "To get around this, place a `.pypirc` file in your $HOME directory on linux. On windows, an you’ll need to set a HOME environ var to point to the directory where this file lives.")  
+A `.pypirc` file holds your information for authenticating with PyPI, both the live and the test versions.  Make sure to put this file in your home folder – its path should be `~/.pypirc`.  (From pythonhosted.org: "To get around this, place a `.pypirc` file in your $HOME directory on linux. On windows, an you’ll need to set a HOME environ var to point to the directory where this file lives.")
 
 The alternate route if you do _not_ have this file is that, when you run `setup.py` commands that interact with PyPI, you’ll have to enter your username and password each time.
 
