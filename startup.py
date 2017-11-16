@@ -23,3 +23,7 @@ options = {
 for option in options:
     for category, value in options[option].items():
         pd.set_option('{0}.{1}'.format(option, category), value)
+
+for category, option in options.items():
+    for op, value in option.items():
+        pd.set_option('{0}.{1}'.format(category, op), value)
