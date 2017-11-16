@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-# pandas options.  For full list and defaults:
+# Set some pandas options.  For full list and defaults:
 # https://pandas.pydata.org/pandas-docs/stable/options.html#available-options
 # Reference by full path here to avoid regex conflict with options
 #     added in the future.
