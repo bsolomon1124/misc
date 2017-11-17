@@ -1,11 +1,25 @@
-"""IPython startup file.  Place in .ipython/profile_default/startup/
+"""IPython startup file.  Place in .ipython/profile_default/startup/"""
 
-See http://ipython.org/ipython-doc/stable/interactive/tutorial.html#startup-files  # NOQA
-"""
+import os
 
 import matplotlib.pyplot as plt  # NOQA
 import numpy as np
 import pandas as pd
+import scipy.stats as scs  # NOQA
+
+# Make sure network drive exists.
+# If it does, map to it and try cd'ing to it.
+if not os.path.exists('Z:'):
+    print(r'Mapping \\na2prod\userdocs\bsolomon to Z:.')
+    if not os.path.exists(r'\\na2prod\userdocs'):
+        print("Cannot map; directory doesn't exist.")
+    else:
+        os.system(r'net use Z: \\na2prod\userdocs\bsolomon')
+try:
+    os.chdir('Z:/_python')
+except FileNotFoundError:
+    pass
+print('Current directory:', os.getcwd())
 
 # pandas options -------------------------------------------------------
 # For full list and defaults:
@@ -45,4 +59,3 @@ np.set_printoptions(
     threshold=625,
     edgeitems=10,
     )
-
