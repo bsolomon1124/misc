@@ -7,6 +7,11 @@ import numpy as np
 import pandas as pd
 import scipy.stats as scs  # NOQA
 
+excl = ('In', 'Out', 'get_ipython', 'exit', 'quit', 'excl', 'imports')
+imports = [key for key in globals().copy() if not key.startswith('_')
+           and key not in excl]
+print('Namespace:', ', '.join(imports))
+
 # Make sure network drive exists.
 # If it does, map to it and try cd'ing to it.
 if not os.path.exists('Z:'):
