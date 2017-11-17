@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 import scipy.stats as scs  # NOQA
 
-excl = ('In', 'Out', 'get_ipython', 'exit', 'quit', 'excl', 'imports')
+excl = ('In', 'Out', 'get_ipython', 'exit', 'quit', 'excl')
 imports = [key for key in globals().copy() if not key.startswith('_')
            and key not in excl]
 print('Namespace:', ', '.join(imports))
