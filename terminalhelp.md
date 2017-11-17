@@ -5,8 +5,82 @@
 # Overview
 
 # Terminology
+- A **shell** is a special **command-line tool** that is designed specifically to provide text-based **interactive control over other command-line tools.**
 - A **shell** could be command line, terminal, or PowerShell.
+- The standard OS X shell is **bash**.  Bash is a Unix shell and command language first released in 1989.
 - **Home** folder/directory: In Finder, choose Go > Home (shortcut: _Shift+Cmd+H_).  The Home folder is identified by an icon that looks like a house.
+- The **terminal** is an application that lets you interact with a **command-line environment.**  You could also interact with an environment using a remote connection method such as **secure shell (SSH)**.  A terminal window provides access to the input and output of a **shell process.**
+- You run **command-line tools** (or just _commands_; one example would be `cd`) that OS X provides by _typing the name of the tool_.
+    - Most tools can also take a number of **flags** aka **switches**.  `-l` would be one such flag.  Flags **change behavior.**
+    - Flags can be used together after one hyphen.  For example, `-l` and `-a` are both flags to `ls`.  You can use `ls -la` to (1) display detailed info for each entry and (2) list all directory contents, including hidden files/folders.
+    - Separately, some tools take **arguments**.  For example, in `ls /Users/brad/temp`, the second chunk is an argument.
+- The shell (no matter the command, really) also has a notion of a **current working directory**. _When you specify a filename or path that does not start with a slash, that path is assumed to be relative to this directory._
+
+# The home directory
+Your home directory (`$HOME`) might not be the same as your _root_ directory.  To see your home directory, use
+
+```bash
+Bradleys-MacBook-Pro:Utilities brad$ cd $HOME
+Bradleys-MacBook-Pro:~ brad$ pwd
+/Users/brad
+```
+
+In the example above, `brad` is actually 2 levels below the _top-level_ (root) of your hard drive:
+
+```bash
+Bradleys-MacBook-Pro:~ brad$ cd ../..  # Move 2 levels up
+Bradleys-MacBook-Pro:/ brad$ pwd
+/
+```
+
+```
+Macintosh HD
+|-- Applications
+    |-- Utilities
+        |-- Terminal.app
+|-- Library
+|-- System
+|-- Users
+    |-- brad
+```
+
+# Special path characters
+The shell supports a number of directory names that have a special meaning:
+
+| Path string | Description |
+| ----------- | ----------- |
+| `.` | points to the current working directory | For example, if you type `./mytool` and press return, you are running the `mytool` command in the current directory.
+| `..` | points to the parent directory (up 1 level) | The path `../Test` is a file or directory (named "Test") that is a **sibling of** the current directory. |
+| `~` or `$HOME` | At the beginning of a path, the tilde character represents the home directory of the current user. | `$HOME` is the same thing (usually); technically, it is an environment variable that can be manipulated. |
+
+An example of `cd`ing to a sibling directory:
+
+```bash
+Bradleys-MacBook-Pro:~ brad$ pwd
+/Users/brad
+Bradleys-MacBook-Pro:~ brad$ ls
+Applications    Downloads   Movies      Public      temp
+Desktop     Dropbox     Music       ds      testfile.txt
+Documents   Library     Pictures    rodeo.log
+Bradleys-MacBook-Pro:~ brad$ cd Documents
+Bradleys-MacBook-Pro:Documents brad$ cd ../Pictures
+Bradleys-MacBook-Pro:Pictures brad$ pwd
+/Users/brad/Pictures
+```
+
+An example using a path with a tilde:
+
+```bash
+Bradleys-MacBook-Pro:~ brad$ pwd
+/Users/brad
+Bradleys-MacBook-Pro:~ brad$ cd Downloads
+Bradleys-MacBook-Pro:Downloads brad$ cd ~/Documents  # ~ is alias for /Users/brad
+Bradleys-MacBook-Pro:Documents brad$ pwd
+/Users/brad/Documents
+```
+
+
+
 
 # Commands
 
@@ -36,6 +110,8 @@
 | exit | exit the shell
 | sudo | DANGER! become super user root DANGER!
 | dirs | display the list of currently remembered directories
+| touch | make a new file
+
 
 Now, for some more on specific commands
 
@@ -62,6 +138,13 @@ Bradleys-MacBook-Pro:~ brad$ mkdir 'new folder1'
 Bradleys-MacBook-Pro:~ brad$ mkdir "new folder2"
 ```
 
+Or, backslash escape the space literal:
+
+```bash
+Bradleys-MacBook-Pro:~ brad$ mkdir new\ folder1
+```
+
+
 If you `mkdir` a directory that already exists, you'll get an error:
 
 ```bash
@@ -70,7 +153,7 @@ Bradleys-MacBook-Pro:~ brad$ mkdir temp
 mkdir: temp: File exists
 ```
 
-You can't specify _files_ this way.  Using `mkdir file.txt` creates a folder called "file.txt" rather than a text file.
+You can't specify _files_ this way.  Using `mkdir file.txt` creates a folder called "file.txt" rather than a text file.  For this you'll need the [`touch`](#touch) command.
 
 ## `cd`
 
@@ -99,7 +182,16 @@ cd "long folder name"
 ## `rmdir`
 If you try to do rmdir on Mac OSX and it refuses to remove the directory even though you are positive it's empty, then there is actually a file in there called _.DS_Store_. In that case, type `rm -rf <dir>` instead (replace `<dir>` with the directory name).
 
+## `touch`
+
+```bash
+Bradleys-MacBook-Pro:temp brad$ touch testfile.txt
+```
+
 ## `pushd` and `popd`
+
+TODO: not fulling understanding these 2
+
 Read these as "push directory" and "pop directory."  These commands let you **temporarily go to a different directory and then come back, easily switching between the two.**
 
 - The `pushd` command takes your current directory and "pushes" it into a list for later, then it changes to another directory. It's like saying, "Save where I am, then go here."
@@ -121,6 +213,12 @@ Bradleys-MacBook-Pro:~ brad$ pushd  # pushed with no args - switch to last dir y
 ~/temp/dir1/dir2 ~
 Bradleys-MacBook-Pro:dir2 brad$ pushd ../..
 ~/temp ~/temp/dir1/dir2 ~/temp/dir1/dir2 ~  # TODO: not following here
+Bradleys-MacBook-Pro:temp brad$ popd
+~/temp/dir1/dir2 ~/temp/dir1/dir2 ~
+Bradleys-MacBook-Pro:dir2 brad$ popd
+~/temp/dir1/dir2 ~
+Bradleys-MacBook-Pro:dir2 brad$ popd
+~
 ```
 
 
