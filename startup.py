@@ -1,3 +1,8 @@
+"""IPython startup file.  Place in .ipython/profile_default/startup/
+
+See http://ipython.org/ipython-doc/stable/interactive/tutorial.html#startup-files  # NOQA
+"""
+
 import matplotlib.pyplot as plt  # NOQA
 import numpy as np
 import pandas as pd
@@ -30,7 +35,7 @@ for category, option in options.items():
 # `suppress`:
 # - False: x**2 - (x + eps)**2 --> array([ -4.930e-32,  -4.440e-16, ...
 # - True: x**2 - (x + eps)**2 --> array([-0., -0.,  0.,  0.])
-# defalts:
+# Defaults:
 # np.set_printoptions(edgeitems=3, infstr='inf',
 #     linewidth=75, nanstr='nan', precision=8,
 #     suppress=False, threshold=1000, formatter=None)
