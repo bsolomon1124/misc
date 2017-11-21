@@ -7,7 +7,9 @@
 - w3schools.com: [HTML5 tutorial](https://www.w3schools.com/html/default.asp)
     - [Examples](https://www.w3schools.com/html/html_examples.asp)
     - [Tag reference](https://www.w3schools.com/tags/default.asp)
+    - [HTML by category](https://www.w3schools.com/tags/ref_byfunc.asp)
     - [Tryit Editor](https://www.w3schools.com/html/tryit.asp?filename=tryhtml_default): interactive HTML rendering
+    - The section on [tables](https://www.w3schools.com/html/html_tables.asp)
 - The [HTML document tree](http://web.simmons.edu/~grabiner/comm244/weekfour/document-tree.html)
 - [6 Best HTML & CSS Books](https://tutorials.hostucan.com/6-best-html-css-books)
 - [What's an HTTP request?](http://rve.org.uk/dumprequest)
@@ -157,6 +159,18 @@ The **document type declaration** (doctype) triggers standards mode rendering.  
 <input type="text" /> <!-- Comments can be inline-->
 ```
 
+# Other important concepts:
+- [Block versus inline elements](https://www.w3schools.com/html/html_blocks.asp)
+- The [class](https://www.w3schools.com/html/tryit.asp?filename=tryhtml_classes_css) attribute
+- [JavaScript](https://www.w3schools.com/html/html_scripts.asp) - a whole 'nother topic
+- The [head](https://www.w3schools.com/html/html_head.asp) tag
+- [Responsive](https://www.w3schools.com/html/html_responsive.asp) web design
+- [Charset](https://www.w3schools.com/html/html_charset.asp)
+- [Forms](https://www.w3schools.com/html/html_forms.asp)
+- [XHTML](https://www.w3schools.com/html/html_xhtml.asp) - E**x**tensible HTML; HTMl written as HTML and is stricter than HTML.
+- [Style guide](https://www.w3schools.com/html/html5_syntax.asp)
+- []()
+
 # Cascading style sheets (CSS)
 
 ## Internal CSS
@@ -216,4 +230,3 @@ p {
     color: red;
 }
 ```
-
