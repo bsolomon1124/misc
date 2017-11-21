@@ -1,6 +1,9 @@
 # Contents
 
 # Resources & references
+- Formal documentation:
+    - [World Wide Web Consortium (W3C) recommendation](https://www.w3.org/TR/html51/)
+    - [Living standard](https://html.spec.whatwg.org/)
 - w3schools.com: [HTML5 tutorial](https://www.w3schools.com/html/default.asp)
     - [Examples](https://www.w3schools.com/html/html_examples.asp)
     - [Tag reference](https://www.w3schools.com/tags/default.asp)
@@ -9,6 +12,7 @@
 - [6 Best HTML & CSS Books](https://tutorials.hostucan.com/6-best-html-css-books)
 - [What's an HTTP request?](http://rve.org.uk/dumprequest)
 - The Beautiful Soup [documentation](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
+- mdn WEB DOCS: [HTML5](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5) - focuses on the transition from HTML to HTML5
 
 # Overview
 Hypertext Markup Language (HTML) is the standard markup language for creating web pages and web applications.
@@ -123,6 +127,8 @@ HTML elements with no content are called empty elements. Empty elements do not h
 ### Semantic elements
 Semantics is the **study of meaning**, in language, programming languages, formal logics, and semiotics.  It is concerned with the relationship between signifiers (i.e. words) and what they stand for (their denotation).
 
+The _semantic web_ is a term coined by Tim Berners-Lee in 2001.  HTML was originally designed only to provide cues for the _appearance (rendering) of_ the document.  Semantic HTML (related to the _semantic web_, coined by Tim Berners-Lee in 2001) focuses on using _machine-readable_ metadata in describing the _structure_ of a web page.  In other words, it stresses using HTML markup to reinforce the semantics, or _meaning_ of the information in webpages and web applications rather than merely to define its presentation or look.
+
 In HTML:
 - A **semantic element** _denotes_ something recognizable about its content.
 - **Non-semantic elements** don't make any indication about their content by themsleves.
@@ -131,8 +137,10 @@ One good example is that of italic versus emphasized text, two tags that _render
 
 | HTML | Rendering | Meaning |
 | ---- | --------- | ------- |
-| `<em>This text is emphasized</em>` | <em>This text is emphasized</em> | xxx |
-| `<i>This text is italic</i>` | <i>This text is italic</i> | xxx |
+| `<em>This text is emphasized.</em>` | <em>This text is emphasized.</em> | An indication of how something should be understood. |
+| `<i>This text is italic.</i>` | <i>This text is italic.</i> | A _style_; we know what italic is "supposed" to look like. |
+
+Other examples (many new with HTML5) include `<header>`, `<footer>`, `<section>`, and `<time>`.
 
 ## Doctype
 The **document type declaration** (doctype) triggers standards mode rendering.  It must only appear once, at the top of the page (before any HTML tags).
@@ -148,3 +156,64 @@ The **document type declaration** (doctype) triggers standards mode rendering.  
 <!-- This is a comment -->
 <input type="text" /> <!-- Comments can be inline-->
 ```
+
+# Cascading style sheets (CSS)
+
+## Internal CSS
+An internal CSS is used to define a style for a single HTML page.  It is defined in the `<head>` section of an HTML page, within a `<style>` element:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {background-color: powderblue;}
+h1   {color: blue;}
+p    {color: red;}
+</style>
+</head>
+<body>
+
+<h1>This is a heading</h1>
+<p>This is a paragraph.</p>
+
+</body>
+</html>
+```
+
+## External CSS
+An external style sheet is used to define the style for many HTML pages.  With an external style sheet, you can change the look of an entire web site, by changing one file.
+
+To use an external style sheet, add a link to it in the `<head>` section of the HTML page:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<h1>This is a heading</h1>
+<p>This is a paragraph.</p>
+
+</body>
+</html>
+```
+
+An external style sheet can be written in any text editor. The file must not contain any HTML code, and must be saved with a `.css` extension.
+
+For example--"styles.css", referenced above:
+
+```css
+body {
+    background-color: powderblue;
+}
+h1 {
+    color: blue;
+}
+p {
+    color: red;
+}
+```
+
