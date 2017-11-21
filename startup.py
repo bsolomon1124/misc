@@ -37,6 +37,8 @@ print('Current directory:', os.getcwd())
 options = {
     'display': {
         'max_columns': None,
+        'max_colwidth': 20,
+        'expand_frame_repr': False,
         'max_rows': 25,
         'max_seq_items': 50,
         'precision': 3,
