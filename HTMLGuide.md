@@ -79,6 +79,7 @@ HTML **tags** most commonly come in pairs like `<h1>` and `</h1>`, although some
 HTML tags are not case sensitive: `<P>` means the same as `<p>`.  Lowercase is generally preferred and more widely used.
 
 ### Paragraph versus break
+The difference between `<br>` and `<p>` is that "br" breaks a line without altering the semantic structure of the page, whereas "p" sections the page into paragraphs.
 
 
 ## Attributes
@@ -88,20 +89,21 @@ Tags have optional **attributes**.  These indicate other information, such as id
 - Single or double quotes are okay; leaving attribute values unquoted is considered unsafe.
 - See also: the Wikipedia [page](https://en.wikipedia.org/wiki/HTML#Attributes) on HTML attributes.
 
-HTML attributes are generally classed as required attributes, optional attributes, standard attributes, and event attributes.
+HTML attributes are generally classed as required attributes, optional attributes, [standard attributes](https://www.w3schools.com/tags/ref_standardattributes.asp), and event attributes.
 
 Similar to tags, attributes are case-insensitive; but, prefer lowercase.
 
+Some common attributes:
 
 | Attribute | Description |
 | --------- | ----------- |
-| alt | Specifies an alternative text for an image, when the image cannot be displayed |
-| disabled |  Specifies that an input element should be disabled |
-| href |  Specifies the URL (web address) for a link |
-| id | Specifies a unique id for an element |
-| src | Specifies the URL (web address) for an image |
-| style | Specifies an inline CSS style for an element |
-| title | Specifies extra information about an element (displayed as a tool tip) |
+| `alt` | Specifies an alternative text for an image, when the image cannot be displayed |
+| `disabled` |  Specifies that an input element should be disabled |
+| `href` |  Specifies the URL (web address) for a link |
+| `id` | Specifies a unique id for an element |
+| `src` | Specifies the URL (web address) for an image |
+| `style` | Specifies an inline CSS style for an element |
+| `title` | Specifies extra information about an element (displayed as a tool tip) |
 
 ## Elements
 An **element** is a broader term that includes a pair of corresponding tags and "everything in between.""  (Attributes, other tags, and contents.)  The general structure of an element is therefore:
@@ -117,6 +119,20 @@ For example,
 ```
 
 HTML elements with no content are called empty elements. Empty elements do not have an end tag, such as the `<br>` element (which indicates a line break).  Use of empty elements will lead to **broken HTML**, which may still render correctly but have difficulty being read by XML parsers.
+
+### Semantic elements
+Semantics is the **study of meaning**, in language, programming languages, formal logics, and semiotics.  It is concerned with the relationship between signifiers (i.e. words) and what they stand for (their denotation).
+
+In HTML:
+- A **semantic element** _denotes_ something recognizable about its content.
+- **Non-semantic elements** don't make any indication about their content by themsleves.
+
+One good example is that of italic versus emphasized text, two tags that _render_ the same thing but are _semantically different._
+
+| HTML | Rendering | Meaning |
+| ---- | --------- | ------- |
+| `<em>This text is emphasized</em>` | <em>This text is emphasized</em> | xxx |
+| `<i>This text is italic</i>` | <i>This text is italic</i> | xxx |
 
 ## Doctype
 The **document type declaration** (doctype) triggers standards mode rendering.  It must only appear once, at the top of the page (before any HTML tags).
