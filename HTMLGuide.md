@@ -169,7 +169,6 @@ The **document type declaration** (doctype) triggers standards mode rendering.  
 - [Forms](https://www.w3schools.com/html/html_forms.asp)
 - [XHTML](https://www.w3schools.com/html/html_xhtml.asp) - E**x**tensible HTML; HTMl written as HTML and is stricter than HTML.
 - [Style guide](https://www.w3schools.com/html/html5_syntax.asp)
-- []()
 
 # Cascading style sheets (CSS)
 
