@@ -8,6 +8,7 @@
 - The [HTML document tree](http://web.simmons.edu/~grabiner/comm244/weekfour/document-tree.html)
 - [6 Best HTML & CSS Books](https://tutorials.hostucan.com/6-best-html-css-books)
 - [What's an HTTP request?](http://rve.org.uk/dumprequest)
+- The Beautiful Soup [documentation](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
 
 # Overview
 Hypertext Markup Language (HTML) is the standard markup language for creating web pages and web applications.
@@ -67,10 +68,42 @@ A sibling is an element that shares the same parent with another element. In the
 ![](http://css.maxdesign.com.au/selectutorial/images/tree_siblings.gif)
 
 # Tags & attributes
+
+## Tags
 HTML **tags** most commonly come in pairs like `<h1>` and `</h1>`, although some represent empty elements and so are unpaired, for example `<img>`. The first tag in such a pair is the _start tag_, and the second is the _end tag_ (they are also called _opening tags_ and _closing tags_).
 
-Tags have optional **attributes**.  These indicate other information, such as identifiers for sections within the document or identifiers used to bind style information to the presentation of the document.
+```html
+<tagname>content</tagname>
+```
 
+HTML tags are not case sensitive: `<P>` means the same as `<p>`.  Lowercase is generally preferred and more widely used.
+
+### Paragraph versus break
+
+
+## Attributes
+Tags have optional **attributes**.  These indicate other information, such as identifiers for sections within the document or identifiers used to bind style information to the presentation of the document.
+- Most of the attributes of an element are name-value pairs, separated by `=` and written within the start tag of an element after the element's name.
+    - There are also some attributes that affect the element simply by their presence in the start tag of the element
+- Single or double quotes are okay; leaving attribute values unquoted is considered unsafe.
+- See also: the Wikipedia [page](https://en.wikipedia.org/wiki/HTML#Attributes) on HTML attributes.
+
+HTML attributes are generally classed as required attributes, optional attributes, standard attributes, and event attributes.
+
+Similar to tags, attributes are case-insensitive; but, prefer lowercase.
+
+
+| Attribute | Description |
+| --------- | ----------- |
+| alt | Specifies an alternative text for an image, when the image cannot be displayed |
+| disabled |  Specifies that an input element should be disabled |
+| href |  Specifies the URL (web address) for a link |
+| id | Specifies a unique id for an element |
+| src | Specifies the URL (web address) for an image |
+| style | Specifies an inline CSS style for an element |
+| title | Specifies extra information about an element (displayed as a tool tip) |
+
+## Elements
 An **element** is a broader term that includes a pair of corresponding tags and "everything in between.""  (Attributes, other tags, and contents.)  The general structure of an element is therefore:
 
 ```html
@@ -83,10 +116,14 @@ For example,
 <a href="https://www.wikipedia.org/">A link to Wikipedia.</a>
 ```
 
-The **document type declaration** triggers standards mode rendering.
+HTML elements with no content are called empty elements. Empty elements do not have an end tag, such as the `<br>` element (which indicates a line break).  Use of empty elements will lead to **broken HTML**, which may still render correctly but have difficulty being read by XML parsers.
+
+## Doctype
+The **document type declaration** (doctype) triggers standards mode rendering.  It must only appear once, at the top of the page (before any HTML tags).
 
 ```html
 <!DOCTYPE html>
+<!-- Defaults to HTML5 -->
 ```
 
 # Comments
