@@ -67,7 +67,7 @@ backend : Qt5Agg
 # lines.dotted_pattern : [1.0, 1.65]
 lines.linestyle : -  # Choose from: '-', '--', '-.', ':'
 lines.linewidth : 2.0
-lines.marker : 'o'
+lines.marker : o
 lines.markeredgewidth : 1.0
 lines.markersize : 4.0
 # lines.scale_dashes : True
