@@ -30,4 +30,4 @@ Use the sample HTML document below for these examples. The `<head>` section of t
 </body>
 ```
 
-! [](http://web.simmons.edu/~grabiner/comm244/weekfour/tree.gif)
+![tree](http://web.simmons.edu/~grabiner/comm244/weekfour/tree.gif)
