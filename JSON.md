@@ -3,12 +3,13 @@
 # Resources & references
 - Wikipedia: [JSON](https://en.wikipedia.org/wiki/JSON)
 - Copter Labs: [JSON: What It Is, How It Works, & How to Use It](https://www.copterlabs.com/json-what-it-is-how-it-works-how-to-use-it/)
-- [http://json.org/](json.org)
-- See also the [standards](#Standards-specification) section below
+- [json.org](json.org)
 - The [json](https://docs.python.org/3/library/json.html) module from the Python standard library
+- A JSON validator: [JSONLint](https://jsonlint.com/)
+- See also: the [standards](#Standards-specification) section below
 
 # Overview
-- JavaScript Object Notation (JSON) is a lightweight data-interchange format uses human-readable text to **transmit data objects** consisting of **attribute–value pairs** and **array data types**. (more below)
+- JavaScript Object Notation (JSON) is a lightweight data-interchange format that uses human-readable text to **transmit data objects** consisting of **attribute–value pairs** and **array data types**. (more below)
 - JSON is a language-independent data format. It was derived from JavaScript, but many programming languages include code to generate and parse JSON-format data.
 - JSON filenames use the extension `.json`.
 
@@ -23,7 +24,7 @@
     - [ECMA 404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf) - this standard is linked to by json.org.
     - [RFC 7159](https://tools.ietf.org/html/rfc7159) - developed by the IETF.  This obsoletes RFC 4627.
     - The ECMA standard describes only the allowed syntax, whereas the RFC covers some security and interoperability considerations.  RFC 7159 cleans up some ambiguities and inconsistencies in various JSON definitions, none of which caused any real-world pain.
-    - For more detail see ["JSON Redux AKA RFC7159"](https://www.tbray.org/ongoing/When/201x/2014/03/05/RFC7159-JSON) by Tim Bray
+    - For more detail see ["JSON Redux AKA RFC7159"](https://www.tbray.org/ongoing/When/201x/2014/03/05/RFC7159-JSON) by Tim Bray.
 
 # Examples
 The following example shows a possible JSON representation describing a person.
