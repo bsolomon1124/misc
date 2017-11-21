@@ -2,11 +2,17 @@
 
 # Resources & references
 - w3schools.com: [HTML5 tutorial](https://www.w3schools.com/html/default.asp)
+    - [Examples](https://www.w3schools.com/html/html_examples.asp)
+    - [Tag reference](https://www.w3schools.com/tags/default.asp)
+    - [Tryit Editor](https://www.w3schools.com/html/tryit.asp?filename=tryhtml_default): interactive HTML rendering
 - The [HTML document tree](http://web.simmons.edu/~grabiner/comm244/weekfour/document-tree.html)
 - [6 Best HTML & CSS Books](https://tutorials.hostucan.com/6-best-html-css-books)
 - [What's an HTTP request?](http://rve.org.uk/dumprequest)
 
 # Overview
+Hypertext Markup Language (HTML) is the standard markup language for creating web pages and web applications.
+
+Filename extensions: `.html`; `.htm`.  (They are equivalent.)
 
 # The HTML document tree
 Each HTML document can actually be referred to as a document tree. We describe the elements in the tree like we would describe a family tree.
@@ -59,3 +65,33 @@ A child is an element that is directly below and connected to an element in the 
 A sibling is an element that shares the same parent with another element. In the diagram below, the `<li>`'s are siblings as they all share the same parent - the `<ul>`.
 
 ![](http://css.maxdesign.com.au/selectutorial/images/tree_siblings.gif)
+
+# Tags & attributes
+HTML **tags** most commonly come in pairs like `<h1>` and `</h1>`, although some represent empty elements and so are unpaired, for example `<img>`. The first tag in such a pair is the _start tag_, and the second is the _end tag_ (they are also called _opening tags_ and _closing tags_).
+
+Tags have optional **attributes**.  These indicate other information, such as identifiers for sections within the document or identifiers used to bind style information to the presentation of the document.
+
+An **element** is a broader term that includes a pair of corresponding tags and "everything in between.""  (Attributes, other tags, and contents.)  The general structure of an element is therefore:
+
+```html
+<tag attribute1="value1" attribute2="value2">''content''</tag>
+```
+
+For example,
+
+```html
+<a href="https://www.wikipedia.org/">A link to Wikipedia.</a>
+```
+
+The **document type declaration** triggers standards mode rendering.
+
+```html
+<!DOCTYPE html>
+```
+
+# Comments
+
+```html
+<!-- This is a comment -->
+<input type="text" /> <!-- Comments can be inline-->
+```
