@@ -26,8 +26,27 @@
     - The ECMA standard describes only the allowed syntax, whereas the RFC covers some security and interoperability considerations.  RFC 7159 cleans up some ambiguities and inconsistencies in various JSON definitions, none of which caused any real-world pain.
     - For more detail see ["JSON Redux AKA RFC7159"](https://www.tbray.org/ongoing/When/201x/2014/03/05/RFC7159-JSON) by Tim Bray.
 
+# Data structures & types
+
+An **object** is an _unordered_ collection of keys-value pairs.
+- The keys must be strings.
+- It is recommended, but not required, that each key be unique.
+- Objects are delimited with curly brackets, and use commas to separate each pair.
+
+A **value** is fairly flexible; it can be:
+- a string in double quotes,
+- a number
+- `true`, `false`, or `null`
+- an object or an array
+Values can be nested.
+
+Some valid objects:
+
+```json
+{}
+```
+
 # Examples
-The following example shows a possible JSON representation describing a person.
 
 ```json
 {
@@ -57,5 +76,21 @@ The following example shows a possible JSON representation describing a person.
   ],
   "children": [],
   "spouse": null
+}
+```
+
+```json
+{
+  "id": 1,
+  "name": "Foo",
+  "price": 123,
+  "tags": [
+    "Bar",
+    "Eek"
+  ],
+  "stock": {
+    "warehouse": 300,
+    "retail": 20
+  }
 }
 ```
