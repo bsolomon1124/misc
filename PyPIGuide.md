@@ -12,7 +12,9 @@
 - `Setuptools` docs: [Building and Distributing Packages with Setuptools](https://setuptools.readthedocs.io/en/latest/setuptools.html)
     - [Command reference](https://setuptools.readthedocs.io/en/latest/setuptools.html#command-reference)
 - Scott Torborg: [How To Package Your Python Code](http://python-packaging.readthedocs.io/en/latest/)
+- _Learn Python the Hard Way_: [Exercise 46: A Project Skeleton](https://learnpythonthehardway.org/python3/ex46.html)
 - Blogs:
+    - Ionel Cristian Mărieș: [Packaging a python library](https://blog.ionelmc.ro/2014/05/25/python-packaging/)
     - effbot.org: [How does the Python version numbering scheme work?](http://effbot.org/pyfaq/how-does-the-python-version-numbering-scheme-work.htm)
     - Deciphering Glyph: [Python Packaging Is Good Now](https://glyph.twistedmatrix.com/2016/08/python-packaging.html) [Aug 2016]
     - Hynek Schlawack: [Sharing Your Labor of Love: PyPI Quick and Dirty](https://hynek.me/articles/sharing-your-labor-of-love-pypi-quick-and-dirty/) [Jul 2013]
@@ -41,6 +43,7 @@ packagename
     |-- module2.py
     |-- module3.py
 ```
+
 5. Uploading the aforementioned packages to GitHub.
 
 ...with the final (desired) step to be able to allow others to simply `pip install` the package rather than needing to download the GitHub repository itself.  **This guide is oriented towards people who have followed some form of the progression above, but should also be generalizable, to an extent.**
