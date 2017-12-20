@@ -78,6 +78,21 @@ Macintosh HD
     |-- brad
 ```
 
+Note that `~` is an alias for your home directory's path.
+
+In Python, `os` doesn't accept this character.  Expand it with `os.path.expanduser`:
+
+> On Unix, an initial ~ is replaced by the environment variable HOME if it is set; otherwise the current user’s home directory is looked up in the password directory through the built-in module pwd.
+
+I.e.:
+
+```python
+>>> import os
+>>> home = os.path.expanduser('~')
+>>> print(home)
+/Users/brad
+```
+
 # Special path characters
 The shell supports a number of directory names that have a special meaning:
 
@@ -126,8 +141,8 @@ Bradleys-MacBook-Pro:Applications brad$ BitTorrent.app/Contents/MacOS/BitTorrent
 
 # Commands
 
-| Command | Usage |
-| ------- | ----- |
+| Command | Usage | Note
+| ------- | ----- | ----
 | open | open a file | uses default application
 | pwd | print working directory
 | hostname | my computer's network name
@@ -135,7 +150,7 @@ Bradleys-MacBook-Pro:Applications brad$ BitTorrent.app/Contents/MacOS/BitTorrent
 | cd | change directory | `cd ~` is the same as `cd $HOME`.  You need a space following `cd`.
 | ls | list directory
 | rmdir | remove directory | only removes an _empty_ directory by default
-| rm | remove file or files | You can use pattern matching characters (such as the asterisk) to match more than one file. You can also remove directories with this command, although use of `rmdir` is preferred.
+| rm | remove file or files | You can use pattern matching characters (such as the asterisk) to match more than one file. You can also remove directories with this command, although use of `rmdir` is preferred.  Note that this is a true delete, rather than sending to trash.
 | pushd | push directory
 | popd | pop directory
 | cp | copy a file or directory
@@ -151,16 +166,17 @@ Bradleys-MacBook-Pro:Applications brad$ BitTorrent.app/Contents/MacOS/BitTorrent
 | echo | print (output) some arguments to STDOUT
 | export | export/set a new environment variable
 | exit | exit the shell
-| sudo | authenticate yourself as a superuser to gain extra privileges.  DANGER! be careful
+| sudo | authenticate yourself as a sudo (super) user to gain extra privileges.  *DANGER!* | may be necessary if you are modifying core pieces of the filesystem or installing packages
 | dirs | display the list of currently remembered directories
 | touch | make a new file
 | open | open file(s)
 | defaults | interface to user's defaults
-| chmod | changes the access mode of one file or multiple files
-| chown | ?
+| chmod | changes permissions of a file or folder
+| chown | changes ownership of a file or folder
 | vi | launch the text editor vi
+| history | display the history list with line numbers
 
-Now, for some more on specific commands
+Now, for some more on specific commands.
 
 ## `mkdir`
 Say you first make a single directory and then want to make a directory one level down without `cd`ing.  You'll need to specify the "full relative path".  If you want to make subdirectories multiple levels down, you'll need `-p`:
@@ -241,6 +257,8 @@ If you try to do rmdir on Mac OSX and it refuses to remove the directory even th
 Bradleys-MacBook-Pro:temp brad$ touch testfile.txt
 ```
 
+Note that if the specified file already exists, the file itself will not be modified, but its last-modified-timestamp will be updated to "now."
+
 ## `pushd` and `popd`
 TODO: not fulling understanding these 2...
 
@@ -274,7 +292,7 @@ Bradleys-MacBook-Pro:dir2 brad$ popd
 ```
 
 ## `cp`
-The first argument is the file to copy.  The second is its destination, which may be either a file (essentially copy + rename) or a directory.
+The first argument is the file to copy.  The second is its destination, which may be **either a file (essentially copy + rename) or a directory**.
 
 ```bash
 Bradleys-MacBook-Pro:~ brad$ cp
@@ -285,6 +303,7 @@ usage: cp [-R [-H | -L | -P]] [-fi | -n] [-apvXc] source_file target_file
 ```bash
 Bradleys-MacBook-Pro:~ brad$ touch file.txt
 Bradleys-MacBook-Pro:~ brad$ cp file.txt file2.txt  # As new file
+Bradleys-MacBook-Pro:~ brad$ cp file.txt Downloads/file3.txt  # As new file within direc
 Bradleys-MacBook-Pro:~ brad$ ls
 file.txt     file2.txt
 ```
@@ -334,6 +353,8 @@ Bradleys-MacBook-Pro:temp brad$ mv file1.txt file2.txt
 Bradleys-MacBook-Pro:temp brad$ ls
 file2.txt
 ```
+
+That is, `mv` with two file arguments is a means of renaming by moving.
 
 ## View (page through) a file (`less`, `more`)
 `less` and `more` are similar commands, but do have [slight differences](https://unix.stackexchange.com/questions/81129/what-are-the-differences-between-most-more-and-less).  `more` will display the file without hiding your command history; `less` will hide your command history until you press `q`.
@@ -385,6 +406,20 @@ Bradleys-MacBook-Pro:~ brad$ caffeinate -i -t 3600
 ```
 
 The number at the end represents the number of seconds. So, 3600 = 1 hour.
+
+## Downloading files
+
+We can use `curl` for this in place of `wget`, which is not available by defualt on all systems.
+
+```bash
+# Save the downloaded .zip to $HOME
+$ curl http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/ftp/F-F_Research_Data_Factors_CSV.zip --output frenchdata.zip
+```
+Now unzip the contents to a new directory:
+
+```bash
+Bradleys-MacBook-Pro:~ brad$ unzip frenchdata.zip -d frenchdata/
+```
 
 # Getting help
 Simply typing `help` gets you a non-exhaustive list of commands and their options.
