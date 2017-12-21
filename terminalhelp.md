@@ -375,6 +375,46 @@ This is the first line.first
 And this is the third.
 ```
 
+## `grep`
+
+The following pipes to commands together.  `cat` prints the file and `grep` finds all lines with occurences of `ax`.
+
+```bash
+Bradleys-MacBook-Pro:adhoc brad$ cat braille.py | grep ax
+fig, ax = plt.subplots()
+ax.imshow(codes[5], cmap=cmap)
+```
+
+We can pipe any output to `grep`:
+
+```bash
+Bradleys-MacBook-Pro:adhoc brad$ history | grep conda
+   21  /Applications/anaconda3/bin/jupyter-qtconsole ; exit;
+   22  /Applications/anaconda3/bin/jupyter-qtconsole ; exit;
+   23  /Applications/anaconda3/bin/jupyter-qtconsole ; exit;
+   24  /Applications/anaconda3/bin/jupyter-qtconsole ; exit;
+# ...
+```
+
+## `find`
+
+The following looks for text files in our current directory and its child folders:
+
+```bash
+Bradleys-MacBook-Pro:python brad$ find . -name "*txt" -type f
+./docs/tutorials/imgs/ex.txt
+./_archive/pyfinance/pyfinance.egg-info/SOURCES.txt
+./_archive/pyfinance/pyfinance.egg-info/requires.txt
+./_archive/pyfinance/pyfinance.egg-info/top_level.txt
+# ...
+```
+
+Continuing with the above, search those files for the word _neat_:
+
+```bash
+Bradleys-MacBook-Pro:python brad$ find . -name "*txt" -type f | xargs grep neat
+```
+
 # Other hacks
 
 ## Show hidden files
