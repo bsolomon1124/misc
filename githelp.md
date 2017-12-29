@@ -7,7 +7,7 @@ Ordered by ascending difficulty/assumed familiarity level.
 ## Beginner
 - Metis DS:
     - [Using Git at the Command Line](https://github.com/thisismetis/dsp/blob/master/04-git.md)
-    - [Getting Started with Git](https://vimeo.com/178481263?mc_cid=bbf0c1674e&mc_eid=9444b3c479)
+    - [Getting Started with Git](https://vimeo.com/178481263?mc_cid=bbf0c1674e&mc_eid=9444b3c479) (video)
         - [List of commands](https://github.com/bsolomon1124/dsp/blob/master/resources/git_video_history.md) used in the above video
 - [Git Cheat Sheet](https://services.github.com/on-demand/downloads/github-git-cheat-sheet.pdf)
 - Roger Dudler: [git - the simple guide, no deep shit](https://rogerdudler.github.io/git-guide/)
@@ -45,7 +45,93 @@ Ordered by ascending difficulty/assumed familiarity level.
 
 # Version control systems
 
+There are three main states that your files can reside in:
+
+1. **Modified** means that there's been changes to the file but it's not committed yet.  This isn't a git command; when you manually edit any file in a `git` repo, you're modifying it.
+2. **Staged** means that you have marked a file to go into your next commit snapshot.  Changes you make to files get marked in "chunks" or stages, and you decide how intermittently to take a snapshot of those changes.
+3. **Committed** means that the changes you made have been stored locally. [?]
+
+A fourth _step_ (not a stage) is to **push** the commit back up to GitHub.
+
+`git status` shows the **current working tree status.**  Two flags:
+- `-s` - Give the output in the short-format.
+- `-b` - Show the branch and tracking info even in short-format.
+
+Try checking our status before we have made any changes.
+
+```bash
+dsp $ git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+
+nothing to commit, working tree clean
+```
+
+```bash
+dsp $ git status -sb  # not telling us much at all
+## master...origin/master
+```
+
+Now let's modify a file (or two) in our repo in whatever text editor and rerun the above:
+
+```bash
+dsp $ git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+    modified:   05a-python.md
+    modified:   statistics/5-1-blue_men.md
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+    .DS_Store
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+```bash
+dsp $ git status -sb
+## master...origin/master
+ M 05a-python.md
+ M statistics/5-1-blue_men.md
+?? .DS_Store
+```
+
 # Background
+
+# Cloning a repo
+
+This makes a copy of the repository in your laptop. Click on the clipboard image on the right sidebar to copy the HTTPS clone URL:
+
+![git_clone](../imgs/git_clone.png)
+
+Create the following folders: `~Scripts/python/metis/metisgh/prework`.
+
+Using terminal:
+
+```bash
+$ pwd
+/Users/brad/Scripts/python/
+$ mkdir -p metis/metisgh/prework/
+```
+
+Navigate in your terminal to the folder you just created. Type `git clone` and then paste the clone URL.
+
+```bash
+$ git clone https://github.com/your_username/dsp.git
+```
+
+Cloning the directory will create the following:
+
+`~/Scripts/python/metis/metisgh/prework/dsp`
+
+And now `cd` into the `/dsp` folder.
+
+This directory contains not only the downloaded material but also a `.git` subfolder.  **This is central to version control!**
 
 # GitHub Gist
 
