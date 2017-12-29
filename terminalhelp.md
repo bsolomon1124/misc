@@ -417,6 +417,12 @@ Bradleys-MacBook-Pro:python brad$ find . -name "*txt" -type f | xargs grep neat
 
 # Other hacks
 
+## `clear`
+
+In Sublime Text, there is a feature "Scroll Past End" that allows you to scroll the area of code you’re editing to the center of the window, even if it’s at the end of the file.
+
+There is no direct equivalent functionality in terminal, but we can use `clear`, which clears the terminal screen and gets us a "blank page."
+
 ## Show hidden files
 By default, the Finder in OS X hides some files away from view (mostly irrelevant ones) but if you want to see everything on your computer, then use:
 
