@@ -66,7 +66,6 @@ A single commit should only wrap related changes: fixing two different bugs shou
 
 # The git workflow
 
-
 ## Creating or copying a repo
 You have two options to get a local repository onto your machine: you can either create a new one through `git init` or clone from an existing remote repository with `git clone`.
 
@@ -90,7 +89,7 @@ octobox $ ls -a
 ### `git clone`
 This makes a copy of the repository in your laptop. Click on the clipboard image on the right sidebar to copy the HTTPS clone URL:
 
-![git_clone](../imgs/git_clone.png)
+![git_clone](imgs/git_clone.png)
 
 Create the following folders: `~Scripts/python/metis/metisgh/prework`.
 
@@ -114,7 +113,7 @@ Cloning the directory will create the following:
 
 And now `cd` into the `/dsp` folder.
 
-This directory contains not only the downloaded material but also a `.git` subfolder.  **This is central to version control!**
+This directory contains not only the downloaded material but also a `.git` subfolder.  **This is central to version control!**  The presence of the `.git` subfolder is what makes this a git repo, not just a regular locally-housed project.
 
 When you clone a repository from a remote server, Git automatically remembers this connection for you. It saves it as a remote called "origin" by default.
 
