@@ -44,7 +44,7 @@ Ordered by ascending difficulty/assumed familiarity level.
 # Version control systems
 You can think of a version control system (short: "VCS") as a kind of "database". It lets you save a snapshot of your complete project at any time you want.  Version control is independent of the kind of project/language you're working with.
 
-<img src="https://www.git-tower.com/learn/content/01-git/01-ebook/en/01-command-line/02-basics/01-what-is-version-control/what-is-vcs.png" alt="version_control.png" width="750"/>
+<img src="https://www.git-tower.com/learn/content/01-git/01-ebook/en/01-command-line/02-basics/01-what-is-version-control/what-is-vcs.png" alt="version_control.png" width="600"/>
 
 ## File states in git
 There are three main states that your files can reside in:
@@ -65,6 +65,60 @@ Your local repository consists of three "trees" maintained by git.
 A single commit should only wrap related changes: fixing two different bugs should produce (at the very least) two separate commits.  When crafting a commit, it's very important to only include changes that belong together. You should never mix up changes from multiple, different topics in a single commit.
 
 # The git workflow
+
+
+## Creating or copying a repo
+You have two options to get a local repository onto your machine: you can either create a new one through `git init` or clone from an existing remote repository with `git clone`.
+
+### `git init`
+`git init` creates an empty Git repository--basically a .git directory with subdirectories for objects, refs/heads, refs/tags, and template files. An initial HEAD file that references the HEAD of the master branch is also created.
+
+Note that this initial repository is truly _empty_.  Git did _not_ add the current content of your working copy as something like an "initial version". The repository contains not a single version of your project, yet.
+
+Example:
+
+```bash
+python $ mkdir octobox
+python $ cd octobox/
+octobox $ ls  # empty
+octobox $ git init
+Initialized empty Git repository in /Users/brad/Scripts/python/octobox/.git/
+octobox $ ls -a
+.   ..  .git
+```
+
+### `git clone`
+This makes a copy of the repository in your laptop. Click on the clipboard image on the right sidebar to copy the HTTPS clone URL:
+
+![git_clone](../imgs/git_clone.png)
+
+Create the following folders: `~Scripts/python/metis/metisgh/prework`.
+
+Using terminal:
+
+```bash
+$ pwd
+/Users/brad/Scripts/python/
+$ mkdir -p metis/metisgh/prework/
+```
+
+Navigate in your terminal to the folder you just created. Type `git clone` and then paste the clone URL.
+
+```bash
+$ git clone https://github.com/your_username/dsp.git
+```
+
+Cloning the directory will create the following:
+
+`~/Scripts/python/metis/metisgh/prework/dsp`
+
+And now `cd` into the `/dsp` folder.
+
+This directory contains not only the downloaded material but also a `.git` subfolder.  **This is central to version control!**
+
+When you clone a repository from a remote server, Git automatically remembers this connection for you. It saves it as a remote called "origin" by default.
+
+## `git status`
 `git status` shows the **current working tree status.**  Two useful flags:
 - `-s` - Give the output in the short-format.
 - `-b` - Show the branch and tracking info even in short-format.
@@ -207,16 +261,12 @@ origin  https://github.com/try-git/try_git.git (push)
 ```
 
 # The above in reverse
-What if we edit the files in GitHub?  Can we have this change our files locally?  Let's try making a small "direct" edit to
+What if we edit the files in GitHub?  Can we have this change our files locally?  Let's try making a small "direct" edit to `https://github.com/bsolomon1124/dsp/edit/master/00b-fork_repo.md` while adding a commit message and then clicking "commit changes" in the browser.
 
-`https://github.com/bsolomon1124/dsp/edit/master/00b-fork_repo.md`
-
-while adding a commit message and then clicking "commit changes."
-
-These changes _will not_ be immediately reflected in your local machine repo.  How do we get them to be reflected?
+These changes _will not_ be immediately reflected in your local machine repo.  How do we get them to be reflected?  With `git pull`.
 
 ```bash
-dsp $ git pull
+dsp $ git pull origin master
 remote: Counting objects: 3, done.
 remote: Compressing objects: 100% (3/3), done.
 remote: Total 3 (delta 2), reused 0 (delta 0), pack-reused 0
@@ -229,26 +279,9 @@ Fast-forward
  1 file changed, 1 insertion(+), 1 deletion(-)
  ```
 
-If you open this file locally, you'll see that it now reflects the changes from GitHub.
+If you open this file locally, you'll see that it now reflects the changes from GitHub.  Pulling _updates our local repository to reflect changes/commits made in the remote repo_.  This could be useful if we've invited other people to our GitHub project who have pulled your changes, made their own commits, and pushed them.
 
-# Git init
-`git init` creates an empty Git repository - basically a .git directory with subdirectories for objects, refs/heads, refs/tags, and template files. An initial HEAD file that references the HEAD of the master branch is also created.
-
-Note that this initial repository is truly _empty_.  Git did _not_ add the current content of your working copy as something like an "initial version". The repository contains not a single version of your project, yet.
-
-You have two options to get a local repository onto your machine: you can either create a new one through `git init` or clone from an existing remote repository.
-
-Example:
-
-```bash
-python $ mkdir octobox
-python $ cd octobox/
-octobox $ ls  # empty
-octobox $ git init
-Initialized empty Git repository in /Users/brad/Scripts/python/octobox/.git/
-octobox $ ls -a
-.   ..  .git
-```
+#xxx
 
 Some related terminology is the term **working copy**.  The root folder of your project is often called the "working copy" (or "working directory"). It's the directory on your local computer that contains your project's files.
 
@@ -275,17 +308,6 @@ octobox $ git status -sb
 ## No commits yet on master
 A  octocat.txt
 ```
-
-# Pulling
-Let's pretend some time has passed. We've invited other people to our GitHub project who have pulled your changes, made their own commits, and pushed them.
-
-We can check for changes on our GitHub repository and pull down any new changes by running:
-
-```bash
-$ git pull origin master
-```
-
-In other words, pulling _updates our local repository to reflect changes/commits made in the remote repo_.
 
 # History
 Think of Git's `log` as a journal that remembers all the changes we've committed so far, in the order we committed them:
@@ -342,37 +364,6 @@ You can see that our new branch "contact-form" was created and is based on the s
 To make another branch (say, "contact-form") active, use `git checkout`. This does two things for you:
 1. It makes "contact-form" the current HEAD branch.
 2. It replaces the files in your working directory to match exactly the revision that "contact-form" is at.
-
-# Cloning a repo
-This makes a copy of the repository in your laptop. Click on the clipboard image on the right sidebar to copy the HTTPS clone URL:
-
-![git_clone](../imgs/git_clone.png)
-
-Create the following folders: `~Scripts/python/metis/metisgh/prework`.
-
-Using terminal:
-
-```bash
-$ pwd
-/Users/brad/Scripts/python/
-$ mkdir -p metis/metisgh/prework/
-```
-
-Navigate in your terminal to the folder you just created. Type `git clone` and then paste the clone URL.
-
-```bash
-$ git clone https://github.com/your_username/dsp.git
-```
-
-Cloning the directory will create the following:
-
-`~/Scripts/python/metis/metisgh/prework/dsp`
-
-And now `cd` into the `/dsp` folder.
-
-This directory contains not only the downloaded material but also a `.git` subfolder.  **This is central to version control!**
-
-When you clone a repository from a remote server, Git automatically remembers this connection for you. It saves it as a remote called "origin" by default.
 
 # Other
 
