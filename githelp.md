@@ -44,7 +44,7 @@ Ordered by ascending difficulty/assumed familiarity level.
 # Version control systems
 You can think of a version control system (short: "VCS") as a kind of "database". It lets you save a snapshot of your complete project at any time you want.  Version control is independent of the kind of project/language you're working with.
 
-<img src="https://www.git-tower.com/learn/content/01-git/01-ebook/en/01-command-line/02-basics/01-what-is-version-control/what-is-vcs.png" alt="version_control.png" width="600" align="center"/>
+<img src="https://www.git-tower.com/learn/content/01-git/01-ebook/en/01-command-line/02-basics/01-what-is-version-control/what-is-vcs.png" alt="version_control.png" width="600" align="middle"/>
 
 ## File states in git
 There are three main states that your files can reside in:
