@@ -1,16 +1,18 @@
 # Contents
+- [Terminology](#terminology)
+- [Environment variables](#environment-variables)
+- [The home directory](#the-home-directory)
+- [Special path ]
 
 # Resources & references
 - [Linux Bash Shell Cheat Sheet](https://learncodethehardway.org/unix/bash_cheat_sheet.pdf)
-- GNU: [Bash Reference Manual](https://www.gnu.org/software/bash/manual/bashref.html); some useful sections:
+- GNU: official [Bash Reference Manual](https://www.gnu.org/software/bash/manual/bashref.html); some useful sections:
     - [Built-in commands](https://www.gnu.org/software/bash/manual/bashref.html#Shell-Builtin-Commands)
     - [Shell Variables](https://www.gnu.org/software/bash/manual/bashref.html#Shell-Variables)
     - [Command-line editing](https://www.gnu.org/software/bash/manual/bashref.html#Command-Line-Editing)
 - Jim Hoskins: [Introduction to the Mac OS X Command Line](http://blog.teamtreehouse.com/introduction-to-the-mac-os-x-command-line) [Sep 2012]
 - _Learn Python the Hard Way_: [Command Line Crash Course](https://learnpythonthehardway.org/book/appendixa.html)
 - techonthenet tutorials: [Unix](https://www.techonthenet.com/unix/index.php)
-
-# Overview
 
 # Terminology
 - The **console** is the system as a whole. This is both the command line as well as the output from previous commands.
@@ -77,6 +79,8 @@ Macintosh HD
 |-- Users
     |-- brad
 ```
+
+To move to root use `cd /`.
 
 Note that `~` is an alias for your home directory's path.
 
@@ -175,6 +179,8 @@ Bradleys-MacBook-Pro:Applications brad$ BitTorrent.app/Contents/MacOS/BitTorrent
 | chown | changes ownership of a file or folder
 | vi | launch the text editor vi
 | history | display the history list with line numbers
+| head | display first lines of a file | `head -n <num_lines> <filename>` or `head <filename>`; default 10 |
+
 
 Now, for some more on specific commands.
 
@@ -249,8 +255,15 @@ Bradleys-MacBook-Pro:/ brad$ cd /; pwd
 /
 ```
 
-## `rmdir`
-If you try to do rmdir on Mac OSX and it refuses to remove the directory even though you are positive it's empty, then there is actually a file in there called _.DS_Store_. In that case, type `rm -rf <dir>` instead (replace `<dir>` with the directory name).
+## `rmdir` & `rm`
+If you try to do `rmdir` on Mac OSX and it refuses to remove the directory even though you are positive it's empty, then there is likely a hidden file contained there such as _.DS_Store_. In that case, type `rm -rf <dir>` instead (replace `<dir>` with the directory name).
+
+| Syntax | Use |
+| ------ | --- |
+| `rm <fileName> ..` | delete file(s) |
+| `rm -i <fileName> ..` | ask for confirmation for each file |
+| `rm -f <fileName>` | force deletion of file |
+| `rm -r <foldername>/` | delete folder |
 
 ## `touch`
 ```bash
@@ -322,6 +335,16 @@ Bradleys-MacBook-Pro:~ brad$ cp -r temp temp2
 
 **`cp` will overwrite files that already exist**, so be careful copying files around.
 
+To summarize:
+
+| Syntax | Use |
+| ------ | --- |
+| `cp image.jpg newimage.jpg` | rename _image.jpg_ to _newimage.jpg_ |
+| `cp image.jpg <folderName>/` | copy _image.jpg_ to _folderName/_ directory |
+| `cp image.jpg folder/sameImageNewName.jpg`| copy _image.jpg_ to _folderName/_ directory and rename it |
+| `cp -R stuff otherStuff` | rename a folder |
+| `cp *.txt stuff/` | copy all of the specified file type to folder |
+
 ## `mv`
 The syntax to move is similar to that of copy:
 
@@ -356,8 +379,23 @@ file2.txt
 
 That is, `mv` with two file arguments is a means of renaming by moving.
 
+To summarize:
+
+
+| Syntax | Use |
+| ------ | --- |
+| `mv file.txt Documents/` | move file to a folder |
+| `mv <folderName> <folderName2>` | move folder to (within) other folder |
+| `mv filename.txt filename2.txt` | rename file |
+| `mv <fileName> stuff/newfileName` | move file to folder and give it a new name |
+| `mv <folderName>/ ..` | move folder up in hierarchy |
+
+
 ## View (page through) a file (`less`, `more`)
-`less` and `more` are similar commands, but do have [slight differences](https://unix.stackexchange.com/questions/81129/what-are-the-differences-between-most-more-and-less).  `more` will display the file without hiding your command history; `less` will hide your command history until you press `q`.
+`less` and `more` are similar commands, but do have [slight differences](https://unix.stackexchange.com/questions/81129/what-are-the-differences-between-most-more-and-less). `more` will display the file without hiding your command history; `less` will hide your command history until you press `q`.
+
+- 'less' is a program similar to 'more', but which allows backward movement in the file as well as forward movement.
+- less does not have to read the entire input file before starting, so with large input files it starts up faster than text editors like vi.
 
 ```bash
 Bradleys-MacBook-Pro:~ brad$ less test.txt
@@ -376,7 +414,6 @@ And this is the third.
 ```
 
 ## `grep`
-
 The following pipes to commands together.  `cat` prints the file and `grep` finds all lines with occurences of `ax`.
 
 ```bash
@@ -397,7 +434,6 @@ Bradleys-MacBook-Pro:adhoc brad$ history | grep conda
 ```
 
 ## `find`
-
 The following looks for text files in our current directory and its child folders:
 
 ```bash
@@ -418,7 +454,6 @@ Bradleys-MacBook-Pro:python brad$ find . -name "*txt" -type f | xargs grep neat
 # Other hacks
 
 ## `clear`
-
 In Sublime Text, there is a feature "Scroll Past End" that allows you to scroll the area of code you’re editing to the center of the window, even if it’s at the end of the file.
 
 There is no direct equivalent functionality in terminal, but we can use `clear`, which clears the terminal screen and gets us a "blank page."
@@ -454,18 +489,92 @@ Bradleys-MacBook-Pro:~ brad$ caffeinate -i -t 3600
 The number at the end represents the number of seconds. So, 3600 = 1 hour.
 
 ## Downloading files
-
 We can use `curl` for this in place of `wget`, which is not available by defualt on all systems.
 
 ```bash
-# Save the downloaded .zip to $HOME
-$ curl http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/ftp/F-F_Research_Data_Factors_CSV.zip --output frenchdata.zip
+# Save the downloaded .zip to Downloads/
+$ curl http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/ftp/F-F_Research_Data_Factors_CSV.zip --output Downloads/frenchdata.zip
 ```
-Now unzip the contents to a new directory:
+
+## Zipping & unzipping
+View info without unzipping with `zipinfo`.  For other extensions you may need `gzip`, `tar`, or `bzip2`.
+
+```bash
+~ $ zipinfo Downloads/frenchdata.zip
+Archive:  Downloads/frenchdata.zip
+Zip file size: 12071 bytes, number of entries: 1
+-rw-a--     6.3 fat    52440 bx defN 17-Nov-27 11:08 F-F_Research_Data_Factors.CSV
+1 file, 52440 bytes uncompressed, 11879 bytes compressed:  77.3%
+```
+
+Alternatives:
+- `tar -tf Downloads/frenchdata.zip`
+
+
+Unzip the contents from above to a new directory:
 
 ```bash
 Bradleys-MacBook-Pro:~ brad$ unzip frenchdata.zip -d frenchdata/
 ```
+
+Zipping contents of a folder:
+
+```bash
+~ $ ls Downloads/
+file1.txt   file2.txt   file3.txt   file4.txt
+~ $ tar -zcvf my_archive.tar.gz Downloads/
+```
+
+## Dragging files to terminal
+You can drag a file directly to Terminal to add its file path to the command line.
+
+https://www.youtube.com/watch?v=mgazHxDtiu8
+
+## Brackets for batch operations
+When you're working with variations of a file—like backups or different file types—it can get tedious typing out the same commands with small tweaks. Using the brace symbols ({}), you can easily perform batch operations on multiple versions of a file.
+
+Say you want to rename just part of a filename. Instead of typing out `mv /path/to/file.txt /path/to/file.xml`, you could just run:
+
+```bash
+mv /path/to/file.{txt,xml}
+```
+
+The most common example of this is when you're backing up a file that you're making changes to. For example, if you are tweaking your _rc.conf_, you'll want to make a backup in case the new one doesn't work. So, to do so, you can just run:
+
+```bash
+sudo cp /etc/rc.conf{,-old}
+```
+
+## Process information
+Use `top` to mimic the functionality of Window's Task Manager.  The top program periodically displays a sorted list of system processes.  The default sorting key is pid, but other keys can be used instead.
+
+```bash
+$ top -o cpu  # sort by cpu usage descending
+Processes: 332 total, 2 running, 330 sleeping, 1253 threads            17:35:08
+Load Avg: 1.64, 1.78, 1.65  CPU usage: 6.29% user, 5.32% sys, 88.37% idle
+SharedLibs: 196M resident, 55M data, 20M linkedit.
+MemRegions: 39801 total, 2567M resident, 164M private, 1108M shared.
+PhysMem: 7382M used (2177M wired), 809M unused.
+VM: 1458G vsize, 1096M framework vsize, 0(0) swapins, 0(0) swapouts.
+Networks: packets: 1669245/2252M in, 427135/55M out.
+Disks: 497805/8364M read, 308242/7396M written.
+
+PID   COMMAND      %CPU TIME     #TH   #WQ  #PORT MEM    PURG   CMPRS  PGRP PPID
+2038  Terminal     12.6 00:41.13 10    5    348   70M+   1836K- 0B     2038 1
+0     kernel_task  7.2  22:28.95 152/4 0    2     833M   0B     0B     0    0
+```
+
+## Making your own shorthand
+In your `~/.bash_profile`, you can create a custom shortcut called an `alias`.  Add a line like this to `~/.bash_profile`:
+
+```bash
+alias la='ls -A'
+```
+
+Now, whenever you type `la`, the Terminal will run `ls` with the `-a` modifier, which includes hidden files.
+
+## Word count
+Use `wc`.  Outputs: word, line, character, and byte count.
 
 # Getting help
 Simply typing `help` gets you a non-exhaustive list of commands and their options.
@@ -482,7 +591,22 @@ pwd: pwd [-LP]
 
 Note that only the commands listed under `help` are available through `help name`.  Some, like `help ls`, will throw an error because they aren't present in the list.  `help` gets you acccess to **built-in** shell commands.
 
-Another form of documentation is man pages (short for manual).  This directory is more extensive than `help`.  To access a man page, type the `man` command followed by the name of the thing you want to look up.  The link to the full OS X Man Pages is [here](https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/).  To exit, press "q."
+Another form of documentation is man pages (short for manual).  This directory is more extensive than `help`.  To access a man page, type the `man` command followed by the name of the thing you want to look up: `man <command>`.  The link to the full OS X Man Pages is [here](https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/).  To exit, press "q."
+
+# Keyboard shortcuts
+
+| Key | Use |
+| --- | --- |
+| ArrowUp | Step through recent commands, starting with the most recently used. |
+| ArrowDown | Step forwards towards more recent commands. |
+| CTRL+A | Move cursor to beginning of line. |
+| CTRL+E | Move cursor to end of line. |
+| CTRL+C | Abort a command. |
+| CTRL+U | Delete all to **left** of cursor. |
+| CTRL+K | Delete all to **right** of cursor. |
+| CTRL+W | Delete the word before the cursor only. |
+| CTRL+R | Search your command history for specific phrases. |
+| !! | Alias for the last command run. |
 
 # Other
 Bash scripts often begin with `#! /bin/bash` (assuming that Bash has been installed in /bin), since this ensures that Bash will be used to interpret the script, even if it is executed under another shell.
