@@ -449,7 +449,7 @@ pbcopy < ~/.ssh/id_rsa.pub
 ## `.gitignore`
 Typically, in every project and on every platform, there are a couple of files that you don't want to be version controlled: on Mac OS, e.g., those pesky ".DS_Store" files aren't worth versioning.
 
-A helpful compilation of ignore rules for different projects and platforms can be found here: github.com/github/gitignore.
+A helpful compilation of ignore rules for different projects and platforms can be found here: [github.com/github/gitignore](github.com/github/gitignore).
 
 The list of files to ignore is kept in a simple file called ".gitignore" in the root folder of your project. It's highly recommended to **define this list at the very beginning of your project - before making your first commit**. Because once files are committed, you'll have to jump through some hoops to get them out of version control, again.
 
@@ -463,8 +463,8 @@ gitk is a builtin git GUI:
 $ gitk
 ```
 
-Note that you must be in a repo directory to use.
+Note that you must be in a git repo directory to use.
 
-Tower is an alternate GUI: https://www.git-tower.com/mac/.
+[Tower](https://www.git-tower.com/mac/) and [GitX](http://gitx.frim.nl/) are two alternate GUIs.
 
 GitHub for desktop: https://desktop.github.com/.
