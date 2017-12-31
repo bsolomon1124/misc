@@ -57,9 +57,13 @@ A fourth _step_ (not a stage) is to **push** the commit back up to GitHub.
 
 ## Git trees
 Your local repository consists of three "trees" maintained by git.
-1. Your **Working Directory**, which holds the actual files.
+1. Your **working directory** (working copy), which holds the actual files.  This is the root folder of your project and the directory that contains your project's files.
 2. The **Index**, which acts as a staging area.
 3. The **HEAD**, which points to the last commit you've made.
+
+This leads us to a very basic question: what is a repository?
+
+> Think of a repository as a kind of database where your VCS stores all the versions and metadata that accumulate in the course of your project. **In Git, the repository is just a simple hidden folder named ".git" in the root directory of your project.**
 
 ## A golden rule of version control
 A single commit should only wrap related changes: fixing two different bugs should produce (at the very least) two separate commits.  When crafting a commit, it's very important to only include changes that belong together. You should never mix up changes from multiple, different topics in a single commit.
@@ -87,7 +91,7 @@ octobox $ ls -a
 ```
 
 ### `git clone`
-This makes a copy of the repository in your laptop. Click on the clipboard image on the right sidebar to copy the HTTPS clone URL:
+This command makes a copy of a repository locally. Click on the clipboard image on the right sidebar to copy the HTTPS clone URL:
 
 ![git_clone](imgs/git_clone.png)
 
@@ -113,9 +117,35 @@ Cloning the directory will create the following:
 
 And now `cd` into the `/dsp` folder.
 
-This directory contains not only the downloaded material but also a `.git` subfolder.  **This is central to version control!**  The presence of the `.git` subfolder is what makes this a git repo, not just a regular locally-housed project.
+This directory contains not only the downloaded material but also a `.git` subfolder.  The presence of the `.git` subfolder is what makes this a git repo, not just a regular locally-housed project.
 
-When you clone a repository from a remote server, Git automatically remembers this connection for you. It saves it as a remote called "origin" by default.
+## Understanding remotes
+Local versus remote repos:
+> - A "local" repository resides on your local computer, as a ".git" folder inside your project's root folder. You are the only person that can work with this repository, by committing changes to it.
+> - A "remote" repository, in contrast, is typically located on a remote server on the internet or in your local network. No actual working files are associated with a remote repository: it has no working directory but it exclusively consists of the ".git" repository folder. Teams are using remote repositories to share & exchange data: they serve as a common base where everybody can publish their own changes and receive changes from their teammates.
+
+When you clone a repository from a remote server, Git automatically remembers this connection for you. It saves it as a **remote** called "origin" by default.
+
+_Remotes_ is another term for a _set of repositories whose branches you're tracking._  As a side note, we can use `git remote -v` (where v=verbose) to see what our _remotes_ are.
+
+```bash
+dsp $ git remote -v
+origin  https://github.com/bsolomon1124/dsp.git (fetch)
+origin  https://github.com/bsolomon1124/dsp.git (push)
+```
+
+The `git remote` command has several different possible syntaxes.  One of them is:
+
+> `git remote add [-t <branch>] [-m <master>] [-f] [--[no-]tags] [--mirror=<fetch|push>] <name> <url>`
+
+`git remote add` allows us to _add a remote repository_ to our list of remotes.  This command takes a **remote name** and a **repository URL**, which in the example case from "15 Minutes to Git" is is https://github.com/try-git/try_git.git.
+
+```bash
+octobox $ git remote add origin https://github.com/try-git/try_git.git
+octobox $ git remote -v
+origin  https://github.com/try-git/try_git.git (fetch)
+origin  https://github.com/try-git/try_git.git (push)
+```
 
 ## `git status`
 `git status` shows the **current working tree status.**  Two useful flags:
@@ -137,6 +167,7 @@ dsp $ git status -sb  # not telling us much at all
 ## master...origin/master
 ```
 
+## Modifying, adding, committing, and pushing
 Now let's modify a file (or two) in our repo in whatever text editor and rerun the above:
 
 ```bash
@@ -174,9 +205,9 @@ As indicated in the output for `git status`, the next step is to use `git add <f
 
 This also accepts wildcards: `$ git add new-page.html index.html css/*` would add all files in `css/`.
 
-In other words, `git add` **snapshots the file in preparation for versioning.**
+In other words, `git add` **snapshots the file in preparation for versioning.**  Remember that
 
-> The "index" holds a snapshot of the content of the working tree, and it is this snapshot that is taken as the contents of the next commit. Thus after making any changes to the working tree, and before running the commit command, you must use the `add` command to add any new or modified files to the index.
+> the **Index** holds a snapshot of the content of the working tree, and it is this snapshot that is taken as the contents of the next commit. Thus after making any changes to the working tree, and before running the commit command, you must use the `add` command to add any new or modified files to the index.
 
 Let's add our modified files to the index:
 
@@ -234,32 +265,7 @@ The name of our remote is `origin` and the default local branch name is `master`
 
 Your work should now show up in your remote repository.
 
-As a side note, we can use `git remote -v` (where v=verbose) to see what our _remotes_ our.  _Remotes_ is another term for a _set of repositories whose branches you're tracking._  Here _fetch_ is synonymous with _pull_:
-
-```bash
-dsp $ git remote -v
-origin  https://github.com/bsolomon1124/dsp.git (fetch)
-origin  https://github.com/bsolomon1124/dsp.git (push)
-```
-
-To restate the above:
-> - A "local" repository resides on your local computer, as a ".git" folder inside your project's root folder. You are the only person that can work with this repository, by committing changes to it.
-> - A "remote" repository, in contrast, is typically located on a remote server on the internet or in your local network. No actual working files are associated with a remote repository: it has no working directory but it exclusively consists of the ".git" repository folder. Teams are using remote repositories to share & exchange data: they serve as a common base where everybody can publish their own changes and receive changes from their teammates.
-
-The `git remote` command has several different possible syntaxes.  One of them is:
-
-> `git remote add [-t <branch>] [-m <master>] [-f] [--[no-]tags] [--mirror=<fetch|push>] <name> <url>`
-
-`git remote add` allows us to _add a remote repository_ to our list set of remotes.  This command takes a **remote name** and a **repository URL**, which in the case of "15 Minutes to Git" is is https://github.com/try-git/try_git.git.
-
-```bash
-octobox $ git remote add origin https://github.com/try-git/try_git.git
-octobox $ git remote -v
-origin  https://github.com/try-git/try_git.git (fetch)
-origin  https://github.com/try-git/try_git.git (push)
-```
-
-# The above in reverse
+# Pulling
 What if we edit the files in GitHub?  Can we have this change our files locally?  Let's try making a small "direct" edit to `https://github.com/bsolomon1124/dsp/edit/master/00b-fork_repo.md` while adding a commit message and then clicking "commit changes" in the browser.
 
 These changes _will not_ be immediately reflected in your local machine repo.  How do we get them to be reflected?  With `git pull`.
@@ -280,13 +286,7 @@ Fast-forward
 
 If you open this file locally, you'll see that it now reflects the changes from GitHub.  Pulling _updates our local repository to reflect changes/commits made in the remote repo_.  This could be useful if we've invited other people to our GitHub project who have pulled your changes, made their own commits, and pushed them.
 
-#xxx
-
-Some related terminology is the term **working copy**.  The root folder of your project is often called the "working copy" (or "working directory"). It's the directory on your local computer that contains your project's files.
-
-This leads us to a very basic question: what is a repository?
-
-> Think of a repository as a kind of database where your VCS stores all the versions and metadata that accumulate in the course of your project. In Git, the repository is just a simple hidden folder named ".git" in the root directory of your project.
+# Untracked files
 
 If we create an empty file, its status **untracked.**  (Slightly different than the `.md` files above.)
 
