@@ -9,7 +9,7 @@
     - [`git clone`](#git-clone)
     - [Understanding remotes](#undertanding-remotes)
     - [`git status`](#git-status)
-    - [Modifying, adding, committing, and pushing]()
+    - [Modifying, adding, committing, and pushing](#modifying-adding-committing-and-pushing)
 - [Pulling](#pulling)
 - [Untracked files](#untracked-files)
 - [History](#history)
