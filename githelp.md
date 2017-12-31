@@ -1,5 +1,27 @@
 # Contents
-- [TODO](#xxx)
+- [Version control systems](#version-control-systems)
+    - [File states in git](#file-states-in-git)
+    - [Git trees](#git-trees)
+    - [A golden rule of version control](#a-golden-rule-of-version-control)
+- [The git workflow](#the-git-workflow)
+    - [Creating or copying a repo](#creating-or-copying-a-repo)
+    - [`git init`](#git-init)
+    - [`git clone`](#git-clone)
+    - [Understanding remotes](#undertanding-remotes)
+    - [`git status`](#git-status)
+    - [Modifying, adding, committing, and pushing]()
+- [Pulling](#pulling)
+- [Untracked files](#untracked-files)
+- [History](#history)
+- [Branching](#branching)
+- [Other](#other)
+    - [Git setup & configuration](#git-setup--configuration)
+    - [Access permission to cloned repos](#access-permission-to-cloned-repos)
+    - [Authentication with SSH public keys](#authentication-with-ssh-public-keys)
+    - [GitHub Gist](#github-gist)
+    - [`.gitignore`](#gitignore)
+    - [`git rm`](#git-rm)
+    - [GUIs](#guis)
 
 # Resources & references
 Ordered by ascending difficulty/assumed familiarity level.
@@ -287,7 +309,6 @@ Fast-forward
 If you open this file locally, you'll see that it now reflects the changes from GitHub.  Pulling _updates our local repository to reflect changes/commits made in the remote repo_.  This could be useful if we've invited other people to our GitHub project who have pulled your changes, made their own commits, and pushed them.
 
 # Untracked files
-
 If we create an empty file, its status **untracked.**  (Slightly different than the `.md` files above.)
 
 ```bash
