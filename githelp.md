@@ -41,65 +41,33 @@ Ordered by ascending difficulty/assumed familiarity level.
 - ["Algorithm" is not a !@%#$@ 4-Letter Word](http://www.jamisbuck.org/presentations/rubyconf2011/index.html), RubyConf 2011 slides by Jamis Buck
 - [Wikipedia](https://en.wikipedia.org/wiki/Graph_theory)
 
-# Git setup & configuration
-
-`git config` is used to get and set repository or global options.
-
-Here, some have already been set.  To list all:
-
-```bash
-octobox $ git config -l  # or -list
-http.sslverify=true
-http.sslcapath=/Applications/anaconda3/ssl/cacert.pem
-http.sslcainfo=/Applications/anaconda3/ssl/cacert.pem
-user.email=brad.solomon.1124@gmail.com
-user.name=Brad Solomon
-core.editor='/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl' --wait --new-window
-credential.helper=osxkeychain
-core.repositoryformatversion=0
-core.filemode=true
-core.bare=false
-core.logallrefupdates=true
-core.ignorecase=true
-core.precomposeunicode=true
-remote.origin.url=https://github.com/try-git/try_git.git
-remote.origin.fetch=+refs/heads/*:refs/remotes/origin/*
-```
-
-To set a few:
-
-```bash
-$ git config --global user.name "[name]"  # name & email attached to commits
-$ git config --global user.email "[email address]"
-$ git config --global color.ui true  # enable colorization
-```
-
 # Version control systems
 You can think of a version control system (short: "VCS") as a kind of "database". It lets you save a snapshot of your complete project at any time you want.  Version control is independent of the kind of project/language you're working with.
 
 ![vcs](https://www.git-tower.com/learn/content/01-git/01-ebook/en/01-command-line/02-basics/01-what-is-version-control/what-is-vcs.png)
 
+## File states in git
 There are three main states that your files can reside in:
 
-1. **Modified** means that there's been changes to the file but it's not committed yet.  This isn't a git command; when you manually edit any file in a `git` repo, you're modifying it.
+1. **Modified** means that there's been changes to the file but it's not committed yet.  This isn't a git command; when you manually edit any file in a git repo, you're modifying it.
 2. **Staged** means that you have marked a file to go into your next commit snapshot.  Changes you make to files get marked in "chunks" or stages, and you decide how intermittently to take a snapshot of those changes.
-3. **Committed** means that the changes you made have been stored locally. [?]
+3. **Committed** means that the changes you made have been stored/documented.
 
 A fourth _step_ (not a stage) is to **push** the commit back up to GitHub.
 
-`git status` shows the **current working tree status.**  Two flags:
-- `-s` - Give the output in the short-format.
-- `-b` - Show the branch and tracking info even in short-format.
-
-## A golden rule of version control
-A single commit should only wrap related changes: fixing two different bugs should produce (at the very least) two separate commits.  When crafting a commit, it's very important to only include changes that belong together. You should never mix up changes from multiple, different topics in a single commit.
-
-## The git workflow
+## Git trees
 Your local repository consists of three "trees" maintained by git.
 1. Your **Working Directory**, which holds the actual files.
 2. The **Index**, which acts as a staging area.
 3. The **HEAD**, which points to the last commit you've made.
 
+## A golden rule of version control
+A single commit should only wrap related changes: fixing two different bugs should produce (at the very least) two separate commits.  When crafting a commit, it's very important to only include changes that belong together. You should never mix up changes from multiple, different topics in a single commit.
+
+# The git workflow
+`git status` shows the **current working tree status.**  Two useful flags:
+- `-s` - Give the output in the short-format.
+- `-b` - Show the branch and tracking info even in short-format.
 
 Try checking our status before we have made any changes.
 
@@ -406,6 +374,38 @@ This directory contains not only the downloaded material but also a `.git` subfo
 
 When you clone a repository from a remote server, Git automatically remembers this connection for you. It saves it as a remote called "origin" by default.
 
+# Other
+
+## Git setup & configuration
+`git config` is used to get and set repository or global options.
+
+Here, some have already been set.  To list all:
+
+```bash
+octobox $ git config -l  # or -list
+http.sslverify=true
+http.sslcapath=/Applications/anaconda3/ssl/cacert.pem
+http.sslcainfo=/Applications/anaconda3/ssl/cacert.pem
+user.email=brad.solomon.1124@gmail.com
+user.name=Brad Solomon
+core.editor='/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl' --wait --new-window
+credential.helper=osxkeychain
+core.repositoryformatversion=0
+core.filemode=true
+core.bare=false
+core.logallrefupdates=true
+core.ignorecase=true
+core.precomposeunicode=true
+```
+
+To set a few:
+
+```bash
+$ git config --global user.name "[name]"  # name & email attached to commits
+$ git config --global user.email "[email address]"
+$ git config --global color.ui true  # enable colorization
+```
+
 ## Access permission to cloned repos
 When you `git clone` a url, Git will download a complete copy of this repository to your local disk - on condition that you're allowed to access this repository.
 
@@ -413,7 +413,7 @@ When you `git clone` a url, Git will download a complete copy of this repository
 - For "https" URLs, you might need a username and a password.
 - For "ssh" URLs (either with a leading "ssh://" or, with the shorter form, "user@server..."), you'll have to use "SSH Public Key" authentication. While being very safe, efficient, and widely used, it's also a little bit of work to set up.
 
-## Authentication with SSH public keys
+### Authentication with SSH public keys
 Secure Shell (SSH) is a network protocol for operating network services securely over an unsecured network.
 
 Authentication with SSH uses a two-part key: a public and a private one.
@@ -453,20 +453,20 @@ Now, two files will have been created for you: "id_rsa.pub" (your public key) an
 pbcopy < ~/.ssh/id_rsa.pub
 ```
 
-# GitHub Gist
+## GitHub Gist
 [TODO]
 
-# `.gitignore`
+## `.gitignore`
 Typically, in every project and on every platform, there are a couple of files that you don't want to be version controlled: on Mac OS, e.g., those pesky ".DS_Store" files aren't worth versioning.
 
 A helpful compilation of ignore rules for different projects and platforms can be found here: github.com/github/gitignore.
 
 The list of files to ignore is kept in a simple file called ".gitignore" in the root folder of your project. It's highly recommended to **define this list at the very beginning of your project - before making your first commit**. Because once files are committed, you'll have to jump through some hoops to get them out of version control, again.
 
-# `git rm`
+## `git rm`
 `rm` is _remove_.  Remove files from the index, or from the working tree and the index.  If you've deleted a file completely from your project, you'll want to use this and pass the file name to add its deletion to the staging area.
 
-# GUIs
+## GUIs
 gitk is a builtin git GUI:
 
 ```bash
