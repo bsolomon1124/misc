@@ -2,8 +2,35 @@
 - [Terminology](#terminology)
 - [Environment variables](#environment-variables)
 - [The home directory](#the-home-directory)
-
-TODO
+- [Special path characters](#special-path-characters)
+- [Running an application](#running-an-application)
+- [Commands](#commands)
+    - [`mkdir`](#mkdir)
+    - [`cd`](#cd)
+    - [`rmdir` & `rm`](#rmdir--rm)
+    - [`touch`](#touch)
+    - [`pushd` & `popd`](#pushd-and-popd)
+    - [`cp`](#cp)
+    - [`mv`](#mv)
+    - [`less` & `more`](#view-page-through-a-file-less-more)
+    - [`cat`](#cat)
+    - [`grep`](#grep)
+    - [`find`](#find)
+- [Chaining commands](#chaining-commands)
+- [Other hacks](#other-hacks)
+    - [`clear`](#clear)
+    - [Show hidden files](#show-hidden-files)
+    - [App update frequency](#change-frequency-with-which-app-store-checks-for-updates)
+    - [Downloading files](#downloading-files)
+    - [Zipping & unzipping](#zipping--unzipping)
+    - [Dragging files to Terminal](#dragging-files-to-terminal)
+    - [Brackets for batch operations](#brackets-for-batch-operations)
+    - [Process information](#process-information)
+    - [Making your own shorthand](#making-your-own-shorthand)
+    - [Word count](#word-count)
+- [Getting help](#getting-help)
+- [Keyboard shortcuts](#keyboard-shortcuts)
+- [Other](#other)
 
 # Resources & references
 - [Linux Bash Shell Cheat Sheet](https://learncodethehardway.org/unix/bash_cheat_sheet.pdf)
@@ -135,13 +162,13 @@ Bradleys-MacBook-Pro:Documents brad$ pwd
 
 # Running an application
 There are two ways to run an application (.app) from the command line.  (Example: current directory is `/Applications`.)
-1. Use `open`: `Bradleys-MacBook-Pro:Applications brad$ open BitTorrent.app`
+1. Use `open`: `$ open BitTorrent.app`
 2. Specify the pathname of the executable file inside the package.  This may be confusing because of the hidden nature of the directory: in the GUI, you simply see `application.app`.  But underneath, there is a path to an executable file:
 
 ```bash
-Bradleys-MacBook-Pro:Applications brad$ ls BitTorrent.app/Contents
+$ ls BitTorrent.app/Contents
 Frameworks  Info.plist  Library     MacOS       PkgInfo     Resources   _CodeSignature
-Bradleys-MacBook-Pro:Applications brad$ BitTorrent.app/Contents/MacOS/BitTorrent
+$ BitTorrent.app/Contents/MacOS/BitTorrent
 ```
 
 # Commands
