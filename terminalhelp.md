@@ -2,7 +2,8 @@
 - [Terminology](#terminology)
 - [Environment variables](#environment-variables)
 - [The home directory](#the-home-directory)
-- [Special path ]
+
+TODO
 
 # Resources & references
 - [Linux Bash Shell Cheat Sheet](https://learncodethehardway.org/unix/bash_cheat_sheet.pdf)
@@ -180,7 +181,6 @@ Bradleys-MacBook-Pro:Applications brad$ BitTorrent.app/Contents/MacOS/BitTorrent
 | vi | launch the text editor vi
 | history | display the history list with line numbers
 | head | display first lines of a file | `head -n <num_lines> <filename>` or `head <filename>`; default 10 |
-
 
 Now, for some more on specific commands.
 
@@ -450,6 +450,9 @@ Continuing with the above, search those files for the word _neat_:
 ```bash
 Bradleys-MacBook-Pro:python brad$ find . -name "*txt" -type f | xargs grep neat
 ```
+
+# Chaining commands
+Use the pipe operator ("|") at the end of a command to redirect its _output_ to the next command.  Note that this is different than a semicolon which is simply the equivalent of using the commands _separately_ on two different lines.
 
 # Other hacks
 
