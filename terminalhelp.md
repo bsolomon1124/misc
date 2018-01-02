@@ -92,9 +92,6 @@ export PATH="/Applications/anaconda3/bin:$PATH"
 ```
 
 # The home directory
-
-- **Home** folder/directory: In Finder, choose Go > Home (shortcut: _Shift+Cmd+H_).  The Home folder is identified by an icon that looks like a house.
-
 Your home directory (aliases `$HOME` or `~`) might not be the same as your _root_ directory.  To see your home directory, use
 
 ```bash
@@ -252,32 +249,25 @@ $ mkdir -p dir1/dir2/dir3/dir4
 $ pwd
 /Users/brad
 $ cd dir1/dir2/dir3
-Bradleys-MacBook-Pro:dir3 brad$ pwd
+$ pwd
 /Users/brad/dir1/dir2/dir3
-Bradleys-MacBook-Pro:dir3 brad$ cd ..
-Bradleys-MacBook-Pro:dir2 brad$ pwd
+$ cd ..
+$ pwd
 /Users/brad/dir1/dir2
-Bradleys-MacBook-Pro:dir2 brad$ cd ..; pwd  # one folder up
+$ cd ..; pwd  # one folder up
 /Users/brad/dir1
-Bradleys-MacBook-Pro:dir1 brad$ cd ../..; pwd  # two folders up
+$ cd ../..; pwd  # two folders up
 /Users
 ```
 
 You can put quotes around any file/folder in any command:
 
 ```bash
-cd "long folder name"
-```
-
-To get to your root:
-
-```bash
-Bradleys-MacBook-Pro:/ brad$ cd /; pwd
-/
+$cd "long folder name"
 ```
 
 ## `rmdir` & `rm`
-If you try to do `rmdir` on Mac OSX and it refuses to remove the directory even though you are positive it's empty, then there is likely a hidden file contained there such as _.DS_Store_. In that case, type `rm -rf <dir>` instead (replace `<dir>` with the directory name).
+If you try to do `rmdir` on Mac OSX and it refuses to remove the directory even though you are positive it's empty, then there is likely a hidden file contained there such as _.DS_Store_. In that case, type `rm -rf <dir>` instead (where `<dir>` is directory name).
 
 | Syntax | Use |
 | ------ | --- |
@@ -287,8 +277,10 @@ If you try to do `rmdir` on Mac OSX and it refuses to remove the directory even 
 | `rm -r <foldername>/` | delete folder |
 
 ## `touch`
+Use touch to create blank files.  Make sure to specify the extension.
+
 ```bash
-Bradleys-MacBook-Pro:temp brad$ touch testfile.txt
+$ touch testfile.txt
 ```
 
 Note that if the specified file already exists, the file itself will not be modified, but its last-modified-timestamp will be updated to "now."
@@ -307,21 +299,21 @@ Read these as "push directory" and "pop directory."  These commands let you **te
 $ pwd
 /Users/brad
 $ mkdir -p temp/dir1/dir2/dir3
-Bradleys-MacBook-Pro:dir2 brad$ pwd
+$ pwd
 /Users/brad/temp/dir1/dir2
-Bradleys-MacBook-Pro:dir2 brad$ pushd ~  # Store current directory, and go $HOME
+$ pushd ~  # Store current directory, and go $HOME
 ~ ~/temp/dir1/dir2
 $ pwd
 /Users/brad
 $ pushd  # pushed with no args - switch to last dir you pushd
 ~/temp/dir1/dir2 ~
-Bradleys-MacBook-Pro:dir2 brad$ pushd ../..
+$ pushd ../..
 ~/temp ~/temp/dir1/dir2 ~/temp/dir1/dir2 ~  # TODO: not following here
-Bradleys-MacBook-Pro:temp brad$ popd
+$ popd
 ~/temp/dir1/dir2 ~/temp/dir1/dir2 ~
-Bradleys-MacBook-Pro:dir2 brad$ popd
+$ popd
 ~/temp/dir1/dir2 ~
-Bradleys-MacBook-Pro:dir2 brad$ popd
+$ popd
 ~
 ```
 
@@ -337,13 +329,10 @@ usage: cp [-R [-H | -L | -P]] [-fi | -n] [-apvXc] source_file target_file
 ```bash
 $ touch file.txt
 $ cp file.txt file2.txt  # As new file
-$ cp file.txt Downloads/file3.txt  # As new file within direc
+$ cp file.txt Downloads/file3.txt  # As renamed file within direc
 $ ls
 file.txt     file2.txt
-```
-
-```bash
-$ cp file.txt temp  # To directory
+$ cp file.txt temp  # To directory; retain name
 ```
 
 Note that putting a `/` (slash) at the end of a directory checks that the file is really a directory, so if the directory doesn't exist, you'll get an error.
@@ -376,13 +365,13 @@ usage: mv [-f | -i | -n] [-v] source target
 ```
 
 ```bash
-Bradleys-MacBook-Pro:temp brad$ pwd; ls
+$ pwd; ls
 /Users/brad/temp
 file2.txt
-Bradleys-MacBook-Pro:temp brad$ mkdir subtemp; mv file2.txt subtemp
-Bradleys-MacBook-Pro:temp brad$ ls
+$ mkdir subtemp; mv file2.txt subtemp
+$ ls
 subtemp
-Bradleys-MacBook-Pro:temp brad$ ls subtemp
+$ ls subtemp
 file2.txt
 ```
 
@@ -393,8 +382,8 @@ $ touch temp/file1.txt
 $ ls temp
 file1.txt
 $ cd temp
-Bradleys-MacBook-Pro:temp brad$ mv file1.txt file2.txt
-Bradleys-MacBook-Pro:temp brad$ ls
+$ mv file1.txt file2.txt
+$ ls
 file2.txt
 ```
 
