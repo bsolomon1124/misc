@@ -306,7 +306,7 @@ $ pwd
 $ pushd  # pushed with no args - switch to last dir you pushd
 ~/temp/dir1/dir2 ~
 $ pushd ../..
-~/temp ~/temp/dir1/dir2 ~/temp/dir1/dir2 ~  # TODO: not following here
+~/temp ~/temp/dir1/dir2 ~/temp/dir1/dir2 ~
 $ popd
 ~/temp/dir1/dir2 ~/temp/dir1/dir2 ~
 $ popd
