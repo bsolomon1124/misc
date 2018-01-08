@@ -601,6 +601,8 @@ PS1='\W \$ '
 
 to abbreviate your prompt to the working directory + $.
 
+For more options: [Bash Shell PS1: 10 Examples to Make Your Linux Prompt like Angelina Jolie](https://www.thegeekstuff.com/2008/09/bash-shell-ps1-10-examples-to-make-your-linux-prompt-like-angelina-jolie/)
+
 # Getting help
 Simply typing `help` gets you a non-exhaustive list of commands and their options.
 
