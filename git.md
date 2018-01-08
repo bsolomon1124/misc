@@ -415,6 +415,7 @@ To set a few:
 $ git config --global user.name "[name]"  # name & email attached to commits
 $ git config --global user.email "[email address]"
 $ git config --global color.ui true  # enable colorization
+# git config --global credential.helper osxkeychain  # save pw/login
 ```
 
 ## Access permission to cloned repos
