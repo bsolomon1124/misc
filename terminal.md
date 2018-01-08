@@ -286,8 +286,6 @@ $ touch testfile.txt
 Note that if the specified file already exists, the file itself will not be modified, but its last-modified-timestamp will be updated to "now."
 
 ## `pushd` and `popd`
-TODO: not fulling understanding these 2...
-
 Read these as "push directory" and "pop directory."  These commands let you **temporarily go to a different directory and then come back, easily switching between the two.**
 
 - The `pushd` command takes your current directory and "pushes" it into a list for later, then it changes to another directory. It's like saying, "Save where I am, then go here."
