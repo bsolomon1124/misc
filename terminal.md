@@ -581,10 +581,10 @@ PID   COMMAND      %CPU TIME     #TH   #WQ  #PORT MEM    PURG   CMPRS  PGRP PPID
 In your `~/.bash_profile`, you can create a custom shortcut called an `alias`.  Add a line like this to `~/.bash_profile`:
 
 ```bash
-alias la='ls -A'
+alias lah='ls -lah'
 ```
 
-Now, whenever you type `la`, the Terminal will run `ls` with the `-a` modifier, which includes hidden files.
+Now, whenever you type `lah`, the Terminal will run `ls` with -l, -a, -h flags.
 
 ## Word count
 Use `wc`.  Outputs: word, line, character, and byte count.
