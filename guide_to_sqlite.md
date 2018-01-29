@@ -16,6 +16,7 @@ This walkthrough coveres two distinct subjects:
 - CodeAcademy: [list of SQL commands](https://www.codecademy.com/articles/sql-commands?r=master)
 - [SQLiteStudio](https://sqlitestudio.pl/index.rvt) is a SQLite database manager
 - [sqlitetutorial.net/](http://www.sqlitetutorial.net/)
+- [Download SQL Server 2017 for Mac]()
 
 # SQL overview
 
@@ -75,13 +76,13 @@ This list is _not_ exhaustive; full list [here](https://www.sqlite.org/cli.html#
 - `.read FILENAME`:  Execute SQL in `FILENAME`.
 - `.open ?OPTIONS? ?FILE?`: This _uses a persistent disk file as the database._
 
-```bash
+```sql
 sqlite> .read euro2012.sql  # This .sql doc creates 3 tables
 sqlite> .tables
 eteam  game   goal
 ```
 
-```bash
+```sql
 sqlite> .cd /Users/brad/Scripts/sql/
 sqlite> .open flights.db
 ```
@@ -97,14 +98,14 @@ Note with CSV data you may need to specify `.separator ,` first.
 
 Example:
 
-```bash
+```sql
 `sqlite> .import work/somedata.csv tab1`
 ```
 
 ## File output
 Let's work with an example table:
 
-```bash
+```sql
 sqlite> create table tbl1(one varchar(10), two smallint);
 sqlite> insert into tbl1 values('hello!',10);
 sqlite> insert into tbl1 values('goodbye', 20);
@@ -114,31 +115,31 @@ sqlite> insert into tbl1 values('goodbye', 20);
 
 First, set the "mode" to "csv":
 
-```bash
+```sql
 sqlite> .mode csv
 ```
 
 Optionally, the `.header on` line causes column labels to be printed as the first row of output.
 
-```bash
+```sql
 sqlite> .header on
 ```
 
 The line ".once FILENAME" causes all query output to go into the named file instead of being printed on the console.
 
-```bash
-sqlite3> .once /Users/brad/Scripts/sql/dataout.csv
+```sql
+sqlite> .once /Users/brad/Scripts/sql/dataout.csv
 ```
 
 Then run a query to extract the desired rows of the table.  The output goes to wherever you specified with `.once`.
 
-```bash
+```sql
 sqlite> SELECT * FROM tbl1;
 ```
 
 Optionally, to open the file:
 
-```bash
+```sql
 sqlite> .system open /Users/brad/Scripts/sql/dataout.csv
 ```
 
