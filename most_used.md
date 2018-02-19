@@ -8,7 +8,7 @@ categories: Python
 
 A note on terminology: here I mostly use "package," "library,"" and "module" synonymously.  Hear me out--to be clear, they're not equivalent; a package is a collection of modules.  However, when we say that a syntax follows `from module import object`, _module_ could in fact be a package name (`from dask import dataframe`) or an actual module (`from six import types`), where the module is possibly a "standalone" module with no package structure or `__init__.py` file.  But for all intents and purposes, we treat these the same.  (TODO: wording).  Likewise, as far as I know, no one walks around saying that they get great use out of the [`numpy.linalg`](https://github.com/numpy/numpy/blob/master/numpy/linalg/linalg.py) module; they simply make reference to [`numpy`](https://docs.scipy.org/doc/numpy/user/whatisnumpy.html) as a package.  Admittedly, this disadvantages standalone modules (such as `six`, `os`, or `sys`, which are not large tools when measured by lines of code).  (TODO: wrap this up)
 
-<span style="font-size=8" * Imports such as `from pymc3 import logit` are actually made possible because the intermediate `from .math import logit` is made in the package's `__init__.py` file.</span>
+<span style="font-size=7"> * Imports such as `from pymc3 import logit` are actually made possible because the intermediate `from .math import logit` is made in the package's `__init__.py` file.</span>
 
 ## Rules
 
