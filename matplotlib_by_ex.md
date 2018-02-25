@@ -9,17 +9,17 @@ This article is a beginner-to-intermediate-level walkthrough on matplotlib that 
 Here's what we'll cover:
 
 - [Why can matplotlib be confusing?](#why-can-matplotlib-be-confusing)
-- [pylab: what is it, and should I use it?]()
-- [The matplotlib object hierarchy]()
-- [Stateful versus stateless approaches]()
-- [Understanding `plt.subplots()` notation]()
-- [The "Figures" behind the scenes]()
-- [A burst of color: `imshow()` and `matshow()`]()
-- [Plotting in pandas]()
-- [Wrapping up]()
-- [More resources]()
-- [Appendix A: configuration and styling]()
-- [Appendix B: interactive mode]()
+- [pylab: what is it, and should I use it?](pylab-what-is-it-and-should-i-use-it)
+- [The matplotlib object hierarchy](the-matplotlib-object-hierarchy)
+- [Stateful versus stateless approaches](#stateful-versus-stateless-approaches)
+- [Understanding `plt.subplots()` notation](#understanding-pltsubplots-notation)
+- [The "Figures" behind the scenes](the-figures-behind-the-scenes)
+- [A burst of color: `imshow()` and `matshow()`](#a-burst-of-color-imshow-and-matshow)
+- [Plotting in pandas](#plotting-in-pandas)
+- [Wrapping up](#wrapping-up)
+- [More resources](#more-resources)
+- [Appendix A: configuration and styling](#appendix-a-configuration-and-styling)
+- [Appendix B: interactive mode](#appendix-b-interactive-mode)
 
 This article assumes the user knows a tiny bit of NumPy; we'll mainly use the [`numpy.random`](https://docs.scipy.org/doc/numpy/reference/routines.random.html) module here to generate "toy" data, drawing samples from different statistical distributions.  For example, `numpy.random.uniform()` draws samples from a uniform distribution.
 
@@ -170,6 +170,7 @@ and we can call its _instance methods_ to manipulate the plot similarly to how w
 >>> ax.set_title('Combined debt growth over time')
 >>> ax.legend(loc='upper left')
 >>> ax.set_ylabel('Total debt')
+>>> ax.set_xlim(xmin=yrs[0], xmax=yrs[-1])
 >>> fig.tight_layout()
 ```
 
@@ -178,8 +179,6 @@ What's going on above?
 - After creating three random time series, we defined one Figure containing one Axes (a plot, `ax`).
 - We call methods of `ax` directly to create a stacked area chart, and add a legend, title, and y-axis label.  Under the object-oriented approach, it's clear that all of these are attributes of `ax`.
 - `tight_layout()` applies to the Figure object as a whole to clean up whitespace padding.
-
-TODO: constrain sides
 
 ![](debt.png)
 
