@@ -8,7 +8,7 @@ This article is a beginner-to-intermediate-level walkthrough on matplotlib that 
 
 Here's what we'll cover:
 
-- [Why can matplotlib be confusing?](#Why-can-matplotlib-be-confusing)
+- [Why can matplotlib be confusing?](#why-can-matplotlib-be-confusing)
 - [pylab: what is it, and should I use it?]()
 - [The matplotlib object hierarchy]()
 - [Stateful versus stateless approaches]()
