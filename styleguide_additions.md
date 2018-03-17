@@ -269,7 +269,7 @@ if (True and True) or (False or True):
     print(True)
 ```
 
-**Continutation lines:**
+**Continuation lines:**
 
 ```
 # Yes:
