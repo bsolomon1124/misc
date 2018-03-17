@@ -1,4 +1,4 @@
-**Purpose**: This document serves as a mutable blueprint for [articles that are oriented towards data science on Real Python](https://realpython.com/blog/categories/data-science/) should "look and feel."
+**Purpose**: This document serves as a mutable blueprint for how [articles that are oriented towards data science on Real Python](https://realpython.com/blog/categories/data-science/) should "look and feel."
 
 ## General Concepts
 
