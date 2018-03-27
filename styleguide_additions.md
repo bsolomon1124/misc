@@ -8,7 +8,6 @@ https://realpython.com/team/style-guide/
 
 ## Grammatical Style
 
-- Use "we"/"we're" in place of "you/you're" or "I/I'm" - helps the reader feel like they are working alongside the author rather than being "instructed."
 - Use an [active](https://en.wikipedia.org/wiki/Active_voice), present-tense voice rather than passive voice wherever possible.  This is more engaging.
     - Good: "We define the function as ..."
     - Bad: "The function is defined as ..."
