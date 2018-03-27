@@ -356,6 +356,16 @@ Other things that can be put in backticks (entirely optional; just emphasize con
 ## Subheadings - Proper Case Except for Small Words of Less Than Three Letters
 ```
 
+## Alerts
+
+For {%alert}/{%endalert} sections: if these are prefaced with something like "Technical Detail," "Note," or "Warning," keep these consistently in bold:
+
+```
+{%alert}
+**Technical Detail**: a detail that's very technical.
+{%endalert}
+```
+
 ## Other
 
 Here are a few other points that don't qualify directly as "style," but still promote consistency and are good practice.
