@@ -38,7 +38,7 @@ Books:
 
 # Database design: 10,000-foot View
 
-![layout.jpg](layout.jpg)
+![layout.jpg](imgs/layout.jpg)
 
 # SQL
 
