@@ -271,6 +271,10 @@ brad-# ORDER BY cust_name;
  The Toy Store                                      | IL         |      1
  Village Toys                                       | MI         |      3
 (5 rows)
+
+-- max cannot be used in the WHERE clause
+SELECT city FROM weather
+    WHERE temp_lo = (SELECT max(temp_lo) FROM weather);
 ```
 
 ## Working with `AS`
@@ -360,14 +364,6 @@ BEGIN TRANSACTION;
 UPDATE account SET total=total+5000.0 WHERE account_id=1337;
 UPDATE account SET total=total-5000.0 WHERE account_id=45887;
 END;
-```
-
-## Subqueries
-
-```sql
--- max cannot be used in the WHERE clause
-SELECT city FROM weather
-    WHERE temp_lo = (SELECT max(temp_lo) FROM weather);
 ```
 
 ## Primary Keys
