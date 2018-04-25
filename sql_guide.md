@@ -1,5 +1,3 @@
-TODO: http://blog.yhat.com/posts/SQL-interview-questions.html
-
 # Contents
 
 At a high level, this walkthrough covers:
@@ -44,12 +42,13 @@ Books:
 
 # Database design: 10,000-foot View
 
-- A *relational database* is a collection of linked (related) tables with rows and columns (fields).
+Types of database systems:
+
 - **Relational database management systems (RDBMSs)** - set-theory-based systems implemented as two-dimensional tables with rows and columns. The canonical means of interacting with an RDBMS is by
-writing queries in Structured Query Language (SQL).
+writing queries in Structured Query Language (SQL).  A *relational database* is a collection of linked (related) tables with rows and columns (fields).
 - **Key-value store** - a simple model.  As the name implies, a KV store pairs keys to values in much the same way that a map (or hashtable) would in any popular programming language. A filesystem could be considered a key-value store, if you think of the file path as the key and the file contents
 as the value.
-- **Columnar** (column-oriented, wide column store) - Columnar, or column-oriented, databases are so named because the important aspect of their design is that data from a given column (in the two-dimensional table sense) is stored together. By contrast, a row-oriented database (like an RDBMS) keeps information about a row together.  In column-oriented databases, adding columns is quite inexpensive and is done on a row-by-row basis. Each row can have a different set of columns, or none at all, allowing tables to remain sparse without incurring a storage cost for null values. With respect to structure, columnar is about midway between relational and key-value.
+- **Columnar** (column-oriented, wide column store) - Data from a given column (in the two-dimensional table sense) is stored together. By contrast, a row-oriented database (like an RDBMS) keeps information about a row together.  In column-oriented databases, adding columns is quite inexpensive and is done on a row-by-row basis. Each row can have a different set of columns, or none at all, allowing tables to remain sparse without incurring a storage cost for null values. With respect to structure, columnar is about midway between relational and key-value.
 - **Document-oriented** (document store) -In short, a document is like a hash, with a unique ID field and values that may be any of a variety of types, including more hashes. Documents can contain nested structures, and so they exhibit a high degree of flexibility, allowing for variable domains.
 - **Graph** - One of the less commonly used database styles, graph databases excel at dealing with highly interconnected data. A graph database consists of nodes and relationships between nodes. Both nodes and relationships can have properties—key-value pairs—that store data. The real strength of graph databases is traversing through the nodes by following relationships.  In other words, they work well with self-referential or otherwise intricately linked data.
 
@@ -96,10 +95,40 @@ CRUD stands for Create, Read, Update, Delete.  The corresponding SQL functions a
 
 - `CREATE` & `INSERT` - create a new table and insert new rows into it.
 - `SELECT` - query the data (ask questions).
-- `UPDATE` - change existing rows.
+- [`UPDATE`](https://www.postgresql.org/docs/10/static/sql-update.html) - change existing rows.  UPDATE changes the values of the specified columns in all rows that satisfy the condition.
 - `DELETE` - delete *rows* from a table.  This is different than dropping the table entirely with `DROP TABLE`.
 
-## Operators
+`UPDATE` examples:
+
+```sql
+-- Change the word Drama to Dramatic in the column kind of the table films:
+UPDATE films SET kind = 'Dramatic' WHERE kind = 'Drama';
+
+-- Adjust temperature entries and reset precipitation to its default value in one row of the table weather:
+UPDATE weather SET temp_lo = temp_lo+1, temp_hi = temp_lo+15, prcp = DEFAULT
+  WHERE city = 'San Francisco' AND date = '2003-07-03';
+
+-- Increment the sales count of the salesperson who manages the
+-- account for Acme Corporation, using the FROM clause syntax:
+UPDATE employees SET sales_count = sales_count + 1 FROM accounts
+  WHERE accounts.name = 'Acme Corporation'
+  AND employees.id = accounts.sales_person;
+```
+
+### More on UPDATE
+
+Basic syntax:
+
+```sql
+UPDATE TableName
+SET { column_name = { expression | DEFAULT } | ( column_name [, ...] ) = ( sub-SELECT ) } [, ...]
+[ FROM from_list ]
+[ WHERE condition ]
+```
+
+Examples:
+
+
 
 > NOTE: The != operator is converted to <> in the parser stage.
 
