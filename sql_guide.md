@@ -434,6 +434,14 @@ Unique constraint: used to ensure that all data in a column or set of columsn is
 - They can be reused
 - They *cannot* be used to define foreign keys
 
+```sql
+CREATE TABLE Products (
+    product_no INTEGER UNIQUE,
+    name TEXT,
+    price NUMERIC
+);
+```
+
 ## Check Constraints
 
 Check constraint: used to ensure that data in a column or set of columns meets a criteria that you specify.
