@@ -897,6 +897,10 @@ To load a specific database, use `psql database`; otherwise, you can use just `p
 Helpful flag is `-s` to use single-step mode:
 
 ```sql
+ ~$ psql -s
+psql (10.3)
+Type "help" for help.
+
 brad=# \cd /Users/brad/Scripts/sql/tutorial/
 brad=# \i basics.sql
 ***(Single step mode: verify command)*******************************************
