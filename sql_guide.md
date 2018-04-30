@@ -234,11 +234,11 @@ A subquery in a FROM clause acts similarly to a **temporary table** that is gene
 **Examples**:
 
 ```sql
-brad=# SELECT cust_id
-brad-# FROM Orders
-brad-# WHERE order_num IN (SELECT order_num
-brad(#                     FROM OrderItems
-brad(#                     WHERE prod_id = 'RGAN01');
+SELECT cust_id
+FROM Orders
+WHERE order_num IN (SELECT order_num
+                    FROM OrderItems
+                    WHERE prod_id = 'RGAN01');
   cust_id
 ------------
  1000000004
@@ -246,9 +246,9 @@ brad(#                     WHERE prod_id = 'RGAN01');
 (2 rows)
 
 -- The inner result from above
-brad=# SELECT order_num
-brad-# FROM OrderItems
-brad-# WHERE prod_id = 'RGAN01';
+SELECT order_num
+FROM OrderItems
+WHERE prod_id = 'RGAN01';
  order_num
 -----------
      20007
@@ -257,7 +257,6 @@ brad-# WHERE prod_id = 'RGAN01';
 
 
 -- Subquery in FROM clause
-
 SELECT Managers.Id, Employees.Salary
 FROM (
   SELECT Id
@@ -279,12 +278,12 @@ You can also **use a subquery as a calculated field**:
 
 ```sql
 /* Everything inside parentheses behaves like a regular column. */
-brad=# SELECT cust_name, cust_state,
-brad-#     (SELECT COUNT(*)
-brad(#      FROM Orders
-brad(#      WHERE Orders.cust_id = Customers.cust_id) AS orders
-brad-# FROM Customers
-brad-# ORDER BY cust_name;
+SELECT cust_name, cust_state,
+    (SELECT COUNT(*)
+     FROM Orders
+     WHERE Orders.cust_id = Customers.cust_id) AS orders
+FROM Customers
+ORDER BY cust_name;
                      cust_name                      | cust_state | orders
 ----------------------------------------------------+------------+--------
  Fun4All                                            | IN         |      2
@@ -330,9 +329,9 @@ A Join is created by the DBMS as needed, and it persists (only) for the duration
 
 ```sql
 /* Method 1 - with WHERE */
-brad=# SELECT vend_name, prod_name, prod_price
-brad-# FROM Vendors, Products
-brad-# WHERE Vendors.vend_id = Products.vend_id;  -- fully qualified
+SELECT vend_name, prod_name, prod_price
+FROM Vendors, Products
+WHERE Vendors.vend_id = Products.vend_id;  -- fully qualified
                      vend_name                      |      prod_name      | prod_price
 ----------------------------------------------------+---------------------+------------
  Bears R Us                                         | 18 inch teddy bear  |      11.99
@@ -346,9 +345,9 @@ brad-# WHERE Vendors.vend_id = Products.vend_id;  -- fully qualified
  Fun and Games                                      | King doll           |       9.49
 
 /* Method 2 - with JOIN */
-brad=# SELECT vend_name, prod_name, prod_price
-brad-# FROM Vendors INNER JOIN Products
-brad-# ON Vendors.vend_id = Products.vend_id;
+SELECT vend_name, prod_name, prod_price
+FROM Vendors INNER JOIN Products
+ON Vendors.vend_id = Products.vend_id;
 ```
 
 ### Types of Joins
@@ -527,21 +526,21 @@ SELECT * FROM MyView;
 A view *does not* contain any data itself; it just contains a query.  Therefore, views are "dynamic," not "static".  Modifiying the underlying table will modify the result of the view:
 
 ```sql
-brad=# CREATE VIEW AfterQ1 AS
-brad-# SELECT * FROM Orders
-brad-# WHERE order_date > '2012-03-31';
+CREATE VIEW AfterQ1 AS
+SELECT * FROM Orders
+WHERE order_date > '2012-03-31';
 CREATE VIEW
-brad=# SELECT * FROM AfterQ1;
+SELECT * FROM AfterQ1;
  order_num | order_date |  cust_id
 -----------+------------+------------
      20005 | 2012-05-01 | 1000000001
      20010 | 2012-05-15 | 1000000001
 (2 rows)
 
-brad=# INSERT INTO Orders
-brad-# Values (20011, '2012-05-20', 1000000003);
+INSERT INTO Orders
+Values (20011, '2012-05-20', 1000000003);
 INSERT 0 1
-brad=# SELECT * FROM AfterQ1;
+SELECT * FROM AfterQ1;
  order_num | order_date |  cust_id
 -----------+------------+------------
      20005 | 2012-05-01 | 1000000001
@@ -553,13 +552,13 @@ brad=# SELECT * FROM AfterQ1;
 Another use for views is to reformat retrieved data:
 
 ```sql
-brad=# CREATE VIEW VendorLocations AS
-brad-# SELECT RTRIM(vend_name) || ' ('|| RTRIM(vend_country) || ')'
-brad-#     AS vend_title
-brad-# FROM Vendors;
+CREATE VIEW VendorLocations AS
+SELECT RTRIM(vend_name) || ' ('|| RTRIM(vend_country) || ')'
+    AS vend_title
+FROM Vendors;
 CREATE VIEW
-brad=# SELECT *
-brad-# FROM VendorLocations;
+SELECT *
+FROM VendorLocations;
        vend_title
 -------------------------
  Bears R Us (USA)
@@ -609,7 +608,7 @@ sqlite> SELECT * FROM MyTable;
 Consider this example:
 
 ```sql
-brad=# SELECT * FROM WithNulls;
+SELECT * FROM WithNulls;
  fielda
 --------
       1
@@ -619,15 +618,15 @@ brad=# SELECT * FROM WithNulls;
       5
 (5 rows)
 
-brad=# SELECT * FROM WithNulls
-brad-# WHERE fielda = 4;
+SELECT * FROM WithNulls
+WHERE fielda = 4;
  fielda
 --------
       4
 (1 row)
 
-brad=# SELECT * FROM WithNulls
-brad-# WHERE fielda != 4;
+SELECT * FROM WithNulls
+WHERE fielda != 4;
  fielda
 --------
       1
@@ -643,8 +642,8 @@ When using the SELECT clause with conditions, rows with the NULL value will not 
 To correct:
 
 ```
-brad=# SELECT * FROM WithNulls
-brad-# WHERE fielda != 4 OR fielda IS NULL;
+SELECT * FROM WithNulls
+WHERE fielda != 4 OR fielda IS NULL;
  fielda
 --------
       1
@@ -670,11 +669,11 @@ END
 Notice again that this does not account for NULL unless we tell it to.
 
 ```sql
-brad=# SELECT fielda,
-brad-#     CASE WHEN fielda < 3 THEN 'lt'
-brad-#          WHEN fielda > 3 THEN 'gt'
-brad-#     END
-brad-# FROM WithNulls;
+SELECT fielda,
+    CASE WHEN fielda < 3 THEN 'lt'
+         WHEN fielda > 3 THEN 'gt'
+    END
+FROM WithNulls;
  fielda | case
 --------+------
       1 | lt
@@ -688,10 +687,10 @@ brad-# FROM WithNulls;
 Another example:
 
 ```sql
-brad=# SELECT CASE WHEN (3 IN (1, 2, 3, NULL)) THEN 'Three is here'
-brad-#             ELSE 'Three is not here'
-brad-#        END
-brad-# AS result;
+SELECT CASE WHEN (3 IN (1, 2, 3, NULL)) THEN 'Three is here'
+            ELSE 'Three is not here'
+       END
+AS result;
     result
 ---------------
  Three is here
@@ -701,10 +700,10 @@ brad-# AS result;
 Again related to NULL behavior, consider the following similar example:
 
 ```sql
-brad=# SELECT CASE WHEN (3 NOT IN (1, 2, NULL)) THEN 'Three is not here'
-brad-#             ELSE 'Three is here'
-brad-#        END
-brad-# AS result;
+SELECT CASE WHEN (3 NOT IN (1, 2, NULL)) THEN 'Three is not here'
+            ELSE 'Three is here'
+       END
+AS result;
     result
 ---------------
  Three is here
@@ -846,14 +845,14 @@ FNG01       12 inch queen doll with royal garments and c
 - `COUNT(*)` will count nulls also.
 
 ```sql
-brad=# CREATE TABLE OneCol (
-brad(#     col INT
-brad(# );
+CREATE TABLE OneCol (
+    col INT
+);
 
-brad=# INSERT INTO OneCol
-brad-# VALUES (1), (2), (NULL), (4);
+INSERT INTO OneCol
+VALUES (1), (2), (NULL), (4);
 
-brad=# SELECT * FROM ONECOL;
+SELECT * FROM ONECOL;
  col
 -----
    1
@@ -862,15 +861,15 @@ brad=# SELECT * FROM ONECOL;
    4
 (4 rows)
 
-brad=# SELECT COUNT(*)      -- Counts NULL
-brad-# FROM OneCol;
+SELECT COUNT(*)      -- Counts NULL
+FROM OneCol;
  count
 -------
      4
 (1 row)
 
-brad=# SELECT COUNT(col)    -- Ignores NULL
-brad-# FROM OneCol;
+SELECT COUNT(col)    -- Ignores NULL
+FROM OneCol;
  count
 -------
      3
@@ -880,12 +879,12 @@ brad-# FROM OneCol;
 OFFSET says to skip that many rows before beginning to return rows.
 I.e. it's 0-indexed.
 */
-brad=# SELECT *
-brad-# FROM OneCol
-brad-# OFFSET (
-brad(#     SELECT COUNT(*) - 1
-brad(#     FROM ONECOL
-brad(# );
+SELECT *
+FROM OneCol
+OFFSET (
+    SELECT COUNT(*) - 1
+    FROM ONECOL
+);
  col
 -----
    4
@@ -897,9 +896,9 @@ brad(# );
 `ORDER BY` can use 1-indexed column *positions*:
 
 ```sql
-brad=# SELECT *
-brad-# FROM Orders
-brad-# ORDER BY 3, 2;
+SELECT *
+FROM Orders
+ORDER BY 3, 2;
  order_num | order_date |  cust_id
 -----------+------------+------------
      20009 | 2012-02-08 | 1000000001
@@ -993,8 +992,8 @@ Helpful flag is `-s` to use single-step mode:
 psql (10.3)
 Type "help" for help.
 
-brad=# \cd /Users/brad/Scripts/sql/tutorial/
-brad=# \i basics.sql
+\cd /Users/brad/Scripts/sql/tutorial/
+\i basics.sql
 ***(Single step mode: verify command)*******************************************
 CREATE TABLE weather (
     city        varchar(80),
@@ -1029,9 +1028,9 @@ Or, from `psql`:
 psql (10.3)
 Type "help" for help.
 
-brad=# CREATE DATABASE endor;
+CREATE DATABASE endor;
 CREATE DATABASE
-brad=# \connect endor;
+\connect endor;
 You are now connected to database "endor" as user "brad".
 endor=# \l
                               List of databases
@@ -1225,8 +1224,8 @@ INSERT INTO SalEmp
 The result:
 
 ```sql
-brad=# SELECT *
-brad-# FROM SalEmp;
+SELECT *
+FROM SalEmp;
  name  |      pay_by_quarter       |                 schedule
 -------+---------------------------+-------------------------------------------
  Bill  | {10000,10000,10000,10000} | {{meeting,lunch},{training,presentation}}
@@ -1250,8 +1249,8 @@ ERROR:  invalid input syntax for integer: "dog"
 Use `COPY`:
 
 ```sql
-brad=# COPY weather FROM '/home/brad/weather.txt';
-brad=# COPY ewoks FROM '/path/to/ewoks.csv' DELIMITER ',' CSV HEADER;
+COPY weather FROM '/home/brad/weather.txt';
+COPY ewoks FROM '/path/to/ewoks.csv' DELIMITER ',' CSV HEADER;
 ```
 
 ## Aliasing
