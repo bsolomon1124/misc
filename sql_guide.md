@@ -128,7 +128,7 @@ SET { column_name = { expression | DEFAULT } | ( column_name [, ...] ) = ( sub-S
 
 Examples:
 
-
+TODO
 
 > NOTE: The != operator is converted to <> in the parser stage.
 
@@ -219,6 +219,7 @@ To elaborate on the above (specifically, on `GROUP BY`):
 - `GROUP BY` instructs the DBMS to group the data and then **perform the aggregate function on each group** rather than on the entire result set.
 - `GROUP BY` clauses can contain as many column as you want.
 - Aside from the aggregate calculations statements, **every column in your `SELECT` statement must be present in the `GROUP BY` clause**.
+    - Likewise, **select only columns specified in the GROUP BY clause or used with aggregate functions.**
 
 ## Subqueries
 
@@ -227,6 +228,8 @@ Subquery: a query that is embedded into another query.
 - Subqueries are always processed starting with the **innermost** `SELECT` statement and working outward.
 - The resulting "inner results" are passed successively to the outer statements.
 - Subquery `SELECT` statements can only retrieve a **single column**.
+
+A subquery in a FROM clause acts similarly to a **temporary table** that is generated during the execution of a query and **lost afterwards.**
 
 **Examples**:
 
@@ -251,6 +254,25 @@ brad-# WHERE prod_id = 'RGAN01';
      20007
      20008
 (2 rows)
+
+
+-- Subquery in FROM clause
+
+SELECT Managers.Id, Employees.Salary
+FROM (
+  SELECT Id
+  FROM Employees
+  WHERE ManagerId IS NULL
+  ) AS Managers
+JOIN Employees ON Managers.Id = Employees.Id;
+
+-- Subquery in SELECT clause
+SELECT
+  Id,
+  FName,
+  LName,
+  (SELECT COUNT(*) FROM Cars WHERE Cars.CustomerId = Customers.Id) AS NumberOfCars
+FROM Customers;
 ```
 
 You can also **use a subquery as a calculated field**:
@@ -276,6 +298,14 @@ brad-# ORDER BY cust_name;
 SELECT city FROM weather
     WHERE temp_lo = (SELECT max(temp_lo) FROM weather);
 ```
+
+String types:
+
+ANSI SQL has 3 (main) string types:
+
+- VARCHAR([n]) - variable-length with limit
+- CHAR(n) - fixed-length, blank padded
+- TEXT - variable unlimited length
 
 ## Working with `AS`
 
@@ -386,6 +416,8 @@ You can create them via `ALTER TABLE` + `ADD CONSTRAINT` or directly within `CRE
 
 ```sql
 -- Option 1
+-- Can also use traditional syntax:
+-- PRIMARY KEY vend_id CHAR(10) NOT NULL
 CREATE TABLE Vendors (
     vend_id     CHAR(10)    NOT NULL PRIMARY KEY,
     other       CHAR(50)    NULL,
@@ -555,6 +587,8 @@ TODO (See Forta, p. 205)
 
 ## NULL
 
+NULL: "The absence of any value."
+
 `NULL` is a distinct SQL data type, different from the empty string, false, or 0.  It is possible to declare a column as nullable or non-nullable:
 
 ```sql
@@ -684,6 +718,33 @@ SELECT CASE WHEN ((3 <> 1) AND (3 <> 2) AND (3 <> NULL))
 ```
 
 In ANSI SQL, we'd need `IS NULL` instead.
+
+One more example:
+
+```sql
+CREATE TABLE NumTable (num SMALLINT NOT NULL);
+INSERT INTO NumTable VALUES (1), (2), (3), (4), (5), (6), (7);
+
+SELECT CASE WHEN num < 3 THEN 'under'
+            WHEN num >= 3 AND num < 6 THEN 'middle'
+            WHEN num >= 6 THEN 'over'
+       END
+AS result
+FROM NumTable;
+
+ result
+--------
+ under
+ under
+ middle
+ middle
+ middle
+ over
+ over
+(7 rows)
+```
+
+
 
 ## Sortedness
 
@@ -906,8 +967,6 @@ Not to be confused with the command-line tool, sqlite3 is also the name of the m
 
 # PostgreSQL
 
-TODO: PL/pgSQL procedural language
-
 Pronounced: "Post-greS-Q-L" or just "Postgres."  Works well for "Stepford data"--data that is fairly homogeneous and conforms well to a structured schema.  Written in and scriptable with JavaScript.
 
 Max OSX installation and server startup with Homebrew:
@@ -981,6 +1040,12 @@ endor=# \l
  brad      | brad  | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
  endor     | brad  | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
 ```
+
+## Server Setup and Operation
+
+As with any server daemon that is accessible to the outside world, it is advisable to run PostgreSQL under a separate user account.  This user account should only own the data that is managed by the server, and should not be shared with other daemons. (For example, using the user nobody is a bad idea.)
+
+To add a Unix user account to your system, look for a command `useradd` or `adduser`. The user name postgres is often used.
 
 ## Meta-commands
 
@@ -1063,6 +1128,123 @@ Postgres supports native SQL types and engineers a bunch of its own:
 
 Some of the frequently used data types are `integer` for whole numbers, `numeric` for possibly fractional numbers, `text` for character strings, `date` for dates, `time` for time-of-day values, and `timestamp` for values containing both date and time.
 
+### Boolean
+
+In most systems, boolean types have a number of valid literal values:
+
+For Postgres:
+
+True
+- TRUE
+- 't'
+- 'true'
+- 'y'
+- 'yes'
+- 'on'
+- '1'
+
+False
+- FALSE
+- 'f'
+- 'false'
+- 'n'
+- 'no'
+- 'off'
+- '0'
+
+`WHERE` can use this syntax with boolean fields:
+
+```sql
+CREATE TABLE test1 (a boolean, b text);
+INSERT INTO test1 VALUES (TRUE, 'sic est');
+INSERT INTO test1 VALUES (FALSE, 'non est');
+SELECT * FROM test1;
+ a |    b
+---+---------
+ t | sic est
+ f | non est
+
+SELECT * FROM test1 WHERE a;
+ a |    b
+---+---------
+ t | sic est
+```
+
+### Arrays
+
+PostgreSQL allows columns of a table to be defined as **variable-length multidimensional arrays.**
+
+An array Is named by appending square brackets ([]) to the data type name of the array elements.
+
+```sql
+CREATE TABLE SalEmp (
+    name            TEXT,
+    pay_by_quarter  INTEGER[],
+    schedule        TEXT[][]
+);
+```
+
+The above command will create a table named sal_emp with a column of type text (name), a one-dimensional array of type integer (pay_by_quarter), which represents the employee's salary by quarter, and a two-dimensional array of text (schedule), which represents the employee's weekly schedule.
+
+The syntax for CREATE TABLE allows the exact size of arrays to be specified, for example:
+
+```sql
+CREATE TABLE TicTacToe (
+    squares   INTEGER[3][3]
+);
+```
+
+Note that the current Postgres implementation:
+- does not enforce the declared number of dimensions either
+- ignores any supplied array size limits, i.e., the behavior is the same as for arrays of unspecified length.
+
+To input values: enclose the element values within curly braces and separate them by commas.
+
+```sql
+'{ val1 , val2, ... }'
+```
+
+Where each `val` is either:
+- a constant of the array element type
+- a subarray.
+
+**Notice the single quotes around the braces.**
+
+```sql
+INSERT INTO SalEmp
+    VALUES ('Bill',
+    '{10000, 10000, 10000, 10000}',
+    '{{"meeting", "lunch"}, {"training", "presentation"}}');
+
+INSERT INTO SalEmp
+    VALUES ('Carol',
+    '{20000, 25000, 25000, 25000}',
+    '{{"breakfast", "consulting"}, {"meeting", "lunch"}}');
+```
+
+The result:
+
+```sql
+brad=# SELECT *
+brad-# FROM SalEmp;
+ name  |      pay_by_quarter       |                 schedule
+-------+---------------------------+-------------------------------------------
+ Bill  | {10000,10000,10000,10000} | {{meeting,lunch},{training,presentation}}
+ Carol | {20000,25000,25000,25000} | {{breakfast,consulting},{meeting,lunch}}
+(2 rows)
+```
+
+The declared type is strictly enforced:
+
+```sql
+INSERT INTO TicTacToe
+VALUES ('{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}');  -- this is okay
+
+INSERT INTO TicTacToe
+VALUES ('{{1, "dog", 3}, {4, "cat", 6}, {"bird", 8, 9}}');  -- this is not
+ERROR:  invalid input syntax for integer: "dog"
+```
+
 ## Reading From Delimited File
 
 Use `COPY`:
@@ -1082,11 +1264,43 @@ SELECT *
     WHERE w.city = c.name;
 ```
 
+## Using WITH
+
+Common table expressions support extracting portions of larger queries. Syntax:
+
+```sql
+WITH NewName AS (
+  SELECT ...
+)
+SELECT
+  NewName.col1,
+  NewName.col2,
+  OtherTable.col1
+FROM NewName
+JOIN Other USING (col1);
+```
+
 ## Window Functions
 
 Window functions are not very common between DBMS.  (PostgreSQL is one of the few open source databases to implement them).
 
 Window functions are similar to GROUP BY queries in that they allow you to run aggregate functions across multiple rows. **The difference is that they allow you to use built-in aggregate functions without requiring every single field to be grouped to a single row.**
+
+## PL/pgSQL
+
+[PL/pgSQL](https://www.postgresql.org/docs/9.6/static/plpgsql.html) is a loadable **procedural language** for the PostgreSQL database system.
+
+> Note: there is also [PL/Python](https://www.postgresql.org/docs/current/static/plpython.html), the Python procedural language for Postgres.
+
+### Why Use PL/pgSQL?
+
+Every SQL statement must be executed **individually by the database server.**
+
+That means that your client application must send each query to the database server, wait for it to be processed, receive and process the results, do some computation, then send further queries to the server. All this incurs interprocess communication and will also incur network overhead if your client is on a different machine than the database server.
+
+With PL/pgSQL you can group a block of computation and a series of queries inside the database server, thus having the power of a procedural language and the ease of use of SQL, but with considerable savings of client/server communication overhead.
+
+
 
 ## Python Interface: psycopg
 
