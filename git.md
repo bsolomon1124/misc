@@ -1,6 +1,5 @@
 # Contents
 
-- [Contents][0]
 - [How This Tutorial is Structured][1]
 - [Resources & References][2]
     - [Beginner][3]
@@ -50,7 +49,6 @@
     - [Git Setup & Configuration][47]
     - [GUIs][48]
 
-[0]: #contents
 [1]: #how-this-tutorial-is-structured
 [2]: #resources--references
 [3]: #beginner
@@ -179,13 +177,23 @@ You can think of a version control system (short: "VCS") as a kind of "database"
 
 <img src="https://www.git-tower.com/learn/content/01-git/01-ebook/en/01-command-line/02-basics/01-what-is-version-control/what-is-vcs.png" alt="version_control.png" width="600" align="center"/>
 
+Git is a _distributed_ VCS (DVCS), as opposed to a _centralized_ VCS.  In a DVCS, clients don’t just check out the latest snapshot of the files; rather, they **fully mirror** the repository, including its full history.  There is no central server with DVCS.
+
+Git is _not_ delta-based VCS.  It is instead a set of miniature but complete snapshots.  To be efficient, if files have not changed, Git doesn’t store the file again, just a link to the previous identical file (technically, its contents) it has already stored.
+
 ## File States in Git
 
-There are three main states that your files can reside in:
+Each file in your working directory can be in one of two states: _tracked or untracked_.
+
+Tracked files are files that were in the last snapshot; they can be unmodified, modified, or staged.
 
 1. **Modified** means that there's been changes to the file but it's not committed yet.  This isn't a git command; when you manually edit any file in a git repo, you're modifying it.
 2. **Staged** means that you have marked a file to go into your next commit snapshot.  Changes you make to files get marked in "chunks" or stages, and you decide how intermittently to take a snapshot of those changes.
-3. **Committed** means that the changes you made have been stored/documented.
+3. **Committed** means that the changes you made have been stored/documented safely.
+
+Untracked files are everything else: any files in your working directory that were not in your last snapshot and are not in your staging area.
+
+![imgs/lifecycle.jpg](lifecycle.jpg)
 
 ## The Git Object Model
 
@@ -298,7 +306,7 @@ Git tracks the pathnames of files through another kind of object called a _tree_
 Your local repository consists of three "trees" maintained by Git.
 
 1. Your **working directory** (working copy), which holds the actual files of your project.  This is the root folder of your project and the directory that contains your project's files.
-2. The **Index**, which acts as a staging area.
+2. The **Index**, which acts as a staging area.  It stores information about what will go into your next commit.
 3. The **HEAD**, which points to the last commit you've made.
 
 You edit files themsleves in the working directory, and commit your changes to the repository itself.  The Index is effectively a **layer** between the working directory and the repository to stage, or collect, alterations.  When you manage your code with Git, you edit in your working directory, accumulate changes in your index, and commit whatever has amassed in the index as a single changeset.
@@ -309,8 +317,6 @@ A single commit should only wrap related changes: fixing two different bugs shou
 
 # Quick Reference: Commands
 
-**Note**: these are _not_ "full" syntaxes (they exclude some flags).  Rather, these should cover 98% of everyday cases.
-
 Structure: `git` is the program; the commands are technically _subcommands_: `git SUBCOMMAND [args]`.
 
 Documentation for each git subcommand is available using:
@@ -318,6 +324,31 @@ Documentation for each git subcommand is available using:
 - `git help subcommand`
 - `git --help subcommand`
 - `git subcommand --help`
+- `man git-subcommand`
+
+In addition, if you don’t need the full-blown manpage help, but just need a quick refresher on the
+available options for a Git command, you can ask for the more concise "help" output with the `-h` or `--help` options, as in:
+
+```bash
+ ~$ git add -h
+usage: git add [<options>] [--] <pathspec>...
+
+    -n, --dry-run         dry run
+    -v, --verbose         be verbose
+
+    -i, --interactive     interactive picking
+    -p, --patch           select hunks interactively
+    -e, --edit            edit current diff and apply
+    -f, --force           allow adding otherwise ignored files
+    -u, --update          update tracked files
+    -N, --intent-to-add   record only the fact that the path will be added later
+    -A, --all             add changes from all tracked and untracked files
+    --ignore-removal      ignore paths removed in the working tree (same as --no-all)
+    --refresh             don't add, only refresh the index
+    --ignore-errors       just skip files which cannot be added because of errors
+    --ignore-missing      check if - even missing - files are ignored in dry run
+    --chmod <(+/-)x>      override the executable bit of the listed files
+```
 
 Git commands understand both "short" and "long" options:
 
@@ -334,6 +365,8 @@ $ git diff -w master origin -- tools/Makefile
 
 Commands - quick reference:
 
+**Note**: these are _not_ "full" syntaxes (they exclude some flags).  Rather, these should cover 98% of everyday cases.
+
 - `git [--version] [--help] [--exec-path] [--html-path] [--man-path] [-p]`
 - `git help [-a] [-g] [COMMAND|GUIDE]`
 - `git add [-v] [-n] [-f] [<pathspec>...]`
@@ -349,7 +382,7 @@ Commands - quick reference:
     - `git checkout -b <new_branch>`
     - `git checkout [--] <paths>...`
 - `git clone [-v] [-o <name>] <repository> [<directory>]`
-- `git commit [-a] [-m <msg>] [-v] [<file>...]`
+- `git commit [-a] [-v] [--amend] [-m <msg>] [<file>...]`
 - `git config`:
     - `git config [<file-option>] -l`
     - `git config [<file-option>] [type] [--show-origin] [-z|--null] name [value [value_regex]]`
@@ -508,13 +541,13 @@ For the long answer, it is worth posting a snippet from `git help commit` [empha
 >
 > 1. by using `git add` to incrementally "add" changes to the index before using `git commit`
 >
->2. by using `git rm` to remove files from the working tree and the Index, again before using `git commit`
+> 2. by using `git rm` to remove files from the working tree and the Index, again before using `git commit`
 >
 > 3. by listing files as arguments to the commit command, **in which case the commit will ignore changes staged in the Index, and instead record the current content of the listed files (which must already be known to Git)**
 >
->4. by using the `-a` switch with `git commit` to automatically "add" changes from all known files (i.e. all files that are already listed in the index) and to automatically "rm" files in the index that have been removed from the working tree, and then perform the actual commit;
+> 4. by using the `-a` switch with `git commit` to automatically "add" changes from all known files (i.e. all files that are already listed in the index) and to automatically "rm" files in the index that have been removed from the working tree, and then perform the actual commit;
 
-In other words, the main effect of `-a` is that it affects deleted files.  It automatically stages files that have been modified and deleted, _but untracked files are not affected_.  (So, this would not have worked above.)
+In other words, the main effect of `-a` is that it affects deleted files.  It automatically stages files that have been modified and deleted, _but untracked files are not affected_.  (So, this would not have worked above.)  Adding the `-a` option **makes Git automatically stage every file that is already tracked** before doing the commit, letting you skip `git add`.
 
 Here is a full-fledged example of when you would want to explicitly use `git add`.
 
@@ -574,7 +607,9 @@ Changes not staged for commit:
  M data
 ```
 
-Above, you _must_ run `git add` to update Ihe index with the absolute latest and greatest version of your file. If you don’t, you’ll have two different versions of the file: one captured in the object store and referenced from the index, and the other in your working directory.
+Above, you _must_ run `git add` to update the Index with the absolute latest and greatest version of your file. If you don’t, you’ll have two different versions of the file: one captured in the object store and referenced from the index, and the other in your working directory.
+
+Remember: **Git stages a file exactly as it is when you run `git add`**. If you commit now, the version of `data` as it was when you last ran `git add` is how it will go into the commit, not the version of the file as it looks in your working directory when you run `git commit`.
 
 Think of `git add` not as "add this file," but more as "add this content."
 
@@ -705,8 +740,8 @@ index 7df304e..8dc5777 100644
 
 Summary:
 
-- `git diff` displays the changes that remain in your working directory and are **not staged**
-- `git diff --cached` shows changes that are staged and will therefore contribute to your next commit.
+- `git diff` displays the changes that remain in your working directory and are **not staged**.  This only shows **unstaged** changes since your last commit.
+- `git diff --cached` or `git diff --cached` shows changes that are staged and will therefore contribute to your next commit.  This will let you compare your staged changes to your last commit.
 
 ## Ignore Files: `.gitignore`
 
@@ -797,7 +832,7 @@ A helpful compilation of ignore rules for different projects and platforms can b
 
 ## Deleted and Moved Files: `git rm` & `git mv`
 
-Deleting a file constitutes an action that you want to track.  After deleting the file or subdirectory itself, use `git rm` to also remove it from the index and working tree:
+Deleting a file constitutes an action that you want to track.  After deleting the file or subdirectory itself, use `git rm` to also remove it from the index (staging area) and working tree, then commit that change:
 
 ```bash
  myrepo$ rm myname.py
@@ -823,6 +858,8 @@ rm 'myname.py'
 
 To reiterate, `git rm` is not deleting the physical file itself; it is removing Git's reference to it.
 
+> Note: If you modified the file and added it to the staging area already, you must force the removal with the `-f` option.
+
 Similarly, `git mv` moves or renames a file or a directory within the repository.
 
 ## History: `git log`
@@ -832,6 +869,7 @@ Let's take a quick look at our commit log with `git log`.  With this command, th
 ```
 git log
     [--stat]
+    [-p]
     [--oneline] [--graph] [--decorate]
     [--no-abbrev-commit]
     [--reverse] [-n <number>] [--skip=<number>] [--before=<date>] [--after=<date>] [--author=<pattern>] [--branches[=<pattern>]]
@@ -840,10 +878,11 @@ git log
 
 Flags/options:
 
-- `--stat` generates a _diffstat_.  (Include which files were altered and the relative number of lines that were added or deleted from each of them.)
-- The second line is concerned with output _formatting_.
+- `--stat` generates a _diffstat_, an abbreviated stat list for each commit.  (Include which files were altered and the relative number of lines that were added or deleted from each of them.)
+- `-p` shows the diff (the patch output) introduced in each commit.
+- The third line is concerned with output _formatting_.
 - `--no-abbrev-commit` shows the full 40-byte hexadecimal commit object name instead of a prefix.
-- The third line is conerend with _commit limiting_.
+- The fourth line is conerend with _commit limiting_.
 - `<path>...`: Commits modifying the given <paths> are selected.
 
 Example:
@@ -1247,16 +1286,37 @@ See the [REST API v3 Guide](https://developer.github.com/v3/).
 
 | Term | Definition |
 | ---- | ---------- |
-| Head |
-| Working tree |
+| Heads | |
+| HEAD | The latest commit (version) in the current branch.  When you change branches, HEAD is updated to refer to the new branch’s latest commit.  "`master HEAD`" or "`HEAD` of `master`" are two terms you may see used. |
+| Working tree | The directory where your alter your project's actual files. It is also the location where your repository has been checked out. |
 | Index |
 | Master |
 | Origin |
 | Upstream |
 | Staging area | See _Index_.
-| Working directory |
+| Working directory | See _working tree_.  Prefer to use _working tree_ over this term, which could be confused with _current directory_. |
 
 # Other
+
+## Undoing Things
+
+### Revise a Commit
+
+To redo a commit with additional cahnges you forgot, use `git commit --amend`. If you've made no changes since your last commit (for instance, you run this command immediately after your previous commit), then your snapshot will look exactly the same, and all you'll change is your commit message.
+
+Example:
+
+```bash
+$ git commit -m 'initial commit'
+$ git add forgotten_file
+$ git commit --amend
+```
+
+### Unstage a Staged File
+
+Let’s say you've changed two files and want to commit them as two separate changes, but you accidentally type `git add *` and stage them both. How can you unstage one of the two?
+
+Use `git reset HEAD <file>...`.  Just be careful with `git reset`; it can be dangerous when used with `--hard`.
 
 ## `git show`
 
