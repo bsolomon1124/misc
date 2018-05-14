@@ -1,5 +1,6 @@
 # Contents
 
+- [Contents][0]
 - [How This Tutorial is Structured][1]
 - [Resources & References][2]
     - [Beginner][3]
@@ -13,7 +14,7 @@
     - [The Git Object Model][11]
         - [Object Store][12]
     - [Git Index][13]
-    - [sss][14]
+    - [TODO][14]
     - [Trees][15]
     - [A Golden Rule of Version Control][16]
 - [Quick Reference: Commands][17]
@@ -35,20 +36,30 @@
     - [Cloning a Repo: `git clone`][33]
     - [Tracking and Manipulating Remotes: `git remote`][34]
     - [Update Remote Branches: `git fetch`][35]
-    - [Interaction: `git push`, `git pull`, `git fetch`][36]
-        - [Pushing][37]
-        - [Pulling][38]
-    - ["origin" versus "upstream"][39]
-- [Interaction with GitHub][40]
-    - [Pull Requests][41]
-    - [Types of Accounts][42]
-    - [RESTful API][43]
-- [Glossary][44]
-- [Other][45]
-    - [`git show`][46]
-    - [Git Setup & Configuration][47]
-    - [GUIs][48]
+    - [Interaction: `git push` & `git pull`][36]
+        - [Pulling][37]
+        - [Pushing][38]
+        - [Aside: What is a ref?][39]
+        - [Troubleshooting: "Your branch is ahead of 'origin/master'"][40]
+- [Interaction with GitHub][41]
+    - [Pull Requests][42]
+        - [Keep Up with Upstream][43]
+    - [Types of Accounts][44]
+    - [RESTful API][45]
+- [Glossary][46]
+- [Other][47]
+    - [Undoing Things][48]
+        - [Revise a Commit][49]
+        - [Unstage a Staged File][50]
+        - [Unmodifying a Modified File][51]
+    - [`git show`][52]
+    - [Git Setup & Configuration][53]
+    - [Signing Your Work][54]
+    - [Plumbing Commands][55]
+    - [Commit Guidelines][56]
+    - [GUIs][57]
 
+[0]: #contents
 [1]: #how-this-tutorial-is-structured
 [2]: #resources--references
 [3]: #beginner
@@ -62,7 +73,7 @@
 [11]: #the-git-object-model
 [12]: #object-store
 [13]: #git-index
-[14]: #sss
+[14]: #todo
 [15]: #trees
 [16]: #a-golden-rule-of-version-control
 [17]: #quick-reference-commands
@@ -84,19 +95,28 @@
 [33]: #cloning-a-repo-git-clone
 [34]: #tracking-and-manipulating-remotes-git-remote
 [35]: #update-remote-branches-git-fetch
-[36]: #interaction-git-push-git-pull-git-fetch
-[37]: #pushing
-[38]: #pulling
-[39]: #origin-versus-upstream
-[40]: #interaction-with-github
-[41]: #pull-requests
-[42]: #types-of-accounts
-[43]: #restful-api
-[44]: #glossary
-[45]: #other
-[46]: #git-show
-[47]: #git-setup--configuration
-[48]: #guis
+[36]: #interaction-git-push--git-pull
+[37]: #pulling
+[38]: #pushing
+[39]: #aside-what-is-a-ref
+[40]: #troubleshooting-your-branch-is-ahead-of-originmaster
+[41]: #interaction-with-github
+[42]: #pull-requests
+[43]: #keep-up-with-upstream
+[44]: #types-of-accounts
+[45]: #restful-api
+[46]: #glossary
+[47]: #other
+[48]: #undoing-things
+[49]: #revise-a-commit
+[50]: #unstage-a-staged-file
+[51]: #unmodifying-a-modified-file
+[52]: #git-show
+[53]: #git-setup--configuration
+[54]: #signing-your-work
+[55]: #plumbing-commands
+[56]: #commit-guidelines
+[57]: #guis
 
 # How This Tutorial is Structured
 
@@ -400,7 +420,7 @@ Commands - quick reference:
     - `git diff [options] --cached [<commit>] [--] [<path>...]`
     - `git diff [options] <commit> <commit> [--] [<path>...]`
 - `git init [directory]`
-- `git log [--stat] [--oneline] [--graph] [--decorate] [--abbrev-commit | --no-abbrev-commit] [--reverse] [-n <number>] [--skip=<number>] [--before=<date>] [--after=<date>] [--author=<pattern>] [--branches[=<pattern>]] [<path>...]`
+- `git log [--stat] [-p] [--oneline] [--graph] [--decorate] [--abbrev-commit | --no-abbrev-commit] [--reverse] [-n <number>] [--skip=<number>] [--before=<date>] [--after=<date>] [--author=<pattern>] [--branches[=<pattern>]] [<path>...]`
 - `git merge [-n] [-v] [-s <strategy>] [--allow-unrelated-histories] [-m <msg>] [<commit>...]`
 - `git pull [-v] [-r] [--stat] [-s <strategy>] [<repository>]`
 - `git push [--all] [-v ] [-u] [<repository>]`
@@ -990,7 +1010,9 @@ What does this do?  `HEAD` now points to the commit object specified by `fix-hea
 
 ## Merging (`git merge`)
 
-Eventually, you need to merge a branch with `master`.  You do that with `git merge`.  Here's an example (with some output hidden):
+Eventually, you need to merge a branch with `master`.  You do that with `git merge`.  The basic syntax is `git merge [-v] [-m <msg>] [<commit>...]`.
+
+Here's an example (with some output hidden):
 
 ```bash
  myrepo$ touch headers.txt
@@ -1011,6 +1033,8 @@ index 0000000..e69de29
 
  myrepo$ git commit -m 'init headers.txt'
 
+# git-merge merges changes from <commit> into the current branch.
+# So switch to master first.
  myrepo$ git checkout master
 
  myrepo$ git merge fix-headers
@@ -1027,6 +1051,25 @@ Date:   Sat May 12 19:05:49 2018 -0400
 
     Merge branch 'fix-headers'
 ```
+
+Here's a useful excerpt from `git help merge`:
+
+```
+       Assume the following history exists and the current branch is "master":
+
+                     A---B---C topic
+                    /
+               D---E---F---G master
+
+       Then "git merge topic" will replay the changes made on the topic branch since it diverged from master (i.e., E)
+       until its current commit (C) on top of master, and record the result in a new commit along with the names of
+       the two parent commits and a log message from the user describing the changes.
+
+                     A---B---C topic
+                    /         \
+               D---E---F---G---H master
+```
+
 
 # Working with Remotes
 
@@ -1278,7 +1321,57 @@ Branch 'master' set up to track remote branch 'master' from 'origin'.
 
 Your work should now show up in your remote repository.
 
-Troubleshooting: if you get the message
+There is one part of the "commit output" that deserves more introspection (some lines hidden below):
+
+```bash
+ github-playground$ git push origin master
+Counting objects: 2, done.
+# ...
+To github.com:bsolomon1124/github-playground.git
+   6034203..48f860c  master -> master              # <-- what's this?
+```
+
+The format of the last line is `<oldref>..<newref> fromref -> toref`, where
+
+- `oldref`: the old reference
+- `newref`: the new reference
+- `fromref`: is the name of the **local reference** being pushed
+- `toref`: the name of the **remote reference** being updated
+
+### Aside: What is a ref?
+
+A Git reference (ref) is just a **file that contains a Git commit SHA-1 hash**. When referring to a Git commit, you can use the Git reference, which is an easy-to-remember name, rather than the hash.
+
+- In other words, a ref points to an object name.
+- `HEAD` is a "special-purpose" ref.
+- The Git reference can be rewritten to point to a new commit.
+- A branch is just a Git reference that stores the new Git commit hash.
+
+```bash
+ github-playground$ git show-ref
+48f860cf047c9499723cd6ac536361cb716050c9 refs/heads/master
+48f860cf047c9499723cd6ac536361cb716050c9 refs/remotes/origin/HEAD
+b8ab9363854a1364a92440a6e0b24af672c9cdd7 refs/remotes/origin/add-discursive-notebook
+48f860cf047c9499723cd6ac536361cb716050c9 refs/remotes/origin/master
+```
+
+As you can see above, these are all housed in `.git/refs`:
+
+```bash
+ github-playground$ tree .git/refs/
+.git/refs/
+├── heads
+│   └── master
+├── remotes
+│   └── origin
+│       ├── HEAD
+│       └── master
+└── tags
+```
+
+### Troubleshooting: "Your branch is ahead of 'origin/master'"
+
+If you get the message
 
 > `Your branch is ahead of 'origin/master' by [n] commits.`
 
