@@ -130,6 +130,7 @@ _Ordered by ascending difficulty/assumed familiarity level._
 
 - NumPy: [git resources](https://docs.scipy.org/doc/numpy-1.13.0/dev/gitwash/git_resources.html)
 - Git Documentation: [Reference](https://git-scm.com/docs)
+    - [`git/Documentation`](https://github.com/git/git/tree/master/Documentation) on GitHub mirror
 - Nick Farina: [Git is Simpler Than You Think](http://nfarina.com/post/9868516270/git-is-simpler)
 - Tom Preston-Werner: [The Git Parable](http://tom.preston-werner.com/2009/05/19/the-git-parable.html)
 - Scott Chacon/Ben Straub - [Pro Git](https://book.git-scm.com/book/en/v2)
@@ -177,7 +178,7 @@ You can think of a version control system (short: "VCS") as a kind of "database"
 
 <img src="https://www.git-tower.com/learn/content/01-git/01-ebook/en/01-command-line/02-basics/01-what-is-version-control/what-is-vcs.png" alt="version_control.png" width="600" align="center"/>
 
-Git is a _distributed_ VCS (DVCS), as opposed to a _centralized_ VCS.  In a DVCS, clients don’t just check out the latest snapshot of the files; rather, they **fully mirror** the repository, including its full history.  There is no central server with DVCS.
+Git is a _distributed_ VCS (DVCS), as opposed to a _centralized_ VCS.  In a DVCS, clients don’t just check out the latest snapshot of the files; rather, they **fully mirror** the repository, including its full history.  There is no central server with DVCS.  In Git, however, every developer is potentially both a node and a hub.
 
 Git is _not_ delta-based VCS.  It is instead a set of miniature but complete snapshots.  To be efficient, if files have not changed, Git doesn’t store the file again, just a link to the previous identical file (technically, its contents) it has already stored.
 
@@ -251,7 +252,7 @@ Tags:
 
 The Index is a **temporary** and **dynamic** binary file that describes the directory structure of the entire repository. More specifically, the Index captures a version of the project’s overall structure at some moment in time.
 
-## sss
+## TODO
 
 [from website...]
 
@@ -263,7 +264,6 @@ A Git repository contains, among other things, the following:
 So then, what is a commit object?  A commit object contains three things:
 
 - A set of files, reflecting the state of a project at a given point in time.
-    - TODO: are these incremental or full snapshots?
 - References to parent commit objects.  A project always has one commit object with no parents. This is the first commit made to the project repository.
 - An SHA1 name, a 40-character (160-bit/20-byte) string that uniquely identifies the commit object.
 
@@ -301,15 +301,22 @@ The subdirectory structure (`3b/`) is to improve filesystem efficiency.
 
 As mentioned previously a Git _blog_ object only hashes the contents of a file, not its name or any other metadata.
 
-Git tracks the pathnames of files through another kind of object called a _tree_. When you use `git add`, Git creates a blob for the contents of each file you add, but it doesn’t create an object for your tree right away. Instead, it updates the Index. The Index is found in .git/index and keeps track of file pathnames and corresponding blobs. Each time you run commands such as `git add`, `git rm`, or `git mv`, Git updates the Index with the new pathname and blob information.
+Git tracks the pathnames of files through another kind of object called a _tree_. When you use `git add`, Git creates a blob for the contents of each file you add, but it doesn’t create an object for your tree right away. Instead, it updates the Index.
 
-Your local repository consists of three "trees" maintained by Git.
+You can think of Git as manipulating **three trees** in its normal operation:
 
-1. Your **working directory** (working copy), which holds the actual files of your project.  This is the root folder of your project and the directory that contains your project's files.
-2. The **Index**, which acts as a staging area.  It stores information about what will go into your next commit.
-3. The **HEAD**, which points to the last commit you've made.
+1. The **working tree** - your sandbox.  Holds the actual files (i.e. `.py`) of your project.
+2. The **Index** - staging area.  It stores information about what will go into your next commit.
+    - `git ls-files -s` shows you what the Index looks like.
+    - The Index is not technically a tree structure--it's actually implemented as a flattened manifest.
+    - The Index is found in .git/index and keeps track of file pathnames and corresponding blobs.
+    - Each time you run commands such as `git add`, `git rm`, or `git mv`, Git updates the Index with the new pathname and blob information.
+3. The **HEAD** - snapshot of your last commit on current branch.
+    - Pointer to the current branch reference, which is in turn a pointer to the last commit made on that branch.
 
 You edit files themsleves in the working directory, and commit your changes to the repository itself.  The Index is effectively a **layer** between the working directory and the repository to stage, or collect, alterations.  When you manage your code with Git, you edit in your working directory, accumulate changes in your index, and commit whatever has amassed in the index as a single changeset.
+
+[Reset Demystified](https://git-scm.com/book/en/v2/Git-Tools-Reset-Demystified) has a good visualization of these operations.
 
 ## A Golden Rule of Version Control
 
@@ -393,7 +400,7 @@ Commands - quick reference:
     - `git diff [options] --cached [<commit>] [--] [<path>...]`
     - `git diff [options] <commit> <commit> [--] [<path>...]`
 - `git init [directory]`
-- `git log [--stat] [--oneline] [--graph] [--decorate] [--no-abbrev-commit] [--reverse] [-n <number>] [--skip=<number>] [--before=<date>] [--after=<date>] [--author=<pattern>] [--branches[=<pattern>]] [<path>...]`
+- `git log [--stat] [--oneline] [--graph] [--decorate] [--abbrev-commit | --no-abbrev-commit] [--reverse] [-n <number>] [--skip=<number>] [--before=<date>] [--after=<date>] [--author=<pattern>] [--branches[=<pattern>]] [<path>...]`
 - `git merge [-n] [-v] [-s <strategy>] [--allow-unrelated-histories] [-m <msg>] [<commit>...]`
 - `git pull [-v] [-r] [--stat] [-s <strategy>] [<repository>]`
 - `git push [--all] [-v ] [-u] [<repository>]`
@@ -402,6 +409,7 @@ Commands - quick reference:
     - `git remote add [-t <branch>] [-m <master>] [-f] <name> <url>`
     - `git remote rename <old> <new>`
     - `git remote remove <name>`
+    - `git remote [-v] show <name>...`
 - `git reset [--hard] [<commit>]`
 - `git rm [-f] [-r] <file>...`
 - `git status [-v] [-s] [-b] [--ignored]`
@@ -683,6 +691,7 @@ Here are the consequences of using different commits:
 ?? subdir/
 
 # Undo the commit.
+# HEAD~1 == parent of HEAD.
  commit-all-example$ git reset --soft HEAD~1
  commit-all-example$ git status -s
  M notyet
@@ -871,7 +880,7 @@ git log
     [--stat]
     [-p]
     [--oneline] [--graph] [--decorate]
-    [--no-abbrev-commit]
+    [--no-abbrev-commit | --abbrev-commit]
     [--reverse] [-n <number>] [--skip=<number>] [--before=<date>] [--after=<date>] [--author=<pattern>] [--branches[=<pattern>]]
     [<path>...]`
 ```
@@ -911,15 +920,9 @@ So far, as alluded to by `git status` we have been on the default _branch_, name
 * master
 ```
 
-Branches are used to develop features isolated from each other. Branches provide a way for you to keep separate streams of development apart.  Create and use other branches for development, and merge them back to the master branch upon completion.  A branch represents a "sub-context" within a project.
+Branches are used to develop features isolated from each other. Branches provide a way for you to keep separate streams of development apart.  Create and use other branches for development, and merge them back to the master branch upon completion.  A branch represents a "sub-context" within a project.  In real-world projects, work always happens in multiple of these contexts in parallel.
 
-In real-world projects, work always happens in multiple of these contexts in parallel:
-
-- While you're preparing 2 new variations of your website's design (context 1 & 2)...
-- you're also trying to fix an annoying bug (context 3).
-- On the side, you also update some content on your FAQ pages (context 4).
-
-All the changes you make at any time will only apply to the _currently active_ branch; all other branches are left untouched. This gives you the freedom to both work on different things in parallel.
+**All the changes you make at any time will only apply to the _currently active_ branch; all other branches are left untouched.**  This gives you the freedom to both work on different things in parallel.
 
 Branches are not "optional" in Git.  You are always working on a certain branch (the **currently active**, or "checked out", or "HEAD" branch).
 
@@ -958,9 +961,15 @@ Switched to branch 'master'
 Deleted branch contact-form-2 (was 23a8fbb).
 ```
 
-**Note**: The terms "branch" and "head" are nearly synonymous in Git. Every branch is represented by one head, and every head represents one branch.
+Recall from an earlier section that you can think of Git as manipulating **three trees** in its normal operation: HEAD, Index, Working Tree.  When you `git checkout` a branch, this:
 
-Knowing the above, we can also create a branch (head) that points to a previous commit.  Below, `HEAD^` is an alias for the parent of the `HEAD` commit.
+- Changes HEAD to point to the new branch ref
+- Populates your Index with the snapshot of that commit
+- Copies the contents of the Index into your Working Tree
+
+**Note**: The terms "branch" and "head" (not to be confused with `HEAD`) are nearly synonymous in Git. Every branch is represented by one head, and every head represents one branch.
+
+Knowing the above, we can also **create a branch (head) that points to a previous commit**.  Below, `HEAD^` is an alias for the parent of the `HEAD` commit.
 
 ```bash
  myrepo$ git branch fix-headers HEAD^
@@ -980,8 +989,6 @@ Switched to branch 'fix-headers'
 What does this do?  `HEAD` now points to the commit object specified by `fix-headers`.
 
 ## Merging (`git merge`)
-
-TODO: flesh this out.  See also https://realpython.com/python-git-github-intro/#branching-basics
 
 Eventually, you need to merge a branch with `master`.  You do that with `git merge`.  Here's an example (with some output hidden):
 
@@ -1028,13 +1035,13 @@ Date:   Sat May 12 19:05:49 2018 -0400
 - A "local" repository resides on your local computer, as a ".git" folder inside your project's root folder. You are the only person that can work with this repository, by committing changes to it.
 - A "remote" repository, in contrast, is typically located on a remote server on the internet or in your local network. No actual working files are associated with a remote repository: it has no working directory but it exclusively consists of the ".git" repository folder. Teams are using remote repositories to share & exchange data: they serve as a common base where everybody can publish their own changes and receive changes from their teammates.
 
-When you clone a repository from a remote server, Git automatically remembers this connection for you. It saves it as a **remote** called "origin" by default.
+> Note: Remote repositories can be on your local machine.  The word “remote” does not necessarily imply that the repository is somewhere else on the network or Internet, only that it is elsewhere and that you push/pull interact with it.
 
-_Remotes_ is another term for a _set of repositories whose branches you're tracking._
+When you clone a repository from a remote server, Git automatically remembers this connection for you. It saves it as a **remote** called "origin" by default.  `origin` is the default name Git gives to the server you cloned from.
 
 ## URL Structure
 
-Several commands (`git clone`, `git fetch`, `git pull`, or `git push`) have a URL as a parameter.  (Sometimes this is not a "technically correct" URL as defined by the relevant RFCs.)  Git supports **ssh, git, http, and https** protocols.
+Several commands (`git clone`, `git fetch`, `git pull`, or `git push`) have a URL as a parameter.  (Sometimes this is not a "technically correct" URL as defined by the relevant RFCs.)  Git supports **local, ssh, git, http, and https** protocols.
 
 The simplest form of Git URL refers to a repository on a local filesystem, be it a true physical filesystem or a virtual filesystem mounted locally via the Network File System (NFS). There are two permutations:
 
@@ -1043,7 +1050,7 @@ The simplest form of Git URL refers to a repository on a local filesystem, be it
 
 The other forms of the Git URL refer to repositories on remote systems.
 
-As mentioned above, Git has its own _Git native protocol_.  This **does no authentication**.  The same is true for http.
+As mentioned above, Git has its own _Git native protocol_.  This is a special daemon that comes packaged with Git; it listens on a dedicated port (9418) that provides a service similar to the SSH protocol, but with absolutely **no authentication**.  The same is true for http.
 
 > git://example.com/path/to/repo.git
 
@@ -1112,7 +1119,9 @@ Note that the cloned repo has a `.git` directory, even if that's not visible on 
 
 ## Tracking and Manipulating Remotes: `git remote`
 
-TODO
+More broadly, _remotes_ is another term for a _set of repositories whose branches you're tracking._  You can have multiple remotes.
+
+`git remote` manages these tracked repositories.
 
 ```bash
  github-playground$ git remote -v
@@ -1120,7 +1129,25 @@ origin  git@github.com:bsolomon1124/github-playground.git (fetch)
 origin  git@github.com:bsolomon1124/github-playground.git (push)
 ```
 
-Above, `origin` refers to the name of the remote.
+A common layout is an interaction of three repositories: the "upstream" repo, your "origin" forked repo, and your local cloned repo:
+
+```
+          "upstream"                                         "origin"
+Data4Democracy/github-playground    ---fork--->   _bsolomon1124/github-playground
+                                \                 /\
+                                 \               /
+                                  \             /
+                                  _\/          /
+                                    local clone
+```
+
+```bash
+ nyc18_ds14$ git remote -v
+origin  git@github.com:bsolomon1124/nyc18_ds14.git (fetch)
+origin  git@github.com:bsolomon1124/nyc18_ds14.git (push)
+upstream    git@github.com:thisismetis/nyc18_ds14.git (fetch)
+upstream    git@github.com:thisismetis/nyc18_ds14.git (push)
+```
 
 ## Update Remote Branches: `git fetch`
 
@@ -1159,9 +1186,52 @@ To elaborate on the above: note that a repository that has remotes will have `.g
 └── tags
 ```
 
-## Interaction: `git push`, `git pull`, `git fetch`
+In the above example from `git remote`, using `git fetch upstream` would fetch all the information that `upstream` has but that you don't yet have in your repository.
 
-TODO
+```bash
+ nyc18_ds14$ git fetch upstream
+remote: Counting objects: 74, done.
+remote: Total 74 (delta 34), reused 34 (delta 34), pack-reused 39
+Unpacking objects: 100% (74/74), done.
+From github.com:thisismetis/nyc18_ds14
+ * [new branch]      notes       -> upstream/notes
+ * [new branch]      submission0 -> upstream/submission0
+```
+
+While this is not the first time `fetch` is run for this repo, an earlier execution made `upstream`'s master branch accessible locally as `upstream/master`.  The above also makes `notes` and `submission0` accessible.
+
+`git fetch` only downloads data to your local repository--it does no merging.
+
+## Interaction: `git push` & `git pull`
+
+### Pulling
+
+In the section above on `git fetch`, it was mentioned that this only downloads data, but does no merging.
+
+**If your current branch is set up to track a remote branch, use `git pull` to automatically fetch and then merge that remote branch into your current branch.**  `git clone` automatically sets up your local master branch to track the remote master branch on the server you cloned from.
+
+What if we edit the files in GitHub?  Can we have this change our files locally?  Let's try making a small "direct" edit to [`myfile.txt`](https://github.com/bsolomon1124/github-playground/blob/master/myfile.txt) on GitHub, while adding a commit message and then clicking "commit changes" in the browser.
+
+These changes _will not_ be immediately reflected in your local machine repo.  How do we get them to be reflected?  With `git pull`.
+
+```bash
+ github-playground$ git pull origin master
+remote: Counting objects: 3, done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 3 (delta 1), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), done.
+From github.com:bsolomon1124/github-playground
+ * branch            master     -> FETCH_HEAD
+   5e53d51..6034203  master     -> origin/master
+Updating 5e53d51..6034203
+Fast-forward
+ myfile.txt | 1 +
+ 1 file changed, 1 insertion(+)
+```
+
+`git pull` is shorthand for `git fetch` + `git merge`.
+
+If you open this file locally, you'll see that it now reflects the changes from GitHub.  Pulling _updates our local repository to reflect changes/commits made in the remote repo_.  This could be useful if we've invited other people to our GitHub project who have pulled your changes, made their own commits, and pushed them.
 
 ### Pushing
 
@@ -1170,7 +1240,9 @@ When in "Local Git" mode, we stopped with `git commit`.  `git push` is the logic
 1. To which remote repository we want to push. (i.e. `origin`)
 2. To which branch on that remote repository we want to push (i.e. `master`).
 
-The remote reposiotry is destination of the push operation.
+The syntax is `git push <remote> <branch>`
+
+The remote repository is destination of the push operation.
 
 The name of our remote is `origin` and the default local branch name is `master`.
 
@@ -1212,37 +1284,6 @@ Troubleshooting: if you get the message
 
 You need to simply push to origin with `git push origin master`.
 
-### Pulling
-
-What if we edit the files in GitHub?  Can we have this change our files locally?  Let's try making a small "direct" edit to [`myfile.txt`](https://github.com/bsolomon1124/github-playground/blob/master/myfile.txt) on GitHub, while adding a commit message and then clicking "commit changes" in the browser.
-
-These changes _will not_ be immediately reflected in your local machine repo.  How do we get them to be reflected?  With `git pull`.
-
-```bash
- github-playground$ git pull origin master
-remote: Counting objects: 3, done.
-remote: Compressing objects: 100% (2/2), done.
-remote: Total 3 (delta 1), reused 0 (delta 0), pack-reused 0
-Unpacking objects: 100% (3/3), done.
-From github.com:bsolomon1124/github-playground
- * branch            master     -> FETCH_HEAD
-   5e53d51..6034203  master     -> origin/master
-Updating 5e53d51..6034203
-Fast-forward
- myfile.txt | 1 +
- 1 file changed, 1 insertion(+)
-```
-
-`git pull` is shorthand for `git fetch` + `git merge`.
-
-If you open this file locally, you'll see that it now reflects the changes from GitHub.  Pulling _updates our local repository to reflect changes/commits made in the remote repo_.  This could be useful if we've invited other people to our GitHub project who have pulled your changes, made their own commits, and pushed them.
-
-## "origin" versus "upstream"
-
-So far, we've only worked with _one remote, called `origin`_.  What we have ignored is the _original_ repository that we forked, `Data4Democracy/github-playground`.  In the real world, we frequently have a "triangle" relationship as we eventually want to integrate our changes to this project.
-
-TODO: git remote add
-
 # Interaction with GitHub
 
 GitHub is a Git hosting site, alonside BitBucket & GitLab.
@@ -1261,11 +1302,15 @@ Once again, the typical flow here is:
 
 1. On GitHub, fork a repo to your account.
 2. `git clone` this repo locally.
-3. Check out a new branch for your modifications.
+3. **Check out a new branch for your modifications.**
 4. Add, commit, and push back to master.  [TODO: master or origin?]
 5. Make a pull request on GitHub.
 
 See more: GitHub - [About pull requests](https://help.github.com/articles/about-pull-requests/)
+
+### Keep Up with Upstream
+
+If you want to merge in the target branch to make your Pull Request mergeable, you would add the original repository as a new remote, fetch from it, merge the main branch of that repository into your topic branch, fix any issues and finally push it back up to the same branch you opened the Pull Request on.
 
 ## Types of Accounts
 
@@ -1283,6 +1328,8 @@ GitHub Organizations provide ownership of repositories at a higher level than me
 See the [REST API v3 Guide](https://developer.github.com/v3/).
 
 # Glossary
+
+See also: `git help glossary`.
 
 | Term | Definition |
 | ---- | ---------- |
@@ -1317,6 +1364,12 @@ $ git commit --amend
 Let’s say you've changed two files and want to commit them as two separate changes, but you accidentally type `git add *` and stage them both. How can you unstage one of the two?
 
 Use `git reset HEAD <file>...`.  Just be careful with `git reset`; it can be dangerous when used with `--hard`.
+
+### Unmodifying a Modified File
+
+Separately from the above, if you want to undo changes, use `git checkout -- <file>...`.
+
+This reverts it back to what it looked like when you last committed (or initially cloned, or however you got it into your working directory).
 
 ## `git show`
 
@@ -1386,6 +1439,34 @@ Because the configuration files are simple text files, you can view their conten
     ignorecase = true
     precomposeunicode = true
 ```
+
+## Signing Your Work
+
+TODO - See https://git-scm.com/book/en/v2/Git-Tools-Signing-Your-Work
+
+## Plumbing Commands
+
+Here are two plumbing commands to see what `HEAD` looks like:
+
+```bash
+ myrepo$ git cat-file -p HEAD
+tree 56acc7ebf613f0b37987ad8e2697abc7b7f65ce4
+parent 75a73f71b40cb5e3ab23c99c938f873ae0075bf6
+author Brad Solomon <brad.solomon.1124@gmail.com> 1526170497 -0400
+committer Brad Solomon <brad.solomon.1124@gmail.com> 1526170497 -0400
+
+let's try this again
+
+ myrepo$ git ls-tree -r HEAD
+100644 blob 2a03b7619a92d24aae954392bd6769e26c7a72e3    .gitignore
+100644 blob 436a25cc9958a7339e7da0456e597cc337707012    file1.txt
+100644 blob e69de29bb2d1d6434b8b29ae775ad8c2e48c5391    headers.txt
+100644 blob 8dc5777a0edb746aecdd764e3bda91ea6059b2e2    hello.py
+```
+
+## Commit Guidelines
+
+See the ["Submitting Patches"](https://github.com/git/git/blob/ccdcbd54c4475c2238b310f7113ab3075b5abc9c/Documentation/SubmittingPatches#L101) page from the documentation, or  [here](https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html) is a "model Git commit messsage."
 
 ## GUIs
 
