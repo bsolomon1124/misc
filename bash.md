@@ -32,7 +32,7 @@
         - [`find`][29]
     - [`clear`][30]
 - [Redirection][31]
-- [Users & Superusers][32]
+- [Users & Superusers (`sudo`, `su`, `sudoers`)][32]
 - [Chaining Commands][33]
 - [Expansion][34]
     - [Command Substitution][35]
@@ -99,7 +99,7 @@
 [29]: #find
 [30]: #clear
 [31]: #redirection
-[32]: #users--superusers
+[32]: #users--superusers-sudo-su-sudoers
 [33]: #chaining-commands
 [34]: #expansion
 [35]: #command-substitution
