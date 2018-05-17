@@ -12,6 +12,12 @@ TODO
 - Jim Hoskins: [Introduction to the Mac OS X Command Line](http://blog.teamtreehouse.com/introduction-to-the-mac-os-x-command-line) [Sep 2012]
 - From _Learn Python the Hard Way_: [Command Line Crash Course](https://learnpythonthehardway.org/book/appendixa.html)
 - techonthenet tutorials: [Unix](https://www.techonthenet.com/unix/index.php)
+- [An A-Z Index of the Apple macOS command line (OS X)](https://ss64.com/osx/)
+- Machtelt Garrels - [Bash Guide for Beginners](https://linux.die.net/Bash-Beginners-Guide/)
+- Mendel Cooper - [Advanced Bash-Scripting Guide](http://tldp.org/LDP/abs/html/index.html)
+- Mike G - [BASH Programming - Introduction HOW-TO](http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO.html)
+- developer.apple.com - [Shell Scripting Primer](https://developer.apple.com/library/content/documentation/OpenSource/Conceptual/ShellScripting/BeforeYouBegin/BeforeYouBegin.html#//apple_ref/doc/uid/TP40004268-CH1-SW1)
+- [Sample .bashrc and .bash_profile Files](http://tldp.org/LDP/abs/html/sample-bashrc.html)
 
 # Terminology
 
@@ -20,7 +26,7 @@ TODO
 
 > At its base, a shell is simply a macro processor that executes commands. The term macro processor means functionality where text and symbols are expanded to create larger expressions. ... A Unix shell is both a command interpreter and a programming language.
 
-- You **run Terminal to get acces to a shell prompt.**  The Terminal is an _emulator_ and a text input/output application (_Applications > Utilities > Terminal_) that lets you interact with a **command-line environment.**  You could also interact with an environment using a remote connection method such as **secure shell (SSH)**.  A terminal window provides access to the input and output of a **shell process.**
+- You **run Terminal to get acces to a shell prompt.**  The Terminal is an _emulator_ and a text input/output application (_Applications > Utilities > Terminal.app_) that lets you interact with a **command-line environment.**  You could also interact with an environment using a remote connection method such as **secure shell (SSH)**.  A terminal window provides access to the input and output of a **shell process.**
 - The standard OS X shell is **bash**.  Bash is a Unix shell and command language **interpreter** first released in 1989.  In addition to running in a text window, Bash can also read and execute commands from a file, called a script.
 - You run **command-line tools** (or just _commands_; one example would be `cd`) that OS X provides by _typing the name of the tool_.
     - Most tools can also take a number of **flags** aka **switches**.  `-l` would be one such flag.  Flags **change behavior.**
@@ -28,6 +34,11 @@ TODO
     - Separately, some tools take **arguments**.  For example, in `ls /Users/brad/temp`, the second chunk is an argument.
 - The shell (no matter the command, really) also has a notion of a **current working directory**. _When you specify a filename or path that does not start with a slash, that path is assumed to be relative to this directory._
 - The **prompt** is the beginning of the command line. It usually provides some contextual information like who you are, where you are and other useful info. It typically ends in a "$".
+
+```bash
+ ~$ locate Terminal.app | grep "Terminal.app$"
+/Applications/Utilities/Terminal.app
+```
 
 # Environment Variables
 
@@ -142,6 +153,33 @@ There are two ways to run an application (.app) from the command line.  (Example
 $ ls BitTorrent.app/Contents
 Frameworks  Info.plist  Library     MacOS       PkgInfo     Resources   _CodeSignature
 $ BitTorrent.app/Contents/MacOS/BitTorrent
+```
+
+# Quoting
+
+Double quotes dereference variables, while single quotes go literal.
+
+## Single Quotes
+
+- Enclosing characters in single quotes (‘'’) preserves the literal value of each character within the quotes.
+- A single quote may not occur between single quotes, even when preceded by a backslash.
+
+## Double Quotes
+
+- Enclosing characters in double quotes (‘"’) preserves the literal value of all characters within the quotes, **with the exception of** ‘$’, ‘\`’, ‘\’, and, when history expansion is enabled, ‘!’
+- Shell expansions with `$` and backticks are enabled within double quotes.
+- The backslash retains its special meaning only when followed by one of the following characters: ‘$’, ‘\`’, ‘"’, ‘\’, or newline
+
+## Examples
+
+```bash
+ ~$ a='first' b="second"
+ ~$ echo $a
+first
+ ~$ echo "$a"
+first
+ ~$ echo '$b'
+$b
 ```
 
 # Arrays
@@ -631,6 +669,8 @@ Disposing of "unwanted" output by redirecting to `/dev/null`, which is a _bit bu
  shellscripts$ ls /path/dne/ 2> /dev/null
 ```
 
+Examples: [All about redirection](http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO-3.html)
+
 # Users & Superusers
 
 `sudo` stands for "superuser do."
@@ -818,12 +858,235 @@ To list functions: `declare -f`.
 
 Variables local to the function may be declared with the `local` builtin. These variables are visible only to the function and the commands it invokes.
 
+```bash
+ ~$ HELLO=Hello
+ ~$ function hello {
+>         local HELLO=World
+>         echo $HELLO
+> }
+ ~$ echo $HELLO
+Hello
+ ~$
+ ~$ hello
+World
+ ~$ echo $HELLO
+Hello
+```
+
 TODO
 
 ## Exit Status
 
 - The exit status of a function definition is 0 unless a syntax error occurs or a readonly function with the same name already exists.
 - When executed, the exit status of a function is the exit status of the last command executed in the body.
+- All Bash functions return an exit status,
+- `$?` is a special Bash variable that’s set to the exit code of each command after it runs.
+    0 After a script terminates, a `$?` from the command line gives the exit status of the script, that is, the last command executed in the script, which is, by convention, 0 on success or an integer in the range 1 - 255 on error.
+- tldp.org: [Reserved Exit Codes](http://tldp.org/LDP/abs/html/exitcodes.html#EXITCODESREF)
+
+```bash
+# Illustration of `$?`
+ ~$ grep not_there /dev/null
+ ~$ echo $?
+1
+ ~$ echo "a man's dream" | grep man
+a man's dream
+ ~$ echo $?
+0
+```
+
+# Operators
+
+## Operators for Lists of Commands
+
+- A list is a sequence of one or more pipelines separated by one of the operators `;`. `&`, `&&`, `||`, and optionally terminated by one of `:`, `&`, or a newline.
+- Of these list operators, `&&` and `||` have equal precedence, followed by `;` and `&`, which have equal precedence.
+
+AND and OR lists are sequences of one or more pipelines separated by the control operators `&&` and `||`, respectively. AND and OR lists are executed with left associativity.
+
+An AND list has the form:
+
+| Type of List | Syntax | Note |
+| ------------ | ------ | ---- |
+| AND list | `command1 && command2` | `command2` is executed if, and only if, `command1` returns an exit status of zero. |
+| OR list | `command1 || command2` | `command2` is executed if, and only if, `command1` returns a non-zero exit status. |
+
+The return status of AND and OR lists is the exit status of the last command executed in the list.
+
+```bash
+ Downloads$ cd ~/Downloads && ls | grep \.gz
+abs-guide.html.tar.gz
+mcalc-1.6.tar.gz
+
+# Test for the existence of the directory 'temp'
+# and only if the test fails will the directory be created.
+ shellscripts$ [ -d temp ] || mkdir temp
+```
+
+# Flow Control
+
+- Docs: [Compound Commands](https://www.gnu.org/software/bash/manual/bashref.html#Compound-Commands)
+- http://tldp.org/LDP/abs/html/loops1.html
+- http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO-6.html
+
+Note that wherever a `;` appears in the description of a command’s syntax, it may be replaced with one or more newlines.
+
+## Syntaxes
+
+| Construct | Syntax |
+| --------- | ------ |
+| `until` | `until test-commands; do consequent-commands; done` |
+| `while` | `while test-commands; do consequent-commands; done` |
+| `for` | `for name [ [in [words …] ] ; ] do commands; done`<br>or<br>`for (( expr1 ; expr2 ; expr3 )) ; do commands ; done` |
+| `case` | `case word in [ [(] pattern [| pattern]…) command-list ;;]… esac` |
+| `select` | `select name [in words …]; do commands; done` |
+| `if` | <code>if test-commands; then<br>    consequent-commands;<br>[elif more-test-commands; then<br>    more-consequents;]<br>[else alternate-consequents;]<br>fi</code> |
+
+## `for`
+
+```bash
+ ~$ var1=foo
+ ~$ var2=bar
+ ~$ for arg in $var1 $var2;
+> do
+>     echo $arg
+> done
+foo
+bar
+
+ ~$ for planet in Mercury Venus Earth Mars Jupiter Saturn Uranus Neptune Pluto
+> do
+>   echo $planet
+> done
+Mercury
+Venus
+Earth
+Mars
+Jupiter
+Saturn
+Uranus
+Neptune
+Pluto
+
+ shellscripts$ filename="*txt"
+ shellscripts$
+ shellscripts$ for file in $filename
+> do
+>    echo "Contents of $file"
+>    echo "---"
+>    cat "$file"
+>    echo
+> done
+Contents of foo.txt
+---
+
+Contents of ls-error.txt
+---
+ls: /path/does/not/exist/: No such file or directory
+
+Contents of ls-output.txt
+---
+ls: /bin/usr: No such file or directory
+
+Contents of redirected.txt
+---
+some text here
+```
+
+# `if`
+
+Syntax:
+
+```
+if test-commands; then
+  consequent-commands;
+[elif more-test-commands; then
+  more-consequents;]
+[else
+    alternate-consequents;]
+fi
+```
+
+The _expression_ syntax itself is at https://www.gnu.org/software/bash/manual/bashref.html#Bash-Conditional-Expressions.
+
+```bash
+# The key here is the *return* value!
+ ~$ true
+ ~$ if [ `echo $?` ]; then
+>     echo "true indeed"
+> fi
+true indeed
+```
+
+See also: `man test`.
+
+Another example:
+
+```bash
+ ~$ x=5
+ ~$ if [ $x = 5 ]; then
+>     echo "x equals 5."
+> fi
+x equals 5.
+ ~$ if [ $x -eq 5 ]; then
+>     echo "it still does"
+> fi
+it still does
+```
+
+Combining `if` and `for` with a logical AND (`&&`):
+
+```bash
+ ~$ var1=5; var2=8
+ ~$ for var in $var1 $var2
+> do
+>     if [[ $var -lt 7 && $var -gt 4 ]]; then
+>         echo "$var is gt 4 and lt 7"
+>     else
+>         echo "$var is not"
+>     fi
+> done
+5 is gt 4 and lt 7
+8 is not
+```
+
+## `case`
+
+The bash multiple-choice compound command is called `case`.  Its formal syntax is
+
+```
+case word in
+    [ [(] pattern [| pattern]...) command-list ;;]...
+esac
+```
+
+Example:
+
+```bash
+filemode () {
+    # Get the octal representation from file
+    # mode as a string.
+    # filemode rwx --> 7
+    case $1 in
+        "---")      echo 0;;
+        "--x")      echo 1;;
+        "-w-")      echo 2;;
+        "-wx")      echo 3;;
+        "r--")      echo 4;;
+        "r-x")      echo 5;;
+        "rw-")      echo 6;;
+        "rwx")      echo 7;;
+        *)          echo "Invalid entry" >&2
+                    exit 1
+                    ;;
+    esac
+}
+
+ ~$ filemode rwx
+7
+ ~$ filemode bad
+Invalid entry
+```
 
 # Other hacks
 
@@ -968,6 +1231,20 @@ PS1='\W \$ '
 to abbreviate your prompt to the working directory + a "$".
 
 For more options: [Bash Shell PS1: 10 Examples to Make Your Linux Prompt like Angelina Jolie](https://www.thegeekstuff.com/2008/09/bash-shell-ps1-10-examples-to-make-your-linux-prompt-like-angelina-jolie/)
+
+## Execute in Background
+
+Add `&` to end of command:
+
+```bash
+ shellscripts$ cp funcs funcs2 &
+[1] 3546
+ shellscripts$ atq
+[1]+  Done                    cp -i funcs funcs2
+ shellscripts$ atq  # null
+```
+
+If a command is terminated by the control operator `&`, the shell executes the command asynchronously in a subshell. This is known as executing the command in the background. The shell does not wait for the command to finish, and the return status is 0 (true).
 
 # Getting Help
 
