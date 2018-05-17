@@ -886,13 +886,77 @@ Disposing of "unwanted" output by redirecting to `/dev/null`, which is a _bit bu
 
 Examples: [All about redirection](http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO-3.html)
 
-# Users & Superusers
+# Users & Superusers (`sudo`, `su`, `sudoers`)
 
 `sudo` stands for "superuser do."
 
 If you have a lot of root-type work to do in a session, type `sudo -s` to create a new superuser shell, and work from there.
 
-TODO: more here
+The default security policy is `sudoers`, which is configured via the file `/private/etc/sudoers`.  This defines specific commands that particular users are permitted to execute under an assumed identity.
+
+The security policy determines what privileges, if any, a user has to run `sudo`.  The policy may require that users authenticate themselves with a password or another authentication mechanism.
+
+TODO: more here (nobody, root, daemon users?)
+
+Let's say you try to get a glimpse of the file `/private/etc/sudoers`:
+
+```bash
+ ~$ head /private/etc/sudoers
+head: /private/etc/sudoers: Permission denied
+```
+
+Why is permission denied?
+
+```bash
+ ~$ ls -l /private/etc/sudoers
+-r--r-----  1 root  wheel  1563 Dec 10  2016 /private/etc/sudoers
+```
+
+The file is owned by `root`, (and you are not `root`), while "world"/global permission are "---".
+
+In this case, you will need `sudo` (where `!!` is the last command run, `head /private/etc/sudoers`):
+
+```bash
+ ~$ head /private/etc/sudoers
+head: /private/etc/sudoers: Permission denied
+ ~$ sudo !!
+sudo head /private/etc/sudoers
+#
+# Sample /etc/sudoers file.
+#
+# This file MUST be edited with the 'visudo' command as root.
+#
+# See the sudoers man page for the details on how to write a sudoers file.
+
+##
+# Override built-in defaults
+##
+```
+
+While `sudo` allows for single execution of a command as another user (default superuser), `su` allows you to assume the identity of another user and either _start a new shell session with that user’s ID_ or issue a single command as that user.  The default user for `su` is also the superuser.
+
+```bash
+su [-] [-flm] [login [args]]
+```
+
+`-l` simulates a _full login shell_.  This means that the user’s environment is loaded and the working directory is changed to the user’s home directory.
+
+If you get `su: Sorry` when trying to use `su`, this is probably because your user is not a member of group `wheel`.
+
+One workaround is `sudo -i`, which mimics `sudo su`.  (`sudo` asks for your own password; `su` asks for a root password.)
+
+```bash
+ ~$ sudo -i
+Password:
+Bradleys-MacBook-Pro:~ root# whoami
+root
+Bradleys-MacBook-Pro:~ root# pwd
+/var/root
+```
+
+The trailing `#` indicates the current user has superuser privleges.  When finished, use `exit` to return to the regular shell.
+
+TODO: more
 
 # Chaining Commands
 
@@ -911,7 +975,6 @@ Expansion is performed on the command line after it has been split into tokens. 
 - arithmetic expansion
 - word splitting
 - filename expansion
-
 
 ## Command Substitution
 
