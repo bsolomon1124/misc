@@ -350,6 +350,8 @@ FROM Vendors INNER JOIN Products
 ON Vendors.vend_id = Products.vend_id;
 ```
 
+Above, note that **the columns on which you are joining do not need to be present in `SELECT`**.
+
 ### Types of Joins
 
 - Inner join (equijoin).  Joins on the **intersection** of rows.  Per the ANSI specification, use of `INNER JOIN` syntax is preferred over the `WHERE` syntax.
@@ -357,7 +359,7 @@ ON Vendors.vend_id = Products.vend_id;
 - Right outer join.  Like left join, but vice versa.
 - Full outer join.  This is a union.  (Not to be confused with UNION keyword.)
 - Self join - joining a table against itself
-- Cross join - a join with no qualifier.  Returns Cartesian product.  The number of rows in the result is the product of the number of rows in each table.
+- **Cross join - a join with no qualifier.  Returns Cartesian product.**  The number of rows in the result is the product of the number of rows in each table.
 
 Example of a self-join (Postgres docs):
 
@@ -512,6 +514,12 @@ ON Products (prod_name);
 
 **A view simply gives a name to a query** that can dymanmically retrieve data when used.
 
+> Making liberal use of views is a key aspect of good SQL database design. Views allow you to encapsulate the details of the structure of your tables, which might change as your application evolves, behind consistent interfaces.
+
+```sql
+CREATE VIEW MyView AS SELECT * FROM MyTable;
+```
+
 Suppose the combined listing of weather records and city location is of particular interest to your application, but you do not want to type the query each time you need it. You can create a view over the query, which gives a name to the query that you can refer to like an ordinary table:
 
 ```sql
@@ -523,7 +531,9 @@ CREATE VIEW MyView AS
 SELECT * FROM MyView;
 ```
 
-A view *does not* contain any data itself; it just contains a query.  Therefore, views are "dynamic," not "static".  Modifiying the underlying table will modify the result of the view:
+In Postgres, views and tables are both _relations_.
+
+A view *does not* contain any data itself; it just contains a query.  (It is **not psychically materialized**.)  Therefore, views are "dynamic," not "static".  Modifiying the underlying table will modify the result of the view:
 
 ```sql
 CREATE VIEW AfterQ1 AS
@@ -570,11 +580,83 @@ FROM VendorLocations;
 (6 rows)
 ```
 
-PostgreSQL docs: [views](https://www.postgresql.org/docs/10/static/tutorial-views.html).
+More on syntax:
 
-> Making liberal use of views is a key aspect of good SQL database design. Views allow you to encapsulate the details of the structure of your tables, which might change as your application evolves, behind consistent interfaces.
+```sql
+-- This is not totally complete
+CREATE [ OR REPLACE ] [ TEMP | TEMPORARY ] VIEW name AS query
+```
+
+Example:
+
+```sql
+CREATE VIEW vista AS SELECT text 'Hello World' AS hello;
+```
+
+`CREATE VIEW` defines a view of a query.
+
+`CREATE OR REPLACE VIEW` is similar, but if a view of the same name already exists, it is replaced.
+
+Temporary views (`TEMP`/`TEMPORARY`) are automatically dropped at the end of the current session.
+
+Use the `DROP VIEW` statement to drop views.
+
+More on views:
+
+- PostgreSQL docs: [views](https://www.postgresql.org/docs/10/static/tutorial-views.html).
+- [`CREATE VIEW`](https://www.postgresql.org/docs/9.4/static/sql-createview.html)
+- [Views and the Rule System](https://www.postgresql.org/docs/9.4/static/rules-views.html)
+- http://www.postgresqltutorial.com: [PostgreSQL Views](http://www.postgresqltutorial.com/postgresql-views/)
 
 *Note*: SQLite supports read-only views.
+
+### Materialized Views
+
+Docs: [materialized views](https://www.postgresql.org/docs/9.4/static/rules-materializedviews.html); [postgresqltutorial.com](http://www.postgresqltutorial.com/postgresql-materialized-views/).
+
+A **materialized view** stores data physically and refreshes the data periodically from the base tables.  Materialized views have many advantages in many scenarios such as faster access to data from a remote server, data caching, etc.  But as a result, the materialized view cannot subsequently be directly updated.  **The query is executed and used to populate the view at the time the command is issued**.
+
+It is built with [`CREATE MATERIALIZED VIEW`](https://www.postgresql.org/docs/9.4/static/sql-creatematerializedview.html).
+
+Fresh data can be generated for the materialized view with:
+
+```sql
+REFRESH MATERIALIZED VIEW MyMatView;
+```
+
+Here is a fuller example from the docs:
+
+_While access to the data stored in a materialized view is often much faster than accessing the underlying tables directly or through a view, the data is not always current; yet sometimes current data is not needed. Consider a table which records sales:_
+
+```sql
+CREATE TABLE invoice (
+    invoice_no    integer        PRIMARY KEY,
+    seller_no     integer,       -- ID of salesperson
+    invoice_date  date,          -- date of sale
+    invoice_amt   numeric(13,2)  -- amount of sale
+);
+```
+
+_If people want to be able to quickly graph historical sales data, they might want to summarize, and they may not care about the incomplete data for the current date:_
+
+```sql
+CREATE MATERIALIZED VIEW sales_summary AS
+  SELECT
+      seller_no,
+      invoice_date,
+      sum(invoice_amt)::numeric(13,2) as sales_amt
+    FROM invoice
+    WHERE invoice_date < CURRENT_DATE
+    GROUP BY
+      seller_no,
+      invoice_date
+    ORDER BY
+      seller_no,
+      invoice_date;
+
+CREATE UNIQUE INDEX sales_summary_seller
+  ON sales_summary (seller_no, invoice_date);
+```
 
 ## Triggers
 
