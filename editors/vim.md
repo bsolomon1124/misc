@@ -95,9 +95,11 @@ Insertion, deletion, copying & pasting:
     dd              delete current line
     dw              delete current word
 
-    p               put previously deleted text after the cursor.  (like paste)
-    y               yank
+    p               put yanked text after the cursor.  (like paste)
+    P               put yanked text before the cursor
+    y               yank (like copy)
     yw              yank (copy) one word
+    yy              yank lines
 
     c{motion}       change text.  like d{motion}, but puts you in insert mode after
     c$              delete from cursor to end of line
@@ -123,6 +125,9 @@ Searching:
 Other:
 
     ZZ              write and exit.  note the Z's are capitalized
+
+    z + <Enter>     make current line the top one on the screen
+                    (sort of like "scroll past end")
 
     ~               change current character's case.  can be used with a count (like everything else)
 
