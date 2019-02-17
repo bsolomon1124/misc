@@ -1127,19 +1127,6 @@ $ tree -F -L 1 /
 └── var -> private/var/
 ```
 
-In Python, `os` doesn't accept (expand) the tilde character.  Expand it with `os.path.expanduser`:
-
-> On Unix, an initial ~ is replaced by the environment variable `HOME` if it is set; otherwise the current user's home directory is looked up in the password directory through the built-in module `pwd`.
-
-I.e.:
-
-```python
->>> import os
->>> home = os.path.expanduser('~')
->>> print(home)
-/Users/brad
-```
-
 ### Special Path Characters
 
 In addition to `~`, the shell supports a number of directory names that have a special meaning:
