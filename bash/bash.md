@@ -2,77 +2,81 @@
 
 ## Contents
 
-```
-## Covered Here
-## Resources & References
-## Version
-## Terminology
-## Bash Syntax
-### Command Usage
-### Control Operators
-### Reserved Words
-### Pipelines
-### Lists
-### Conditional Expressions
-### Quoting
-#### Examples
-### Special Parameters
-### Redirection
-#### Redirecting Input
-#### Redirecting Output
-##### Redirect `stderr`
-##### Redirect `stderr` to `stdout` (and Vice Versa)
-##### Redirect `stderr` _and_ `stdout`
-### Flow Control
-#### `for`
-#### `if`
-#### `case`
-### Expansion
-#### Command Substitution
-#### Variable/Parameter Substitution
-#### Brace Expansion
-#### Filename/Pathname Expansion
-#### History Expansion
-##### Event Designators
-##### Word Designators
-### Shell Functions
-#### Scope
-### Prompt Strings
-### Arrays
-#### General Rules
-#### Indexed Arrays
-#### Associative Arrays
-#### Examples
-### Environment Variables
-### The Home Directory
-### Special Path Characters
-### Initialization Files: `.bash_profile` and `.bashrc`
-### Shebang Line
-### Interactive Shells & Login Shells
-### Invoking a Script
-#### What File Extension Do I Use? (`.sh`, `.bash`)
-## Builtins
-### `mkdir`
-### `cd`
-### `rmdir` & `rm`
-### `touch`
-### The Directory Stack: `dir`, `pushd` & `popd`
-### `cp`
-### `mv`
-### Page Through a File (`less`, `more`)
-### `cat`
-### `grep`
-### `exit`
-### Finding Things: `find` & `locate`
-#### `locate`
-#### `find`
-### `clear`
-### `alias`
-## Other Topics
-### Users & Superusers (`sudo`, `su`, `sudoers`)
-### Getting Help
-### Keyboard Shortcuts
-```
+<!---toc start-->
+
+* [Bash](#bash)
+  * [Contents](#contents)
+  * [Covered Here](#covered-here)
+  * [Resources & References](#resources--references)
+  * [Version](#version)
+  * [Terminology](#terminology)
+  * [Bash Syntax](#bash-syntax)
+    * [Command Usage](#command-usage)
+    * [Control Operators](#control-operators)
+    * [Reserved Words](#reserved-words)
+    * [Pipelines](#pipelines)
+    * [Lists](#lists)
+    * [Conditional Expressions](#conditional-expressions)
+    * [Quoting](#quoting)
+      * [Examples](#examples)
+    * [Special Parameters](#special-parameters)
+    * [Redirection](#redirection)
+      * [Redirecting Input](#redirecting-input)
+      * [Redirecting Output](#redirecting-output)
+        * [Redirect `stderr`](#redirect-stderr)
+        * [Redirect `stderr` to `stdout` (and Vice Versa)](#redirect-stderr-to-stdout-and-vice-versa)
+        * [Redirect `stderr` _and_ `stdout`](#redirect-stderr-_and_-stdout)
+    * [Flow Control](#flow-control)
+      * [`for`](#for)
+      * [`if`](#if)
+      * [`case`](#case)
+    * [Expansion](#expansion)
+      * [Command Substitution](#command-substitution)
+      * [Variable/Parameter Substitution](#variableparameter-substitution)
+      * [Brace Expansion](#brace-expansion)
+      * [Filename/Pathname Expansion](#filenamepathname-expansion)
+      * [History Expansion](#history-expansion)
+        * [Event Designators](#event-designators)
+        * [Word Designators](#word-designators)
+    * [Shell Functions](#shell-functions)
+      * [Scope](#scope)
+    * [Prompt Strings](#prompt-strings)
+    * [Arrays](#arrays)
+      * [General Rules](#general-rules)
+      * [Indexed Arrays](#indexed-arrays)
+      * [Associative Arrays](#associative-arrays)
+      * [Examples](#examples-1)
+    * [Environment Variables](#environment-variables)
+    * [The Home Directory](#the-home-directory)
+    * [Special Path Characters](#special-path-characters)
+    * [Initialization Files: `.bash_profile` and `.bashrc`](#initialization-files-bash_profile-and-bashrc)
+    * [Shebang Line](#shebang-line)
+    * [Interactive Shells & Login Shells](#interactive-shells--login-shells)
+    * [Invoking a Script](#invoking-a-script)
+      * [What File Extension Do I Use? (`.sh`, `.bash`)](#what-file-extension-do-i-use-sh-bash)
+  * [Builtins](#builtins)
+    * [`mkdir`](#mkdir)
+    * [`cd`](#cd)
+    * [`rmdir` & `rm`](#rmdir--rm)
+    * [`touch`](#touch)
+    * [The Directory Stack: `dir`, `pushd` & `popd`](#the-directory-stack-dir-pushd--popd)
+    * [`cp`](#cp)
+    * [`mv`](#mv)
+    * [Page Through a File (`less`, `more`)](#page-through-a-file-less-more)
+    * [`cat`](#cat)
+    * [`grep`](#grep)
+    * [`exit`](#exit)
+    * [Finding Things: `find` & `locate`](#finding-things-find--locate)
+      * [`locate`](#locate)
+      * [`find`](#find)
+    * [`clear`](#clear)
+    * [`alias`](#alias)
+  * [Other Topics](#other-topics)
+    * [Users & Superusers (`sudo`, `su`, `sudoers`)](#users--superusers-sudo-su-sudoers)
+    * [Getting Help](#getting-help)
+    * [Keyboard Shortcuts](#keyboard-shortcuts)
+
+<!---toc end-->
 
 ## Covered Here
 
