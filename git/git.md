@@ -1405,6 +1405,19 @@ See more: GitHub - [About pull requests](https://help.github.com/articles/about-
 
 If you want to merge in the target branch to make your Pull Request mergeable, you would add the original repository as a new remote, fetch from it, merge the main branch of that repository into your topic branch, fix any issues and finally push it back up to the same branch you opened the Pull Request on.
 
+## Creating a Git Repository
+
+When you click "New repository" in GitHub and add a README, .gitignore, or LICENSE, this will automatically create a commit in origin.
+
+Say that you already have a local repo that you want to add.  If you do the below, note that it will ask you to merge since origin/master now techically has a merge conflict with your master.
+
+From your local repo, run:
+
+```bash
+$ git remote add origin git@github.com:bsolomon1124/my-repo.git
+$ git push -u origin master
+```
+
 ## Types of Accounts
 
 GitHub has four types of account and plan combinations:
