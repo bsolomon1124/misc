@@ -67,7 +67,7 @@ The costs associated with cloud computing are operational expenses (OpEx):
 - **Hybrid cloud**: Combines public and private clouds, allowing you to run your applications in the most appropriate location
     - Example: Host a website in the public cloud and link it to a highly secure database hosted in your private cloud
 
-Types of cloud services
+### Types of cloud services
 
 1. Infrastructure as a service (IaaS): rented computing infrastructure (hardware), provisioned and managed over the Internet
     - Example: Azure VM
@@ -75,6 +75,8 @@ Types of cloud services
     - Example: Azure SQL Database
 1. Software as a service (SaaS): software that is centrally hosted and managed for the end customer, usually subscription-based
     - Examples: Office 365, Skype, and Dynamics CRM Online
+
+![Service comparison](../imgs/azure-iaas-saas-paas.jpg)
 
 ## Core Cloud Services - Introduction to Azure
 
@@ -98,7 +100,9 @@ Microsoft Azure is made up of datacenters located around the globe.  Azure resou
 
 The specific datacenters aren't exposed to end users directly; instead, Azure organizes them into regions.  (You deploy your app to a region, not a datacenter.)
 
-A region is a geographical area on the planet containing at least one, but potentially multiple datacenters that are nearby and networked together with a low-latency network.
+A **region** is a geographical area on the planet containing at least one, but potentially multiple datacenters that are nearby and networked together with a low-latency network.
+
+![Azure regions](../imgs/azure-2-regions-large.jpg)
 
 Special region:
 
@@ -482,6 +486,8 @@ A load balancer achieves high availability.  It does _not_ decrease latency or c
 
 - Doesn't see the traffic that's passed between the client and server. Rather, it directs the client web browser to a preferred endpoint
 - Used when multiple copies of your underlying service are deployed to more than one region
+
+![Azure Traffic Manager](../imgs/azure-traffic-manager.jpg)
 
 ## Security, responsibility and trust in Azure
 
