@@ -344,8 +344,8 @@ Serverless computing encompasses three ideas:
 
 Functions versus Logic Apps:
 
-| | Functions | Logic Apps |
-| | --------- | ---------- |
+| Attribute | Functions | Logic Apps |
+| --------- | --------- | ---------- |
 | State |   Normally stateless, but Durable Functions provide state  |   Stateful |
 | Development |     Code-first (imperative)   |  Designer-first (declarative) |
 | Connectivity |    About a dozen built-in binding types, write code for custom bindings  |  Large collection of connectors, Enterprise Integration Pack for B2B scenarios, | build custom connectors |
@@ -411,7 +411,7 @@ Encryption for storage services:
 
 ### Comparison between Azure data storage and on-premises storage
 
-TODO: insert image
+![On-prem versus Azure data storage](../imgs/azure-onprem-v-azure-storage.jpg)
 
 ## Core Cloud Services - Azure networking options
 
