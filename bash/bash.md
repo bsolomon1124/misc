@@ -25,7 +25,7 @@
       * [Redirecting Output](#redirecting-output)
         * [Redirect `stderr`](#redirect-stderr)
         * [Redirect `stderr` to `stdout` (and Vice Versa)](#redirect-stderr-to-stdout-and-vice-versa)
-        * [Redirect `stderr` _and_ `stdout`](#redirect-stderr-_and_-stdout)
+        * [Redirect `stderr` _and_ `stdout`](#redirect-stderr-and-stdout)
     * [Flow Control](#flow-control)
       * [`for`](#for)
       * [`if`](#if)
