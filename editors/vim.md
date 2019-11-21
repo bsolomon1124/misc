@@ -94,16 +94,18 @@ Insertion, deletion, copying & pasting:
     d{motion}       delete.  doesn't enter insert mode after
     dd              delete current line
     dw              delete current word
-
-    p               put yanked text after the cursor.  (like paste)
-    P               put yanked text before the cursor
-    y               yank (like copy)
-    yw              yank (copy) one word
-    yy              yank lines
+    d$              delete from cursor til end of current line
+    D               delete from cursor til end of current line
 
     c{motion}       change text.  like d{motion}, but puts you in insert mode after
     c$              delete from cursor to end of line
     cw              delete from cursor to end of word, then enter insert word
+
+    p               put yanked text after the cursor (like paste)
+    P               put yanked text before the cursor
+    y               yank (like copy)
+    yw              yank (copy) one word
+    yy              yank lines
 
     r{x}            replace single character under the cursor with character {x}
 
@@ -122,6 +124,8 @@ Searching:
     n               get next search result
     N               get previous search result
 
+*Note*: characters `.*[]ˆ%/\?~$` are metacharacters.  To find them literally, escape them with `\`.
+
 Other:
 
     ZZ              write and exit.  note the Z's are capitalized
@@ -129,13 +133,19 @@ Other:
     z + <Enter>     make current line the top one on the screen
                     (sort of like "scroll past end")
 
-    ~               change current character's case.  can be used with a count (like everything else)
+    ~               change current character's case
+    g~w             invert case of current word
+    g~~             invert case of current line
+    gUU             make current line uppercase
+    guu             make current line lowercase
 
     >>              indents selected lines by one "shift width."
                     amount of whitespace is set with the `:set shiftwidth` option
     <<              de-dents selected lines by one "shift width."
 
-    J               join next line with current one
+    J               join next line with current one, separated by spaces
+    {n}J            join n lines, separated by spaces
+    {n}gJ           join n lines, with no separator
 
     v               visual mode (highlight text with cursor keys)
 
@@ -143,7 +153,7 @@ Other:
 
 ## Motions
 
-Movement motions (all of these can take optional numeric arguments):
+Movement motions (all of these can take optional numeric arguments!):
 
     w               start of next word (2w, 3w, 4w)
     e               end of current word (2e, 3e, 4e)
@@ -194,6 +204,7 @@ All of these must be finished by pressing <Enter>.
     :%s/old/new/g       substitute all occurrences of `new` for `old` in entire file
     :%s/old/new/gc      find every occurrence in the whole file, with a prompt whether to substitute or not
 
+    :vim {file}          edit file
     :e {file}           edit file
     :r {file}           read file
     :!rm {file}         remove file
