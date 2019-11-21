@@ -102,7 +102,7 @@ The specific datacenters aren't exposed to end users directly; instead, Azure or
 
 A **region** is a geographical area on the planet containing at least one, but potentially multiple datacenters that are nearby and networked together with a low-latency network.
 
-![Azure regions](../imgs/azure-2-regions-large.jpg)
+![Azure regions](../imgs/azure-2-regions-large.png)
 
 Special region:
 
