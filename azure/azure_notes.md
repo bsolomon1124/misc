@@ -15,7 +15,7 @@ Modules:
 1. [Control and organize Azure resources with Azure Resource Manager](#control-and-organize-azure-resources-with-azure-resource-manager)
 1. [Predict costs and optimize spending for Azure](#predict-costs-and-optimize-spending-for-azure)
 
-## Cloud Concepts - Principles of cloud computing
+## Cloud Concepts - Principles of cloud computing ([home](#))
 
 ### What is cloud computing?
 
@@ -78,7 +78,7 @@ The costs associated with cloud computing are operational expenses (OpEx):
 
 ![Service comparison](../imgs/azure-iaas-saas-paas.jpg)
 
-## Core Cloud Services - Introduction to Azure
+## Core Cloud Services - Introduction to Azure ([home](#))
 
 **Azure**: Microsoft's cloud computing platform.
 
@@ -92,7 +92,7 @@ Tour of Azure services: https://docs.microsoft.com/en-us/learn/modules/welcome-t
 - **Azure Cloud Shell**: a browser-based command-line experience for managing and developing Azure resources
 - **Azure CLI**: Azure command-line interface, which is accessible via Cloud Shell or a regular shell
 
-## Core Cloud Services - Azure architecture and service guarantees
+## Core Cloud Services - Azure architecture and service guarantees ([home](#))
 
 ### Data centers, Regions, and Geographies
 
@@ -160,7 +160,7 @@ Characteristics of Azure SLAs:
 
 **Availability**: the time that a system is functional and working.
 
-## Create an Azure account
+## Create an Azure account ([home](#))
 
 ### Accounts and subscriptions
 
@@ -205,7 +205,7 @@ The support plans available and how you're charged depends on the type of Azure 
 
 See [this table](https://docs.microsoft.com/en-us/learn/modules/create-an-azure-account/6-support-options) of paid Azure support plans.
 
-## Core Cloud Services - Manage services with the Azure portal
+## Core Cloud Services - Manage services with the Azure portal ([home](#))
 
 ### Azure management options
 
@@ -258,7 +258,7 @@ The Azure portal uses a **blades model** for navigation. A blade is a slide-out 
 
 **General Availability (GA)**: when a feature has been released to customers as part of Azure's default product set.
 
-## Core Cloud Services - Azure compute options
+## Core Cloud Services - Azure compute options ([home](#))
 
 ### Azure compute concepts
 
@@ -358,7 +358,7 @@ Functions versus Logic Apps:
 | Management |  REST API, Visual Studio   |  Azure portal, REST API, PowerShell, Visual Studio |
 | Execution context | Can run locally or in the cloud   |  Runs only in the cloud. |
 
-## Core Cloud Services - Azure data storage options
+## Core Cloud Services - Azure data storage options ([home](#))
 
 ### Introduction
 
@@ -417,7 +417,7 @@ Encryption for storage services:
 
 ![On-prem versus Azure data storage](../imgs/azure-onprem-v-azure-storage.jpg)
 
-## Core Cloud Services - Azure networking options
+## Core Cloud Services - Azure networking options ([home](#))
 
 **Loosely coupled architecture**: system in which each component has, or makes use of, little or no knowledge of the definitions of other separate components.
 
@@ -489,7 +489,7 @@ A load balancer achieves high availability.  It does _not_ decrease latency or c
 
 ![Azure Traffic Manager](../imgs/azure-traffic-manager.jpg)
 
-## Security, responsibility and trust in Azure
+## Security, responsibility and trust in Azure ([home](#))
 
 ### Key concepts
 
@@ -667,7 +667,7 @@ Two purposes of certificates in Azure:
 - Perform penetration testing
 - Establish a standard incident response process
 
-## Apply and monitor infrastructure standards with Azure Policy
+## Apply and monitor infrastructure standards with Azure Policy ([home](#))
 
 ### Overview
 
@@ -762,7 +762,7 @@ This section deals with how Microsoft, the cloud provider, manages the underlyin
 - **Resource Health**: helps you diagnose and obtain support when an Azure service issue affects your resources
     - A more personalized dashboard (relative to Azure Status)
 
-## Control and organize Azure resources with Azure Resource Manager
+## Control and organize Azure resources with Azure Resource Manager ([home](#))
 
 ### Resource groups
 
@@ -815,7 +815,7 @@ Use the **Access control (IAM)** panel to view, grant, or remove access.
 - Resource locks can be applied to subscriptions, resource groups, and to individual resources
 - Resource locks are inherited when applied at higher levels
 
-## Predict costs and optimize spending for Azure
+## Predict costs and optimize spending for Azure ([home](#))
 
 ### Customer types
 
