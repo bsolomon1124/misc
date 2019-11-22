@@ -21,7 +21,7 @@ Modules:
 
 **Cloud computing**: renting resources, like storage space or CPU cycles, on another company's computers.
 
-- The company providing these services is referred to as a **cloud provider**.
+- The company providing these services is referred to as a **cloud provider**
 
 ### Categories of computing services
 
@@ -34,8 +34,8 @@ Modules:
 
 - Pay-as-you-go (consumption-based pricing model)
 - Scalable: increase or decrease the resources and services used based on the demand or workload at any given time
-    - Vertical scaling ("scaling up"): adding resources to increase the power of an existing server. Some examples of vertical scaling are: adding more CPUs, or adding more memory.
-    - Horizontal scaling ("scaling out"): adding more servers that function together as one unit. For example, you have more than one server processing incoming requests.
+    - **Vertical scaling** ("scaling up"): adding resources to increase the power of an existing server. Some examples of vertical scaling are: adding more CPUs, or adding more memory.
+    - **Horizontal scaling** ("scaling out"): adding more servers that function together as one unit. For example, you have more than one server processing incoming requests.
 - Fault tolerant: includes data backup, disaster recovery, and data replication services
 - Secure
 - Economies of scale: cloud providers leverage economies of scale and (theoretically) pass savings on to consumer
@@ -49,7 +49,7 @@ Traditional CapEx costs (on-prem physical infrastructure):
 - Network costs
 - Backup and archive costs
 - Organization continuity and disaster recovery costs
-- Datacenter infrastructure costs
+- Data center infrastructure costs
 - Technical personnel
 
 The costs associated with cloud computing are operational expenses (OpEx):
@@ -62,7 +62,7 @@ The costs associated with cloud computing are operational expenses (OpEx):
 
 - **Public cloud**: All hardware is provided by the cloud provider
     - Cheap and scalable
-- **Private cloud**: Cloud environment hosted in your own datacenter, offering simulation of public cloud to users in your organization
+- **Private cloud**: Cloud environment hosted in your own data center, offering simulation of public cloud to users in your organization
     - More control, but organization is responsible for purchase and maintenance
 - **Hybrid cloud**: Combines public and private clouds, allowing you to run your applications in the most appropriate location
     - Example: Host a website in the public cloud and link it to a highly secure database hosted in your private cloud
@@ -80,27 +80,27 @@ The costs associated with cloud computing are operational expenses (OpEx):
 
 ## Core Cloud Services - Introduction to Azure
 
-**Azure**: Microsoft's cloud computing platform
+**Azure**: Microsoft's cloud computing platform.
 
-**Virtualization** separates the tight coupling between hardware and OS using a **[hypervisor](https://en.wikipedia.org/wiki/Hypervisor)**.  Each true server in a cloud provider's datacenter has a hypervisor.
+**Virtualization** separates the tight coupling between hardware and OS using a **[hypervisor](https://en.wikipedia.org/wiki/Hypervisor)**.  Each true server in a cloud provider's data center has a hypervisor.
 The hypervisor emulates a real computer and its CPU.  A hypervisor can run multiple VMs.
 
 Tour of Azure services: https://docs.microsoft.com/en-us/learn/modules/welcome-to-azure/3-tour-of-azure-services
 
 ### Azure Cloud Shell
 
-**Azure Cloud Shell**: a browser-based command-line experience for managing and developing Azure resources.
-**Azure CLI**: Azure command-line interface, which is accessible via Cloud Shell or a regular shell.
+- **Azure Cloud Shell**: a browser-based command-line experience for managing and developing Azure resources
+- **Azure CLI**: Azure command-line interface, which is accessible via Cloud Shell or a regular shell
 
 ## Core Cloud Services - Azure architecture and service guarantees
 
-### Datacenters, Regions, and Geographies
+### Data centers, Regions, and Geographies
 
-Microsoft Azure is made up of datacenters located around the globe.  Azure resources use physical equipment located in secure datacenters.
+Microsoft Azure is made up of on-the-ground **data centers** located around the globe.  Azure resources use physical equipment located in secure data centers.
 
-The specific datacenters aren't exposed to end users directly; instead, Azure organizes them into regions.  (You deploy your app to a region, not a datacenter.)
+The specific data centers aren't exposed to end users directly; instead, Azure organizes them into regions.  (You deploy your app to a region, not a data center.)
 
-A **region** is a geographical area on the planet containing at least one, but potentially multiple datacenters that are nearby and networked together with a low-latency network.
+A **region** is a geographical area on the planet containing _at least one_, but potentially multiple data centers that are nearby and networked together with a low-latency network.
 
 ![Azure regions](../imgs/azure-2-regions-large.png)
 
@@ -109,7 +109,7 @@ Special region:
 - US DoD Central, US Gov Virginia, US Gov Iowa: Physical and logical network-isolated instances of Azure for US government agencies and partners
     - Operated by screened US persons and include additional compliance certifications
 - China East, China North: Available through a unique partnership between Microsoft and 21Vianet
-    - Microsoft does not directly maintain the datacenters
+    - Microsoft does not directly maintain the data centers
 
 **Data residency**: physical or geographic location of an organization's data or information. It defines the legal or regulatory requirements imposed on data based on the country or region in which it resides and is an important consideration when planning out your application data storage.
 
@@ -122,12 +122,12 @@ Geographies are broken up into the following areas:
 
 ### Availability Zones
 
-**Availability Zones** are physically separate datacenters within an Azure region.
+**Availability Zone**: a cluster of data centers within an Azure region that is physically separate from other zones.
 
-- Each Availability Zone is made up of one or more datacenters equipped with independent power, cooling, and networking. It is set up to be an isolation boundary
-- Not every region has support for Availability Zones.  For a region to support Availability Zones, it must have a minimum of 3 zones
+- Each Availability Zone is made up of _one or more_ data centers equipped with independent power, cooling, and networking. It is set up to be an isolation boundary
+- For a region to formally support Availability Zones, it must have a _minimum of 3 zones_
 - You can use Availability Zones to run mission-critical applications and build high-availability into your application architecture by co-locating your compute, storage, - networking, and data resources within a zone
-- Availability Zones are primarily for VMs, managed disks, load balancers, and SQL databases.
+- Availability Zones are primarily for VMs, managed disks, load balancers, and SQL databases
 
 ### Region Pairs
 
@@ -135,10 +135,10 @@ Region pairs: The pairing of two Azure regions, which are at least 300 miles awa
 
 ### Service-Level Agreements (SLAs)
 
-SLA: captures the specific terms that define the performance standards that apply to Azure
+SLA: captures the specific terms that define the performance standards that apply to Azure.
 
 - A "what you can expect" contract
-- SLAs also specify what happens if a service or product fails to perform to a governing SLA's specification.
+- SLAs also specify what happens if a service or product fails to perform to a governing SLA's specification
 
 Characteristics of Azure SLAs:
 
@@ -151,7 +151,7 @@ Characteristics of Azure SLAs:
 - Combined probability of failure is higher than the individual SLA values if applications are dependent
 - Example: 99.95 % (SLA 1) × 99.99 % (SLA 2) = 99.94 % (Composite SLA)
 
-**Application SLA**: an SLA created by you the developer in the interest of setting a performance target for your application
+**Application SLA**: an SLA created by you the developer in the interest of setting a performance target for your application.
 
 **Resiliency**: the ability of a system to recover from failures and continue to function.
 
@@ -187,7 +187,7 @@ Creating multiple subscriptions under one account is particularly useful for bus
 - Many large organizations buy their Azure subscriptions through Enterprise Agreements (EAs)
 - It is possible to transfer Azure subscriptions between accounts
 
-### Authenticate, Azure AD, and tenants
+### Authentication, Azure AD, and tenants
 
 Authentication for your account is performed using Azure Active Directory (**Azure AD**):  a modern identity provider that supports multiple authentication protocols to secure applications and services in the cloud.
 
@@ -241,7 +241,7 @@ The Azure portal uses a **blades model** for navigation. A blade is a slide-out 
 
 ### Azure Portal dashboards
 
-**Dashboard**: a customizable collection of UI tiles displayed in the Azure portal
+**Dashboard**: a customizable collection of UI tiles displayed in the Azure portal.
 
 - You add, remove, and position tiles to create the exact view you want, and then save that view as a dashboard
 - Multiple dashboards are supported, and you can switch between them as needed
@@ -292,8 +292,8 @@ Features for scaling Azure VMs:
 
 Azure supports Docker containers (a standardized container model):
 
-- Azure Container Instances (ACI) - a PaaS offering that allows you to upload your containers and execute them directly
-- Azure Kubernetes Service (AKS) - a complete orchestration\* service for containers with distributed architectures with multiple containers
+- **Azure Container Instances** (ACI) - a PaaS offering that allows you to upload your containers and execute them directly
+- **Azure Kubernetes Service** (AKS) - a complete orchestration\* service for containers with distributed architectures with multiple containers
     - You _deploy_ containers to a Kubernetes cluster
 
 <sup>\***Orchestration**: The task of automating, managing, and interacting with a large number of containers</sup>
@@ -335,7 +335,7 @@ Serverless computing encompasses three ideas:
 
 **Azure Functions**: "pure code" without dependence on underlying platform or infrastructure; trigger logic based on an event.
 
-- Can be either **stateless** (the default) where they behave as if they're restarted every time they respond to an event), or **stateful** (called "Durable Functions") where a context is passed through the function to track prior activity.
+- Can be either **stateless** (the default) where they behave as if they're restarted every time they respond to an event), or **stateful** (called "Durable Functions") where a context is passed through the function to track prior activity
 
 **Azure Logic Apps**: execute _workflows_ (rather than code) designed to automate business scenarios that start with a trigger.
 
@@ -364,13 +364,13 @@ Functions versus Logic Apps:
 
 Benefits of cloud storage:
 
-- Automated backup and recovery:
-- Replication across the globe:
-- Support for data analytics:
-- Encryption capabilities:
-- Multiple data types:
-- Data storage in virtual disks:
-- Storage tiers:
+- Automated backup and recovery
+- Replication across the globe
+- Support for data analytics
+- Encryption capabilities
+- Multiple data types
+- Data storage in virtual disks
+- Storage tiers
 
 Types of data that Azure storage is designed to hold:
 
@@ -458,11 +458,11 @@ Typical design:
 - Uses Azure Load Balancer at the transport level (TCP)
 - Applies sophisticated URL-based routing rules to support several advanced scenarios (application layer/OSI layer 7 load balancing)
 - Benefits:
-    - **Cookie affinity**: Useful when you want to keep a user session on the same backend server.
+    - **Cookie affinity**: Useful when you want to keep a user session on the same backend server
     - **SSL termination**. Manages your SSL certificates and passes unencrypted traffic to the backend servers to avoid encryption/decryption overhead
-    - **Web application firewall**. Application gateway supports a sophisticated firewall (WAF) with detailed monitoring and logging to detect malicious attacks against your network infrastructure.
-    - **URL rule-based routes**. Application Gateway allows you to route traffic based on URL patterns, source IP address and port to destination IP address and port. This is helpful when setting up a content delivery network.
-    - **Rewrite HTTP headers**. You can add or remove information from the inbound and outbound HTTP headers of each request to enable important security scenarios, or scrub sensitive information such as server names.
+    - **Web application firewall**. Application gateway supports a sophisticated firewall (WAF) with detailed monitoring and logging to detect malicious attacks against your network infrastructure
+    - **URL rule-based routes**. Application Gateway allows you to route traffic based on URL patterns, source IP address and port to destination IP address and port. This is helpful when setting up a content delivery network
+    - **Rewrite HTTP headers**. You can add or remove information from the inbound and outbound HTTP headers of each request to enable important security scenarios, or scrub sensitive information such as server names
 
 **Content delivery network (CDN)**: a distributed network of servers that delivers web content to users with minimal latency.
 
@@ -493,7 +493,7 @@ A load balancer achieves high availability.  It does _not_ decrease latency or c
 
 ### Key concepts
 
-As you move across the spectrum from IaaS to PaaS to SaaS, the burden of security falls more heavily on Azure rather than you the user.s
+As you move across the spectrum from IaaS to PaaS to SaaS, the burden of security falls more heavily on Azure rather than you the user.
 
 Regardless of the deployment type, you always retain responsibility for the following:
 
@@ -570,10 +570,10 @@ Azure has two options for this:
 
 RBAC examples:
 
-- Allow one user to manage VMs in a subscription, and another user to manage virtual networks.
-- Allow a database administrator (DBA) group to manage SQL databases in a subscription.
-- Allow a user to manage all resources in a resource group, such as VMs, websites, and virtual subnets.
-- Allow an application to access all resources in a resource group.
+- Allow one user to manage VMs in a subscription, and another user to manage virtual networks
+- Allow a database administrator (DBA) group to manage SQL databases in a subscription
+- Allow a user to manage all resources in a resource group, such as VMs, websites, and virtual subnets
+- Allow an application to access all resources in a resource group
 
 **Azure Resource Manager hierarchy**: Roles assigned at a higher scope, like an entire subscription, are inherited by child scopes, like service instances.
 
@@ -599,9 +599,9 @@ Encryption is typically approached in two ways:
 
 #### Encryption on Azure
 
-- **Azure Storage Service Encryption**: encryption at rest for Azure services.
+- **Azure Storage Service Encryption**: encryption at rest for Azure services
     - Automatically encrypts your data before persisting it to Azure Managed Disks, Azure Blob storage, Azure Files, or Azure Queue storage, and decrypts the data before retrieval.
-- **Azure Disk Encryption**: encrypts Windows and Linux IaaS virtual machine disks.
+- **Azure Disk Encryption**: encrypts Windows and Linux IaaS virtual machine disks
     - Uses BitLocker (Windows) or dm-crypt (Linux)
     - Ensures that the virtual hard disk (VHD) is encrypted, not just the physical disk (as encrypted by Storage Service Encryption)
 - **Azure Key Vault**: a secrets manager---centralized cloud service for storing your application secrets
@@ -639,7 +639,7 @@ Two purposes of certificates in Azure:
 
 **Microsoft Azure Information Protection** (AIP): helps organizations classify and optionally protect documents and emails by applying labels.
 
-- Labels can be applied automatically based on rules and conditions, manually, or a combination of both where users are guided by recommendations.
+- Labels can be applied automatically based on rules and conditions, manually, or a combination of both where users are guided by recommendations
 - You can track and control how the content is used after it is classified/labeled: for example, track access to documents
 
 **Azure Advanced Threat Protection (Azure ATP)**: identifies, detects, and helps you investigate advanced threats, compromised identities, and malicious insider actions directed at your organization.
@@ -757,9 +757,9 @@ This section deals with how Microsoft, the cloud provider, manages the underlyin
 
 **Azure Service Health**: provides personalized guidance and support when issues with Azure services affect you.
 
-- **Azure Status**: provides a global view of the health state of Azure services.
-- **Service Health**: provides you with a customizable dashboard that tracks the state of your Azure services in the regions where you use them.
-- **Resource Health**: helps you diagnose and obtain support when an Azure service issue affects your resources.
+- **Azure Status**: provides a global view of the health state of Azure services
+- **Service Health**: provides you with a customizable dashboard that tracks the state of your Azure services in the regions where you use them
+- **Resource Health**: helps you diagnose and obtain support when an Azure service issue affects your resources
     - A more personalized dashboard (relative to Azure Status)
 
 ## Control and organize Azure resources with Azure Resource Manager
@@ -893,7 +893,7 @@ Advisor makes cost recommendations in the following areas:
 - Delete unused virtual machines
 - Migrate to PaaS or SaaS services: start with IaaS services and then move them to PaaS as appropriate, in an iterative process
 
-### Ways to on licensing costs
+### Ways to save on licensing costs
 
 - Linux vs. Windows: the cost of the product can be different based on the OS you choose
 - **Azure Hybrid Benefit for Windows Server**: gives customers who have previously purchased Windows Server licenses the right to use these licenses for virtual machines on Azure
