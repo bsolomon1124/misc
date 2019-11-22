@@ -592,7 +592,7 @@ RBAC examples:
 
 Use the **Access control (IAM)** panel to view, grant, or remove access.
 
-- RBAC uses an **allow model** for access
+- RBAC uses an **allow model** for access, a _default-deny-and-explicit-allo system_
 - If one role assignment grants you read permissions to a resource group, and a different role assignment grants you write permissions to the same resource group, you will have write permissions on that resource group
 
 **Azure Resource Manager hierarchy**: Roles assigned at a higher scope, like an entire subscription, are inherited by child scopes, like service instances.
@@ -737,7 +737,7 @@ Overview of different policy effects:
 Examples:
 
 - Limit VM locations to US West Region on the group "Infrastructure Team management group"
-- Provide user access to multiple subscriptions in one sweep: create one role-based access control (RBAC) assignment on the management group
+- Provide user access to multiple subscriptions in one sweep: create one RBAC assignment on the management group
 
 ### Azure Blueprint
 
