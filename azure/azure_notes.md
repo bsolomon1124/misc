@@ -14,6 +14,7 @@ Modules:
 1. [Apply and monitor infrastructure standards with Azure Policy](#apply-and-monitor-infrastructure-standards-with-azure-policy-home)
 1. [Control and organize Azure resources with Azure Resource Manager](#control-and-organize-azure-resources-with-azure-resource-manager-home)
 1. [Predict costs and optimize spending for Azure](#predict-costs-and-optimize-spending-for-azure-home)
+1. [Recap: Hierarchy of infrastructure](recap-hierarchy-of-infrastructure)
 
 ## Cloud Concepts - Principles of cloud computing ([home](#))
 
@@ -909,3 +910,35 @@ Advisor makes cost recommendations in the following areas:
 - **Azure Hybrid Benefit for SQL Server**: an Azure-based benefit that enables you to use your SQL Server licenses with active Software Assurance to pay a reduced rate
 - Dev/Test subscription offers: save costs on your non-production environments
 - Use SQL Server Developer Edition: a free product for nonproduction use
+
+## Recap: Hierarchy of infrastructure
+
+Geography:
+
+```
+Geographical area       Americas, Europe, Asia Pacific, Middle East/Africa
+  ⇓
+
+Region                  at least one data center
+  ⇓
+
+Availability Zone       cluster of physically linked data centers within region
+  ⇓
+
+Data center             dedicated physical space housing computer systems
+```
+
+Containers:
+
+```
+Account  ⬄ Identity     identity: any thing that can be authenticated
+  ⇓                     account: an identity that has data associated with it
+
+Subscription            used to pay for Azure resources
+  ⇓
+
+Resource Group          a logical container for resources
+  ⇓
+
+Azure resource          the actual service (VM, subnet, app)
+```
