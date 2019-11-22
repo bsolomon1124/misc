@@ -162,13 +162,17 @@ Characteristics of Azure SLAs:
 
 ## Create an Azure account ([home](#))
 
-### Accounts and subscriptions
+### Identities, accounts and subscriptions
 
-**Azure account**: an identity in either Azure Active Directory (Azure AD), or a directory that is trusted by Azure AD, such as a work or school organization.
+**Identity**: any _thing_ that can be authenticated---a user, app, or service.
 
-Every Azure account is associated with one or more subscriptions.
+**Azure account**: an identity that has data associated with it.
+
+Every Azure account is associated with one or more Azure subscriptions.
 
 **Azure subscription**: a logical container used to provision resources in Azure.
+
+The subscription is used to pay for Azure cloud services. You can have multiple subscriptions under one account, and they're linked to a credit card.
 
 Subscription types:
 
@@ -189,15 +193,26 @@ Creating multiple subscriptions under one account is particularly useful for bus
 
 ### Authentication, Azure AD, and tenants
 
-Authentication for your account is performed using Azure Active Directory (**Azure AD**):  a modern identity provider that supports multiple authentication protocols to secure applications and services in the cloud.
+[**Active Directory (AD)**](https://en.wikipedia.org/wiki/Active_Directory) is a directory service that predates Azure.  At a high level, it refers to "a broad range of directory-based identity-related services."
+
+The more specific [**Azure Active Directory (Azure AD)**](https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/active-directory-whatis) is a modern _identity provider_ that supports multiple authentication protocols to secure applications and services in the cloud.
+
+It provides:
+
+- Single sign-on (SSO)
+- Multi-factor authentication (MFA)
 
 When you sign up for a Microsoft cloud service subscription such as Microsoft Azure, Microsoft Intune, or Office 365, a dedicated instance of Azure AD is automatically created for your organization.
 
-An Azure AD **tenant** is a dedicated, isolated instance of the Azure Active Directory service, commonly associated with companies. If you sign up for Azure with an email address that's not associated with an existing tenant, the sign-up process will walk you through creating a tenant, owned entirely by you.
+More specifically, this instance is an Azure AD **tenant**: a dedicated, isolated instance of the Azure Active Directory service, commonly associated with companies. If you sign up for Azure with an email address that's not associated with an existing tenant, the sign-up process will walk you through creating a tenant, owned entirely by you.
 
-Azure AD tenants and subscriptions have a one-to-many trust relationship: A tenant can be associated with multiple Azure subscriptions, but every subscription is associated with only one tenant.
+Azure AD tenants and subscriptions have a **one-to-many trust relationship**:
+
+> A tenant can be associated with multiple Azure subscriptions, but every subscription is associated with only one tenant.
 
 Each Azure AD tenant has an account owner.
+
+See also: [Azure AD terminology](https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/active-directory-whatis#terminology).
 
 ### Azure Support
 
@@ -443,7 +458,9 @@ Typical design:
 
 ### Azure Load Balancer
 
-**Availability**: how long your service is up and running without interruption.  **High availability**: a service that's up and running for a long period of time.
+**Availability**: how long your service is up and running without interruption.
+
+**High availability**: a service that's up and running for a long period of time.
 
 **Resiliency**: a system's ability to stay operational during abnormal conditions.
 
@@ -537,8 +554,6 @@ Response stages:
 - **Authentication**: establishing the identity of a person or service looking to access a resource
 - **Authorization**: establishing what level of access an authenticated person or service has
 
-**Azure Active Directory (Azure AD)** is a cloud-based identity service that helps managed authentication and authorization.
-
 - Authentication: verifying identity to access applications and resources
     - Self-service password reset, multi-factor authentication (MFA), custom banned password list, smart lockout services
     - MFA: requires _two or more_ elements for full authentication
@@ -553,8 +568,6 @@ Response stages:
 - Device Management: manage how devices access your corporate data
 
 #### Providing identities to services
-
-An **identity** is not just a user, but anything that can be authenticated, including an app or service.
 
 How can you give a service an identity without putting that identity in a plaintext configuration file?
 
@@ -574,6 +587,13 @@ RBAC examples:
 - Allow a database administrator (DBA) group to manage SQL databases in a subscription
 - Allow a user to manage all resources in a resource group, such as VMs, websites, and virtual subnets
 - Allow an application to access all resources in a resource group
+
+> Role-based access control (RBAC) provides _fine-grained_ access management for Azure resources, enabling you to grant users only the rights they need to perform their jobs. RBAC is provided at no additional cost to all Azure subscriber.
+
+Use the **Access control (IAM)** panel to view, grant, or remove access.
+
+- RBAC uses an **allow model** for access
+- If one role assignment grants you read permissions to a resource group, and a different role assignment grants you write permissions to the same resource group, you will have write permissions on that resource group
 
 **Azure Resource Manager hierarchy**: Roles assigned at a higher scope, like an entire subscription, are inherited by child scopes, like service instances.
 
@@ -680,8 +700,6 @@ Azure Policy versus RBAC:
 - RBAC focuses on user actions at different scopes
 - Azure Policy focuses on resource properties during deployment and for already-existing resources
 - Unlike RBAC, Azure Policy is a _default-allow-and-explicit-deny system_
-
-> Role-based access control (RBAC) provides _fine-grained_ access management for Azure resources, enabling you to grant users only the rights they need to perform their jobs. RBAC is provided at no additional cost to all Azure subscriber.
 
 How to apply a policy:
 
@@ -796,15 +814,6 @@ Uses of tags:
 - Group your billing data
 - Categorize costs by runtime environment
 - In automation (example: `shutdown:6PM`)
-
-### Implementing RBAC
-
-TODO: merge this into earlier RBAC section.
-
-Use the **Access control (IAM)** panel to view, grant, or remove access.
-
-- RBAC uses an **allow model** for access
-- If one role assignment grants you read permissions to a resource group, and a different role assignment grants you write permissions to the same resource group, you will have write permissions on that resource group
 
 ### Resource locks
 
