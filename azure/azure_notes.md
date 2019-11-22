@@ -2,18 +2,18 @@
 
 Modules:
 
-1. Cloud Concepts - Principles of cloud computing
-1. Core Cloud Services - Introduction to Azure
-1. Core Cloud Services - Azure architecture and service guarantees
-1. Create an Azure account
-1. Core Cloud Services - Manage services with the Azure portal
-1. Core Cloud Services - Azure compute options
-1. Core Cloud Services - Azure data storage options
-1. Core Cloud Services - Azure networking options
-1. Security, responsibility and trust in Azure
-1. Apply and monitor infrastructure standards with Azure Policy
-1. Control and organize Azure resources with Azure Resource Manager
-1. Predict costs and optimize spending for Azure
+1. [Cloud Concepts - Principles of cloud computing](#cloud-concepts---principles-of-cloud-computing)
+1. [Introduction to Azure](#core-cloud-services---introduction-to-azure)
+1. [Azure architecture and service guarantees](#core-cloud-services---azure-architecture-and-service-guarantees)
+1. [Create an Azure account](#create-an-azure-account)
+1. [Manage services with the Azure portal](#core-cloud-services---manage-services-with-the-azure-portal)
+1. [Azure compute options](#core-cloud-services---azure-compute-options)
+1. [Azure data storage options](#core-cloud-services---azure-data-storage-options)
+1. [Azure networking options](#core-cloud-services---azure-networking-options)
+1. [Security, responsibility and trust in Azure](#security-responsibility-and-trust-in-azure)
+1. [Apply and monitor infrastructure standards with Azure Policy](#apply-and-monitor-infrastructure-standards-with-azure-policy)
+1. [Control and organize Azure resources with Azure Resource Manager](#control-and-organize-azure-resources-with-azure-resource-manager)
+1. [Predict costs and optimize spending for Azure](#predict-costs-and-optimize-spending-for-azure)
 
 ## Cloud Concepts - Principles of cloud computing
 
