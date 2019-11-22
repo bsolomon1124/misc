@@ -453,8 +453,8 @@ Typical design:
 
 **Network security group** (NSG): allows or denies inbound network traffic to your Azure resources.
 
+- Restricts communication between virtual machines by source and destination IP address, port, and protocol
 - A cloud-level firewall for your network
-- Configure to accept specific ports, IP addresses, or combinations of both
 
 ### Azure Load Balancer
 
@@ -651,7 +651,7 @@ Two purposes of certificates in Azure:
 - Provides both _basic_ and _standard_ service tiers
 - Notifies you of attack detection via Azure Monitor metrics
 
-**Network Security Groups (NSGs)**: restricts communication between virtual machines by source and destination IP address, port, and protocol.
+**Network Security Groups (NSGs)**: restrict communication between virtual machines by source and destination IP address, port, and protocol.
 
 **Azure ExpressRoute**: provides a dedicated, private connection between your private network and Azure.
 
