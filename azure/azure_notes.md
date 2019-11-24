@@ -43,21 +43,10 @@ Modules:
 
 ### Forms of spending
 
-Traditional CapEx costs (on-prem physical infrastructure):
-
-- Server costs
-- Storage costs
-- Network costs
-- Backup and archive costs
-- Organization continuity and disaster recovery costs
-- Data center infrastructure costs
-- Technical personnel
-
-The costs associated with cloud computing are operational expenses (OpEx):
-
-- Leasing software and customized features
-- Scaling charges based on usage/demand instead of fixed hardware or capacity
-- Billing at the user or organization level
+| Type | Cost | Examples |
+| ---- | ---- | -------- |
+| On-prem | **Capex** | Server costs; Storage costs; Network costs; Backup and archive costs; Organization continuity and disaster recovery costs; Data center infrastructure costs; Technical personnel |
+| Cloud | **Opex** | Leasing software and customized features; Scaling charges based on usage/demand instead of fixed hardware or capacity; Billing at the user or organization level |
 
 ### Cloud deployment models
 
