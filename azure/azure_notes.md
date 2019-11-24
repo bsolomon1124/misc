@@ -550,9 +550,9 @@ Components/types of authorization:
 
 - Self-service password reset, multi-factor authentication (MFA), custom banned password list, smart lockout services
 - MFA: requires _two or more_ elements for full authentication
-    - Something you know: a password or the answer to a security question
-    - Something you possess: a mobile app that receives a notification or a token-generating device
-    - Something you are: a fingerprint or face scan used on many mobile devices
+    - **Something you know**: a password or the answer to a security question
+    - **Something you possess**: a mobile app that receives a notification or a token-generating device
+    - **Something you are**: a fingerprint or face scan used on many mobile devices
 - Increases security of your identity by limiting the impact of credential exposure
 - Single-Sign-On (SSO): enables users to remember only one ID and one password to access multiple applications
     - Philosophy: "More identities mean more passwords to remember and change"
@@ -585,12 +585,12 @@ RBAC examples:
 
 Use the **Access control (IAM)** panel to view, grant, or remove access.
 
-- RBAC uses an **allow model** for access, a _default-deny-and-explicit-allo system_
+- RBAC uses an **allow model** for access, a _default-deny-and-explicit-allow system_
 - If one role assignment grants you read permissions to a resource group, and a different role assignment grants you write permissions to the same resource group, you will have write permissions on that resource group
 
 **Azure Resource Manager hierarchy**: Roles assigned at a higher scope, like an entire subscription, are inherited by child scopes, like service instances.
 
-Azure AD Privileged Identity Management (PIM): provides access reviews, oversight of role assignments, self-service, and just-in-time role activation.
+**Azure AD Privileged Identity Management (PIM)**: provides access reviews, oversight of role assignments, self-service, and just-in-time role activation.
 
 ### Encryption
 
@@ -616,7 +616,7 @@ Encryption is typically approached in two ways:
     - Automatically encrypts your data before persisting it to Azure Managed Disks, Azure Blob storage, Azure Files, or Azure Queue storage, and decrypts the data before retrieval.
 - **Azure Disk Encryption**: encrypts Windows and Linux IaaS virtual machine disks
     - Uses BitLocker (Windows) or dm-crypt (Linux)
-    - Ensures that the virtual hard disk (VHD) is encrypted, not just the physical disk (as encrypted by Storage Service Encryption)
+    - Ensures that the [virtual hard disk (VHD)](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/managed-disks-overview) is encrypted, not just the physical disk (as encrypted by Storage Service Encryption)
 - **Azure Key Vault**: a secrets manager---centralized cloud service for storing your application secrets
     - Includes ability to provision, manage, and deploy SSL/TLS certificates
 
@@ -690,8 +690,8 @@ Example: ensure that all resources have the `Department` tag associated with the
 
 Azure Policy versus RBAC:
 
-- RBAC focuses on user actions at different scopes
-- Azure Policy focuses on resource properties during deployment and for already-existing resources
+- RBAC focuses on _user actions_ at different scopes
+- Azure Policy focuses on _resource properties_ during deployment and for already-existing resources
 - Unlike RBAC, Azure Policy is a _default-allow-and-explicit-deny system_
 
 How to apply a policy:
