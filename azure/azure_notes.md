@@ -75,7 +75,9 @@ Modules:
 **Virtualization** separates the tight coupling between hardware and OS using a **[hypervisor](https://en.wikipedia.org/wiki/Hypervisor)**.  Each true server in a cloud provider's data center has a hypervisor.
 The hypervisor emulates a real computer and its CPU.  A hypervisor can run multiple VMs.
 
-Tour of Azure services: https://docs.microsoft.com/en-us/learn/modules/welcome-to-azure/3-tour-of-azure-services
+Tour of Azure services:
+
+> https://docs.microsoft.com/en-us/learn/modules/welcome-to-azure/3-tour-of-azure-services
 
 ### Azure Cloud Shell
 
