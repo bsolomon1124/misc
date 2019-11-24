@@ -288,6 +288,7 @@ Features for scaling Azure VMs:
 
 - **Availability sets**: a logical grouping of two or more VMs that help keep your application available during planned or unplanned maintenance
 - **Virtual Machine Scale Sets**: let you create and manage a group of identical, load balanced VMs, without configuring a load balancer
+    - Scale Sets enable **autoscaling**
 - **Azure Batch**: scale to many VMs.  Enables large-scale job scheduling and compute management
 
 ### Containers
@@ -307,10 +308,9 @@ Azure supports Docker containers (a standardized container model):
 
 ### Microservices
 
-Containers are often used to create solutions using a microservice architecture. This architecture is where you break solutions into smaller, independent pieces.
-
 **Microservice**: Simplify application architecture by creating more focused, autonomous, and independently managed web services that address a single business domain or capability.
 
+Containers are often used to create solutions using a microservice architecture. This architecture is where you break solutions into smaller, independent pieces.
 
 Factors that call for microservices:
 
@@ -349,7 +349,7 @@ Serverless computing encompasses three ideas:
 - You create Logic App workflows using a visual designer on the Azure portal or in Visual Studio
 - The workflows are persisted as a JSON file with a known workflow schema
 
-**Orchestration**: a collection of functions or steps, that are executed to accomplish a complex task.
+**Orchestration**: a collection of functions or steps that are executed to accomplish a complex task.
 
 - Can be created by both Azure Functions and Logic Apps
 
@@ -397,10 +397,10 @@ Types of data that Azure storage is designed to hold:
     - Lets you stream large video or audio files directly to the user's browser
 - **Azure Data Lake**: a large repository that stores both structured and unstructured data
     - Allows you to perform analytics on your data usage and prepare reports
-**Azure Files**: offers fully managed file shares in the cloud that are accessible via Server Message Block (SMB) protocol
-**Azure Queue**: storage service for storing large numbers of messages
+- **Azure Files**: offers fully managed file shares in the cloud that are accessible via Server Message Block (SMB) protocol
+- **Azure Queue**: storage service for storing large numbers of messages
     - Provides asynchronous message queueing for communication between application components, whether they are running in the cloud, on the desktop, on-premises, or on mobile devices.
-**Disk storage**: an attached virtual hard disk
+- **Disk storage**: an attached virtual hard disk
     - The disks can be managed or unmanaged by Azure, and therefore managed and configured by the user
     - You are storing data that is not required to be accessed from outside the virtual machine to which the disk is attached
     - Offers both solid-state drives (SSDs) and traditional spinning hard disk drives (HDDs)
