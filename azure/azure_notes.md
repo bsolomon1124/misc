@@ -287,7 +287,7 @@ There are four common techniques for performing compute in Azure:
 Features for scaling Azure VMs:
 
 - **Availability sets**: a logical grouping of two or more VMs that help keep your application available during planned or unplanned maintenance
-- <mark>**Virtual Machine Scale Sets**: let you create and manage a group of identical, load balanced VMs, without configuring a load balancer</mark>
+- <span style="background-color: #FFFF00">**Virtual Machine Scale Sets**: let you create and manage a group of identical, load balanced VMs, without configuring a load balancer</span>
 - **Azure Batch**: scale to many VMs.  Enables large-scale job scheduling and compute management
 
 ### Containers
