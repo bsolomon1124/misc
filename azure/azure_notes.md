@@ -546,13 +546,14 @@ Response stages:
 - **Authentication**: establishing the identity of a person or service looking to access a resource
 - **Authorization**: establishing what level of access an authenticated person or service has
 
-- Authentication: verifying identity to access applications and resources
-    - Self-service password reset, multi-factor authentication (MFA), custom banned password list, smart lockout services
-    - MFA: requires _two or more_ elements for full authentication
-        - Something you know: a password or the answer to a security question
-        - Something you possess: a mobile app that receives a notification or a token-generating device
-        - Something you are: a fingerprint or face scan used on many mobile devices
-    - Increases security of your identity by limiting the impact of credential exposure.
+Components/types of authorization:
+
+- Self-service password reset, multi-factor authentication (MFA), custom banned password list, smart lockout services
+- MFA: requires _two or more_ elements for full authentication
+    - Something you know: a password or the answer to a security question
+    - Something you possess: a mobile app that receives a notification or a token-generating device
+    - Something you are: a fingerprint or face scan used on many mobile devices
+- Increases security of your identity by limiting the impact of credential exposure
 - Single-Sign-On (SSO): enables users to remember only one ID and one password to access multiple applications
     - Philosophy: "More identities mean more passwords to remember and change"
 - Application management
