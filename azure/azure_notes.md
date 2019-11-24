@@ -50,21 +50,21 @@ Modules:
 
 ### Cloud deployment models
 
-- **Public cloud**: All hardware is provided by the cloud provider
+1. **Public cloud**: All hardware is provided by the cloud provider
     - Cheap and scalable
-- **Private cloud**: Cloud environment hosted in your own data center, offering simulation of public cloud to users in your organization
+2. **Private cloud**: Cloud environment hosted in your own data center, offering simulation of public cloud to users in your organization
     - More control, but organization is responsible for purchase and maintenance
-- **Hybrid cloud**: Combines public and private clouds, allowing you to run your applications in the most appropriate location
+3. **Hybrid cloud**: Combines public and private clouds, allowing you to run your applications in the most appropriate location
     - Example: Host a website in the public cloud and link it to a highly secure database hosted in your private cloud
 
 ### Types of cloud services
 
-1. Infrastructure as a service (IaaS): rented computing infrastructure (hardware), provisioned and managed over the Internet
+1. **Infrastructure as a service (IaaS)**: rented computing infrastructure (hardware), provisioned and managed over the Internet
     - Example: Azure VM
-1. Platform as a service (PaaS): provides an environment for building, testing, and deploying software applications without requiring the user to manage the infrastructure
+1. [**Platform as a service (PaaS)**](https://azure.microsoft.com/en-us/overview/what-is-paas/): provides an environment for building, testing, and deploying software applications without requiring the user to manage the infrastructure
     - Example: Azure SQL Database
-1. Software as a service (SaaS): software that is centrally hosted and managed for the end customer, usually subscription-based
-    - Examples: Office 365, Skype, and Dynamics CRM Online
+1. [**Software as a service (SaaS)**](https://azure.microsoft.com/en-us/overview/what-is-saas/): software that is centrally hosted and managed for the end customer, usually subscription-based
+    - Examples: Office 365, Skype, and Dynamics CRM Online, enterprise resource planning (ERP)
 
 ![Service comparison](../imgs/azure-iaas-saas-paas.jpg)
 
