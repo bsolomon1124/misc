@@ -54,17 +54,21 @@ Modules:
     - Cheap and scalable
 2. **Private cloud**: Cloud environment hosted in your own data center, offering simulation of public cloud to users in your organization
     - More control, but organization is responsible for purchase and maintenance
+    - Private clouds still afford the scalability and efficiency of a public cloud
+    - Requires access to be limited to one tenant
 3. **Hybrid cloud**: Combines public and private clouds, allowing you to run your applications in the most appropriate location
     - Example: Host a website in the public cloud and link it to a highly secure database hosted in your private cloud
+    - **Cloud bursting**: internal resources meet most needs, but cloud-based resources can be added to help support peak use times
 
 ### Types of cloud services
 
 1. **Infrastructure as a service (IaaS)**: rented computing infrastructure (hardware), provisioned and managed over the Internet
     - Example: Azure VM
+    - IaaS _simulates hardware_
 1. [**Platform as a service (PaaS)**](https://azure.microsoft.com/en-us/overview/what-is-paas/): provides an environment for building, testing, and deploying software applications without requiring the user to manage the infrastructure
-    - Example: Azure SQL Database
+    - Example: Azure SQL Database, Azure API Management
 1. [**Software as a service (SaaS)**](https://azure.microsoft.com/en-us/overview/what-is-saas/): software that is centrally hosted and managed for the end customer, usually subscription-based
-    - Examples: Office 365, Skype, and Dynamics CRM Online, enterprise resource planning (ERP)
+    - Examples: Office 365, Skype, and Dynamics CRM Online, enterprise resource planning (ERP), Azure IoT Central
 
 ![Service comparison](../imgs/azure-iaas-saas-paas.jpg)
 
@@ -82,6 +86,7 @@ Tour of Azure services:
 ### Azure Cloud Shell
 
 - **Azure Cloud Shell**: a browser-based command-line experience for managing and developing Azure resources
+    - Requires an Azure Storage account
 - **Azure CLI**: Azure command-line interface, which is accessible via Cloud Shell or a regular shell
 
 ## Core Cloud Services - Azure architecture and service guarantees ([home](#))
@@ -102,6 +107,12 @@ Special region:
     - Operated by screened US persons and include additional compliance certifications
 - China East, China North: Available through a unique partnership between Microsoft and 21Vianet
     - Microsoft does not directly maintain the data centers
+
+[Azure Germany](https://azure.microsoft.com/en-us/global-infrastructure/germany/): a physically isolated Azure instance that meets strict EU requirements
+
+- Controlled by a German data trustee
+- Designed for organizations doing business in Germany and the EU that need a high level of security and compliance
+- Requires a separate account and has a distinct pricing structure
 
 **Data residency**: physical or geographic location of an organization's data or information. It defines the legal or regulatory requirements imposed on data based on the country or region in which it resides and is an important consideration when planning out your application data storage.
 
@@ -131,6 +142,7 @@ SLA: captures the specific terms that define the performance standards that appl
 
 - A "what you can expect" contract
 - SLAs also specify what happens if a service or product fails to perform to a governing SLA's specification
+- Free services (e.g. Container Registry, Azure Advisor, Azure Policy) do _not_ have a financially-backed SLA
 
 Characteristics of Azure SLAs:
 
@@ -142,6 +154,8 @@ Characteristics of Azure SLAs:
 
 - Combined probability of failure is higher than the individual SLA values if applications are dependent
 - Example: 99.95 % (SLA 1) × 99.99 % (SLA 2) = 99.94 % (Composite SLA)
+
+![Composite SLA](../imgs/azure-composite-sla.jpg)
 
 **Application SLA**: an SLA created by you the developer in the interest of setting a performance target for your application.
 
@@ -169,6 +183,8 @@ The subscription is used to pay for Azure cloud services. You can have multiple 
 Subscription types:
 
 - Free
+    - Includes $200 credit that you can use with any service for 30 days
+    - Provides free access to Azure services for 12 months
 - Pay-As-You-Go (PAYG): charges you monthly for the services you used in that billing period
 - Enterprise Agreement
 - Student
@@ -201,6 +217,8 @@ More specifically, this instance is an Azure AD **tenant**: a dedicated, isolate
 Azure AD tenants and subscriptions have a **one-to-many trust relationship**:
 
 > A tenant can be associated with multiple Azure subscriptions, but every subscription is associated with only one tenant.
+>
+> A subscription can be owned by exactly one account.  That account becomes part of an AD tenant.  Many users (accounts) can be members of the tenant, but only one account can own a subscription.
 
 Each Azure AD tenant has an account owner.
 
@@ -263,6 +281,8 @@ The Azure portal uses a **blades model** for navigation. A blade is a slide-out 
 - **Private Preview**: feature is available to specific Azure customers for evaluation purposes
 - **Public Preview**: feature is available to all Azure customers for evaluation purposes
 
+SLAs do _not_ apply to previews.
+
 **General Availability (GA)**: when a feature has been released to customers as part of Azure's default product set.
 
 ## Core Cloud Services - Azure compute options ([home](#))
@@ -287,8 +307,10 @@ There are four common techniques for performing compute in Azure:
 Features for scaling Azure VMs:
 
 - **Availability sets**: a logical grouping of two or more VMs that help keep your application available during planned or unplanned maintenance
+    - Do not confuse with Availability Zones; availability sets are _separate deployments in the same data center_
 - **Virtual Machine Scale Sets**: let you create and manage a group of identical, load balanced VMs, without configuring a load balancer
     - Scale Sets enable **autoscaling**
+    - Automatically creates and integrates with Load Balancer or Application Gateway
 - **Azure Batch**: scale to many VMs.  Enables large-scale job scheduling and compute management
 
 ### Containers
@@ -332,6 +354,14 @@ Types of apps:
 - **WebJobs**: Run a program or script in the same context as a web app
 - **Mobile Apps**: Backend for iOS and Android apps
 
+Factors influencing App Service cost:
+
+- _Instance type_: the size of the VM that hosts the application
+- _Number of instances_: the amount of VMs that host the web app
+- _OS_: Linux is a bit cheaper than Windows
+- _Region_: where the VM(s) is deployed
+- _Tier_: whether you want a shared VM or isolated VM
+
 ### Serverless
 
 Serverless computing encompasses three ideas:
@@ -348,6 +378,7 @@ Serverless computing encompasses three ideas:
 
 - You create Logic App workflows using a visual designer on the Azure portal or in Visual Studio
 - The workflows are persisted as a JSON file with a known workflow schema
+- You _cannot_ use code to develop a Logic app
 
 **Orchestration**: a collection of functions or steps that are executed to accomplish a complex task.
 
@@ -363,7 +394,12 @@ Functions versus Logic Apps:
 | Actions |     Each activity is an Azure function; write code for activity functions  | Large collection of ready-made actions |
 | Monitoring |  Azure Application Insights | Azure portal, Log Analytics |
 | Management |  REST API, Visual Studio   |  Azure portal, REST API, PowerShell, Visual Studio |
-| Execution context | Can run locally or in the cloud   |  Runs only in the cloud. |
+| Execution context | Can run locally or in the cloud   |  Runs only in the cloud |
+
+Both Functions and Logic Apps:
+
+- Can run on a schedule (time trigger)
+- Can act as a web hook (HTTP trigger)
 
 ## Core Cloud Services - Azure data storage options ([home](#))
 
@@ -389,17 +425,22 @@ Types of data that Azure storage is designed to hold:
 
 - **Azure SQL Database**: a relational database as a service (DaaS) based on the latest stable version of the Microsoft SQL Server database engine
     - **Azure Database Migration Service**: used to migrate your existing SQL Server databases with minimal downtime
+    - Lets you access data from a SQL Server database engine without needing to deploy a VM
 - **Azure Cosmos DB**: a globally distributed database service
-    - Supports schema-less data that lets you build highly responsive and Always On applications to support constantly changing data
+    - Supports schema-less data (key-value and document data models) that lets you build highly responsive and Always On applications to support constantly changing data
+    - Accessed via SQL queries
+    - Can be stored as JSON
 - **Azure Blob Storage**: unstructured, meaning that there are no restrictions on the kinds of data it can hold
     - Blobs behave largely like files on a disk when it comes to reading and writing data
     - Commonly used for logs, audio/video data, scientific data, disaster recovery
     - Lets you stream large video or audio files directly to the user's browser
-- **Azure Data Lake**: a large repository that stores both structured and unstructured data
-    - Allows you to perform analytics on your data usage and prepare reports
+- **Azure Data Lake Storage**: a large repository that stores both structured and unstructured data
+- **[Azure Data Lake Analytics](https://docs.microsoft.com/en-us/azure/data-lake-analytics/data-lake-analytics-overview)**: allows you to perform analytics on your data usage and prepare reports
+    - Uses U-SQL, a query language that extends the familiar, simple, declarative nature of SQL with the expressive power of C#
+    - Dynamic scaling: pay only for the processing power used
 - **Azure Files**: offers fully managed file shares in the cloud that are accessible via Server Message Block (SMB) protocol
 - **Azure Queue**: storage service for storing large numbers of messages
-    - Provides asynchronous message queueing for communication between application components, whether they are running in the cloud, on the desktop, on-premises, or on mobile devices.
+    - Provides asynchronous message queuing for communication between application components, whether they are running in the cloud, on the desktop, on-premises, or on mobile devices.
 - **Disk storage**: an attached virtual hard disk
     - The disks can be managed or unmanaged by Azure, and therefore managed and configured by the user
     - You are storing data that is not required to be accessed from outside the virtual machine to which the disk is attached
@@ -466,6 +507,7 @@ Typical design:
 
 - Uses Azure Load Balancer at the transport level (TCP)
 - Applies sophisticated URL-based routing rules to support several advanced scenarios (application layer/OSI layer 7 load balancing)
+    - For example, route `/images` to one pool of VMs, and `/videos` to another cluster
 - Benefits:
     - **Cookie affinity**: Useful when you want to keep a user session on the same backend server
     - **SSL termination**. Manages your SSL certificates and passes unencrypted traffic to the backend servers to avoid encryption/decryption overhead
@@ -497,6 +539,10 @@ A load balancer achieves high availability.  It does _not_ decrease latency or c
 - Used when multiple copies of your underlying service are deployed to more than one region
 
 ![Azure Traffic Manager](../imgs/azure-traffic-manager.jpg)
+
+Comparison between _Load Balancer_ vs _Application Gateway_ vs _Traffic Manager_:
+
+> Only Traffic Manager deals with and optimizes for latency vis-a-vis locality.
 
 ## Security, responsibility and trust in Azure ([home](#))
 
@@ -545,12 +591,13 @@ Response stages:
 
 - **Authentication**: establishing the identity of a person or service looking to access a resource
 - **Authorization**: establishing what level of access an authenticated person or service has
+    - Authorization is _verifying that an authenticated user has access to certain functions_
 
 Components/types of authorization:
 
 - Self-service password reset, multi-factor authentication (MFA), custom banned password list, smart lockout services
 - MFA: requires _two or more_ elements for full authentication
-    - **Something you know**: a password or the answer to a security question
+    - **Something you know**: a password, PIN (i.e. at the ATM), or the answer to a security question
     - **Something you possess**: a mobile app that receives a notification or a token-generating device
     - **Something you are**: a fingerprint or face scan used on many mobile devices
 - Increases security of your identity by limiting the impact of credential exposure
@@ -641,8 +688,11 @@ Two purposes of certificates in Azure:
 
 **Azure DDoS Protection**: identifies DDos, blocks further traffic from reaching Azure services without interrupting legitimate customers
 
-- Provides both _basic_ and _standard_ service tiers
+- Provides both _Basic_ and _Standard_ service tiers
+    - Basic: enabled automatically as part of Azure platform
+    - Standard: with additional subscription, protects against volumetric, protocol, and application layer attacks
 - Notifies you of attack detection via Azure Monitor metrics
+- Multiple VMs can link to the same DDoS Protection plan
 
 **Network Security Groups (NSGs)**: restrict communication between virtual machines by source and destination IP address, port, and protocol.
 
@@ -688,11 +738,17 @@ Two purposes of certificates in Azure:
 
 Example: ensure that all resources have the `Department` tag associated with them.
 
-Azure Policy versus RBAC:
+Azure Policy versus RBAC: a Policy is assigned to a _scope_, such as a resource group; RBAC assigns permissions to _users and groups_
 
 - RBAC focuses on _user actions_ at different scopes
 - Azure Policy focuses on _resource properties_ during deployment and for already-existing resources
 - Unlike RBAC, Azure Policy is a _default-allow-and-explicit-deny system_
+
+| Scenario | Resource or Policy |
+| -------- | ------------------ |
+| You want to ensure that only SQL Database instances can be added to a resource group named `database-rg` | Policy |
+| You want to ensure that only members of the Sales group can access VMs in the `sales-rg` resource group | RBAC |
+| You want to prevent new resources from being added to a resource group by anyone | Lock |
 
 How to apply a policy:
 
@@ -748,10 +804,13 @@ Examples:
 This section deals with how Microsoft, the cloud provider, manages the underlying resources you are building on.
 
 - **Microsoft Privacy Statement**: explains what personal data Microsoft processes, how Microsoft processes it, and for what purposes
+    - Some Microsoft products require personal information or otherwise can't be used
+    - Microsoft may share personal information with vendors on Microsoft's behalf
 - **Microsoft Trust Center**: a website resource containing information and details about how Microsoft implements and supports security, privacy, compliance, and transparency
 - **Service Trust Portal** (STP): the Microsoft public site for publishing audit reports and other compliance-related information relevant to Microsoft’s cloud services
     - You could maintain and track compliance with FedRAMP, GDPR, etc
-- **Compliance Manager**: a workflow-based risk assessment dashboard within the Trust Portal that enables you to track, assign, and verify your organization's regulatory compliance activities
+- **Compliance Manager**: enables you to track, assign, and verify your organization's regulatory compliance activities
+    - A workflow-based risk assessment dashboard within the Trust Portal
     - Contains detailed information provided by Microsoft to auditors and regulators
     - Provides a Compliance Score to help you track your progress and prioritize auditing controls
 
@@ -764,7 +823,7 @@ This section deals with how Microsoft, the cloud provider, manages the underlyin
 - **Application Insights**: monitors the availability, performance, and usage of your web applications
 - **Azure Monitor for containers**: monitors the performance of container workloads
 - **Azure Monitor for VMs**: monitors your Azure VMs at scale
-
+- Begins collecting data as soon as you add a resource to a new Azure subscription
 
 **Azure Service Health**: provides personalized guidance and support when issues with Azure services affect you.
 
@@ -772,6 +831,13 @@ This section deals with how Microsoft, the cloud provider, manages the underlyin
 - **Service Health**: provides you with a customizable dashboard that tracks the state of your Azure services in the regions where you use them
 - **Resource Health**: helps you diagnose and obtain support when an Azure service issue affects your resources
     - A more personalized dashboard (relative to Azure Status)
+- Health advisories: view Azure features that are planned to be deprecated
+
+Service Health: example use cases:
+
+1. Be notified when your App Service usage exceeds a quota (**health advisory**)
+1. Respond to planned service outages in an area
+1. Implement a WebHook on your site to display health incidents
 
 ## Control and organize Azure resources with Azure Resource Manager ([home](#))
 
@@ -784,6 +850,7 @@ This section deals with how Microsoft, the cloud provider, manages the underlyin
 - If you delete a resource group, all resources contained within are also deleted
 - Function as a scope for applying RBAC permissions
 - A resource group sits within a subscription and within a specific region
+- Quotas for resources in Resource Groups are per region rather than per subscription
 
 Use resource groups for organization:
 
@@ -843,7 +910,7 @@ Factors affecting costs:
 - Resource type: costs are resource-specific
 - Services: rates and billing periods can differ between Enterprise, Web Direct, and Cloud Solution Provider (CSP) customers
 - Location
-- Azure billing zones: geographical grouping of Azure Regions for billing purposes
+- Azure billing zone: a geographical grouping of Azure regions used to determine billing based on **data transfers**
     - Inbound data transfers are free; outbound data transfers are priced based on billing zone
     - Billing zones aren't the same as Availability Zones
 
