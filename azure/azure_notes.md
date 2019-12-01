@@ -66,7 +66,7 @@ Modules:
     - Example: Azure VM
     - IaaS _simulates hardware_
 1. [**Platform as a service (PaaS)**](https://azure.microsoft.com/en-us/overview/what-is-paas/): provides an environment for building, testing, and deploying software applications without requiring the user to manage the infrastructure
-    - Example: Azure SQL Database, Azure API Management
+    - Example: Azure SQL Database, Azure API Management, Azure App Service, Azure Container Instances
 1. [**Software as a service (SaaS)**](https://azure.microsoft.com/en-us/overview/what-is-saas/): software that is centrally hosted and managed for the end customer, usually subscription-based
     - Examples: Office 365, Skype, and Dynamics CRM Online, enterprise resource planning (ERP), Azure IoT Central
 
@@ -108,7 +108,7 @@ Special region:
 - China East, China North: Available through a unique partnership between Microsoft and 21Vianet
     - Microsoft does not directly maintain the data centers
 
-[Azure Germany](https://azure.microsoft.com/en-us/global-infrastructure/germany/): a physically isolated Azure instance that meets strict EU requirements
+[Azure Germany](https://azure.microsoft.com/en-us/global-infrastructure/germany/): a physically isolated Azure instance that meets strict EU requirements.
 
 - Controlled by a German data trustee
 - Designed for organizations doing business in Germany and the EU that need a high level of security and compliance
@@ -131,6 +131,7 @@ Geographies are broken up into the following areas:
 - For a region to formally support Availability Zones, it must have a _minimum of 3 zones_
 - You can use Availability Zones to run mission-critical applications and build high-availability into your application architecture by co-locating your compute, storage, - networking, and data resources within a zone
 - Availability Zones are primarily for VMs, managed disks, load balancers, and SQL databases
+- Each Availability Zone is a separate fault and update zone and has very low latency with other availability zones in the region
 
 ### Region Pairs
 
@@ -279,7 +280,7 @@ The Azure portal uses a **blades model** for navigation. A blade is a slide-out 
 **Azure Preview Features**: you can test beta and other pre-release features, products, services, software, and regions.
 
 - **Private Preview**: feature is available to specific Azure customers for evaluation purposes
-- **Public Preview**: feature is available to all Azure customers for evaluation purposes
+- **Public Preview**: feature is available to all Azure customers for evaluation purposes (feedback)
 
 SLAs do _not_ apply to previews.
 
@@ -438,13 +439,17 @@ Types of data that Azure storage is designed to hold:
 - **[Azure Data Lake Analytics](https://docs.microsoft.com/en-us/azure/data-lake-analytics/data-lake-analytics-overview)**: allows you to perform analytics on your data usage and prepare reports
     - Uses U-SQL, a query language that extends the familiar, simple, declarative nature of SQL with the expressive power of C#
     - Dynamic scaling: pay only for the processing power used
-- **Azure Files**: offers fully managed file shares in the cloud that are accessible via Server Message Block (SMB) protocol
+- **Azure Files** ("file storage"): offers fully managed file shares in the cloud that are accessible via Server Message Block (SMB) protocol
+    - Provides access to other VMs and on-prem resources
 - **Azure Queue**: storage service for storing large numbers of messages
     - Provides asynchronous message queuing for communication between application components, whether they are running in the cloud, on the desktop, on-premises, or on mobile devices.
-- **Disk storage**: an attached virtual hard disk
+- **Azure Disk storage**: stores data as an attached virtual hard disk (VHD) that is available to the VM to which the disk is attached
+    - Does not provide outside access (besides the VM)
     - The disks can be managed or unmanaged by Azure, and therefore managed and configured by the user
     - You are storing data that is not required to be accessed from outside the virtual machine to which the disk is attached
     - Offers both solid-state drives (SSDs) and traditional spinning hard disk drives (HDDs)
+
+Read more: [Deciding when to use Azure Blobs, Azure Files, or Azure Disks](https://docs.microsoft.com/en-us/azure/storage/common/storage-decide-blobs-files-disks).
 
 Tiers for blob object storage:
 
@@ -595,7 +600,7 @@ Response stages:
 
 Components/types of authorization:
 
-- Self-service password reset, multi-factor authentication (MFA), custom banned password list, smart lockout services
+- Self-service password reset (SSPR), multi-factor authentication (MFA), custom banned password list, smart lockout services
 - MFA: requires _two or more_ elements for full authentication
     - **Something you know**: a password, PIN (i.e. at the ATM), or the answer to a security question
     - **Something you possess**: a mobile app that receives a notification or a token-generating device
@@ -606,6 +611,12 @@ Components/types of authorization:
 - Application management
 - Business to business (B2B) identity services: manage guest users and external partners
 - Device Management: manage how devices access your corporate data
+
+Authentication types that support both SSPR and MFA:
+
+- Password
+- SMS
+- Voice call
 
 #### Providing identities to services
 
@@ -695,6 +706,10 @@ Two purposes of certificates in Azure:
 - Multiple VMs can link to the same DDoS Protection plan
 
 **Network Security Groups (NSGs)**: restrict communication between virtual machines by source and destination IP address, port, and protocol.
+
+What is the difference between an NSG and Firewall?
+
+> Use Azure Firewall to restrict network traffic _across subscriptions_.  Use an NSG to allow inbound traffic to a single VM from specific IPs.  (You associate an NSG with a subnet, which is part of a VNet, and in turn VMs are attached to a VNet.)
 
 **Azure ExpressRoute**: provides a dedicated, private connection between your private network and Azure.
 
@@ -810,7 +825,7 @@ This section deals with how Microsoft, the cloud provider, manages the underlyin
 - **Service Trust Portal** (STP): the Microsoft public site for publishing audit reports and other compliance-related information relevant to Microsoft’s cloud services
     - You could maintain and track compliance with FedRAMP, GDPR, etc
 - **Compliance Manager**: enables you to track, assign, and verify your organization's regulatory compliance activities
-    - A workflow-based risk assessment dashboard within the Trust Portal
+    - A workflow-based risk assessment dashboard within the Service Trust Portal (https://servicetrust.microsoft.com)
     - Contains detailed information provided by Microsoft to auditors and regulators
     - Provides a Compliance Score to help you track your progress and prioritize auditing controls
 
@@ -910,9 +925,10 @@ Factors affecting costs:
 - Resource type: costs are resource-specific
 - Services: rates and billing periods can differ between Enterprise, Web Direct, and Cloud Solution Provider (CSP) customers
 - Location
-- Azure billing zone: a geographical grouping of Azure regions used to determine billing based on **data transfers**
+- **Azure billing zone**: a geographical grouping of Azure regions used to determine billing based on **data transfers**
     - Inbound data transfers are free; outbound data transfers are priced based on billing zone
     - Billing zones aren't the same as Availability Zones
+    - Broken into Zone 1, Zone 2, Zone 3, DE Zone 1
 
 ### Azure pricing calculator
 
