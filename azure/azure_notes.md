@@ -39,7 +39,21 @@ Modules:
     - **Horizontal scaling** ("scaling out"): adding more servers that function together as one unit. For example, you have more than one server processing incoming requests.
 - Fault tolerant: includes data backup, disaster recovery, and data replication services
 - Secure
-- Economies of scale: cloud providers leverage economies of scale and (theoretically) pass savings on to consumer
+- **Economies of scale**: cloud providers leverage economies of scale and (theoretically) pass savings on to consumer
+    - A cloud service provider's _cost per subscriber_ is reduced as the number of subscribers grows
+
+### Cloud economics
+
+| Term | Meaning |
+| ---- | ------- |
+| Resiliency | The ability of a system to recover from failures and continue to function |
+| Availability | The time that a system is functional and working |
+| Scalability | The ability to increase workload resource support _without performance loss_ through resources provided to meet peak demands |
+| Agility | The ability to respond quickly to changes in resource requirements\* |
+| Disaster recovery | The ability to return to operational state after a failure or loss |
+| Fault tolerance | The ability of a system to remain operational after a critical failure |
+
+<sup>\*This does *not* preclude the possibility of an impact to performance, unlike scalability.</sup>
 
 ### Forms of spending
 
@@ -137,6 +151,8 @@ Geographies are broken up into the following areas:
 
 Region pairs: The pairing of two Azure regions, which are at least 300 miles away but within the same geography, as a means of resiliency.
 
+- Regions are _always_ paired with at least one other region.
+
 ### Service-Level Agreements (SLAs)
 
 SLA: captures the specific terms that define the performance standards that apply to Azure.
@@ -144,6 +160,7 @@ SLA: captures the specific terms that define the performance standards that appl
 - A "what you can expect" contract
 - SLAs also specify what happens if a service or product fails to perform to a governing SLA's specification
 - Free services (e.g. Container Registry, Azure Advisor, Azure Policy) do _not_ have a financially-backed SLA
+- Full list: [SLA summary for Azure services](https://azure.microsoft.com/en-us/support/legal/sla/summary/)
 
 Characteristics of Azure SLAs:
 
@@ -160,12 +177,8 @@ Characteristics of Azure SLAs:
 
 **Application SLA**: an SLA created by you the developer in the interest of setting a performance target for your application.
 
-**Resiliency**: the ability of a system to recover from failures and continue to function.
-
 - High availability and disaster recovery are two crucial components of resiliency
 - When designing your architecture you need to design for resiliency, and you should perform a Failure Mode Analysis (FMA)
-
-**Availability**: the time that a system is functional and working.
 
 ## Create an Azure account ([home](#))
 
@@ -282,7 +295,11 @@ The Azure portal uses a **blades model** for navigation. A blade is a slide-out 
 - **Private Preview**: feature is available to specific Azure customers for evaluation purposes
 - **Public Preview**: feature is available to all Azure customers for evaluation purposes (feedback)
 
-SLAs do _not_ apply to previews.
+Other points:
+
+- SLAs do _not_ apply to previews
+- Access to preview features can be configured at the organization or user level
+- Access to preview features can be revoked by Microsoft at any time without prior notice
 
 **General Availability (GA)**: when a feature has been released to customers as part of Azure's default product set.
 
@@ -312,14 +329,16 @@ Features for scaling Azure VMs:
 - **Virtual Machine Scale Sets**: let you create and manage a group of identical, load balanced VMs, without configuring a load balancer
     - Scale Sets enable **autoscaling**
     - Automatically creates and integrates with Load Balancer or Application Gateway
+    - Automatic distribution over Availability Sets and Availability Zones (but *not* Regions)
 - **Azure Batch**: scale to many VMs.  Enables large-scale job scheduling and compute management
 
 ### Containers
 
 **Container**: a modified runtime environment built on top of a host OS that executes your application.
 
-- More lightweight than VMs
+- More lightweight than VMs; dependencies installed automatically
 - Run multiple apps in a single container
+- Can be accessed over the Internet by IP address or domain name, just like a VM
 
 Azure supports Docker containers (a standardized container model):
 
@@ -375,7 +394,7 @@ Serverless computing encompasses three ideas:
 
 - Can be either **stateless** (the default) where they behave as if they're restarted every time they respond to an event), or **stateful** (called "Durable Functions") where a context is passed through the function to track prior activity
 
-**Azure Logic Apps**: execute _workflows_ (rather than code) designed to automate business scenarios that start with a trigger.
+**Azure Logic Apps**: execute **workflows** (rather than code) designed to automate business scenarios that start with a trigger.
 
 - You create Logic App workflows using a visual designer on the Azure portal or in Visual Studio
 - The workflows are persisted as a JSON file with a known workflow schema
@@ -429,7 +448,7 @@ Types of data that Azure storage is designed to hold:
     - Lets you access data from a SQL Server database engine without needing to deploy a VM
 - **Azure Cosmos DB**: a globally distributed database service
     - Supports schema-less data (key-value and document data models) that lets you build highly responsive and Always On applications to support constantly changing data
-    - Accessed via SQL queries
+    - Accessed via SQL queries, or also supports NoSQL
     - Can be stored as JSON
 - **Azure Blob Storage**: unstructured, meaning that there are no restrictions on the kinds of data it can hold
     - Blobs behave largely like files on a disk when it comes to reading and writing data
@@ -604,7 +623,7 @@ Components/types of authorization:
 - MFA: requires _two or more_ elements for full authentication
     - **Something you know**: a password, PIN (i.e. at the ATM), or the answer to a security question
     - **Something you possess**: a mobile app that receives a notification or a token-generating device
-    - **Something you are**: a fingerprint or face scan used on many mobile devices
+    - **Something you are**: a fingerprint or face scan used on many mobile devices (biometrics)
 - Increases security of your identity by limiting the impact of credential exposure
 - Single-Sign-On (SSO): enables users to remember only one ID and one password to access multiple applications
     - Philosophy: "More identities mean more passwords to remember and change"
@@ -617,6 +636,21 @@ Authentication types that support both SSPR and MFA:
 - Password
 - SMS
 - Voice call
+
+#### MFA servers and AD FS
+
+_TODO: this section may be outdated._
+
+An **MFA server** is required for authentication when supporting users located on on-premises AD only.
+
+Azure MFA Service (Cloud) supports authentication for users located on Azure AD only.
+
+See also:
+
+- [Getting started with the Azure Multi-Factor Authentication Server](https://docs.microsoft.com/en-us/azure/active-directory/authentication/howto-mfaserver-deploy)
+- [How it works: Azure Multi-Factor Authentication](https://docs.microsoft.com/en-us/azure/active-directory/authentication/concept-mfa-howitworks)
+- [Active Directory Federation Services](https://docs.microsoft.com/en-us/windows-server/identity/active-directory-federation-services)
+- [Active Directory Federation Services (AD FS) ](https://searchmobilecomputing.techtarget.com/definition/Active-Directory-Federation-Services-AD-Federation-Services)
 
 #### Providing identities to services
 
@@ -632,6 +666,8 @@ Azure has two options for this:
 
 **Role**: a set of permissions, like "Read-only" or "Contributor," that users can be granted to access an Azure service instance.
 
+> Role-based access control (RBAC) provides _fine-grained_ access management for Azure resources, enabling you to grant users only the rights they need to perform their jobs. RBAC is provided at no additional cost to all Azure subscriber.
+
 RBAC examples:
 
 - Allow one user to manage VMs in a subscription, and another user to manage virtual networks
@@ -639,7 +675,14 @@ RBAC examples:
 - Allow a user to manage all resources in a resource group, such as VMs, websites, and virtual subnets
 - Allow an application to access all resources in a resource group
 
-> Role-based access control (RBAC) provides _fine-grained_ access management for Azure resources, enabling you to grant users only the rights they need to perform their jobs. RBAC is provided at no additional cost to all Azure subscriber.
+Built-in roles: Azure RBAC includes over 70 built-in roles. There are four fundamental RBAC roles:
+
+
+1. **Owner**: Has full access to all resources including the right to delegate access to others
+1. **Contributor**: Can create and manage all types of Azure resources but _cannot grant access to others_
+1. **Reader**: Can view existing Azure resources; cannot make changes
+1. **User Access Administrator**: Lets you manage user access to Azure resources
+
 
 Use the **Access control (IAM)** panel to view, grant, or remove access.
 
@@ -690,12 +733,16 @@ Two purposes of certificates in Azure:
 
 ### Network protection
 
-**Firewall**: a service that grants server access based on the originating IP address of each request.
+**Azure Firewall**: a service that grants server access based on the originating IP address of each request.
 
+- Fully stateful firewall as a service with built-in high availability and unrestricted cloud scalability
+- Provides inbound protection for non-HTTP/S protocols (SSH, FTP, SSH)
 - Rules typically also include specific network protocol and port information
-- **Azure Firewall**: fully stateful firewall as a service with built-in high availability and unrestricted cloud scalability
-    - Provides inbound protection for non-HTTP/S protocols (SSH, FTP, SSH)
-- **Azure Application Gateway**: a load balancer that includes a Web Application Firewall (WAF)
+- You could use Firewall to filter traffic between:
+    - Virtual subnets
+    - Azure and an on-premises deployment
+
+**Azure Application Gateway**: a load balancer that includes a Web Application Firewall (WAF)
 
 **Azure DDoS Protection**: identifies DDos, blocks further traffic from reaching Azure services without interrupting legitimate customers
 
@@ -715,7 +762,7 @@ What is the difference between an NSG and Firewall?
 
 - Lets you extend your on-premises networks into the Microsoft cloud over a private connection facilitated by a connectivity provider
 
-**Microsoft Azure Information Protection** (AIP): helps organizations classify and optionally protect documents and emails by applying labels.
+**Microsoft Azure Information Protection** (AIP): classifies and optionally protects documents and emails by applying labels.
 
 - Labels can be applied automatically based on rules and conditions, manually, or a combination of both where users are guided by recommendations
 - You can track and control how the content is used after it is classified/labeled: for example, track access to documents
@@ -836,9 +883,11 @@ This section deals with how Microsoft, the cloud provider, manages the underlyin
 - **Activity Logs**: record when resources are created or modified
 - **Metrics**: tell you how the resource is performing and the resources that it's consuming
 - **Application Insights**: monitors the availability, performance, and usage of your web applications
+    - Visually analyze telemetry data
 - **Azure Monitor for containers**: monitors the performance of container workloads
 - **Azure Monitor for VMs**: monitors your Azure VMs at scale
 - Begins collecting data as soon as you add a resource to a new Azure subscription
+- Can use autoscale to add or remove resources as appropriate
 
 **Azure Service Health**: provides personalized guidance and support when issues with Azure services affect you.
 
@@ -894,10 +943,16 @@ Uses of tags:
 
 **Resource lock**: a setting that can be applied to any resource to block modification or deletion.
 
-- **Delete** mode: will allow all operations against the resource but block the ability to delete it
-- **Read-only** mode: will only allow read activities to be performed against it, blocking any modification or deletion of the resource
-- Resource locks can be applied to subscriptions, resource groups, and to individual resources
-- Resource locks are inherited when applied at higher levels
+- Resource locks can be applied to _subscriptions, resource groups, or individual resources_
+    - Cannot be applied in the context of specific users or roles
+- When multiple locks are applied at different scopes, _the most restrictive inherited lock applies_
+- Locks apply to all resources in a scope and any new resources added to the scope
+- Locks always take precedence over RBAC roles
+
+Common levels:
+
+- **CanNotDelete** mode: will allow all operations against the resource but block the ability to delete it
+- **ReadOnly** mode: will only allow read activities to be performed against it, blocking any modification or deletion
 
 ## Predict costs and optimize spending for Azure ([home](#))
 
@@ -947,13 +1002,14 @@ Factors affecting costs:
 
 ### Other cost management tools
 
-**Azure Advisor**: a free service built into Azure that provides recommendations on high availability, security, performance, and cost.
+**Azure Advisor**: a free service built into Azure that provides recommendations.
 
 Advisor makes cost recommendations in the following areas:
 
 1. Reduce costs by eliminating unprovisioned Azure ExpressRoute circuits
 1. Buy reserved instances to save money over pay-as-you-go
-1. Right-size or shutdown underutilized virtual machines
+1. Right-size or shutdown underutilized virtual machines; detect App Service instances where CPU/memory usage are high
+1. Detect threats and vulnerabilities
 
 **Azure Cost Management**: a free, built-in Azure tool for gaining greater insights into where your cloud money is going.
 
