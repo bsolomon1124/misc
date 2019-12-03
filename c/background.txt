@@ -1,0 +1,81 @@
+background
+	history
+	differences in versions
+
+## data types
+	### basic types
+		#### integer types
+		real types
+		character types
+		booleans
+		void type
+	derived types
+		pointers, addresses, and arrays
+		enums
+		structures
+			arrays of structures
+			pointers to structures
+			self-referential structures
+		unions
+	type-casting
+	implicit type conversions
+	typedef
+	working with strings
+
+operators
+	prefix v postfix
+	precedence
+
+
+##writing a program
+	###variables
+		####definitions, declaration, initialization, assignment
+		static
+		external
+		inline
+		register
+		const
+	###preprocessor directives a
+		macros
+			symbolic constants (define)
+			function-like macros
+			undef
+		file inclusion
+		redefinition
+		the define guard
+	functions
+		call by value
+		ansi prototypes
+		about main()
+		argc and argv (command-line arguments)
+	control flow
+		else/elif/if
+		while
+		do while
+		for
+		switch/case
+		continue
+		break
+		goto
+		statements, expressions, blocks
+		conditional expressions
+	scope
+	style guide
+
+compiling and linking
+
+c standard library
+
+	file io
+		eof
+	explicit converions between types
+		atof
+		atoi
+	error handling - stderr and exit
+	the unix system interface
+
+translation
+
+
+odds and ends
+	keywords
