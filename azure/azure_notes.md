@@ -257,7 +257,7 @@ The support plans available and how you're charged depends on the type of Azure 
 1. Premier (most expensive):
     - Designated Technical Account Manager provides proactive guidance
 
-Full table [Azure support options](https://docs.microsoft.com/en-us/learn/modules/create-an-azure-account/6-support-options).
+Full table: [Azure support options](https://docs.microsoft.com/en-us/learn/modules/create-an-azure-account/6-support-options).
 
 ## Core Cloud Services - Manage services with the Azure portal ([home](#))
 
@@ -828,11 +828,11 @@ What is the difference between an NSG and Firewall?
 
 ### Overview
 
-**Azure Policy**: service to create, assign and, manage IT policies to enforce different rules and effects over your resources
+**Azure Policy**: service to create, assign and, manage IT policies to enforce different rules and effects over your resources.
 
-Example: ensure that all resources have the `Department` tag associated with them.
+Example: ensure that all resources have a value for the `Department` tag associated with them.
 
-Azure Policy versus RBAC: a Policy is assigned to a _scope_, such as a resource group; RBAC assigns permissions to _users and groups_
+Azure Policy versus RBAC: a Policy is assigned to a _scope_, such as a resource group; RBAC assigns permissions to _users and groups_.
 
 - RBAC focuses on _user actions_ at different scopes
 - Azure Policy focuses on _resource properties_ during deployment and for already-existing resources
@@ -919,6 +919,7 @@ Components of Azure Monitor:
     - Visually analyze telemetry data
     - You install a small instrumentation package in your application, which monitors your app and sends telemetry data to Azure Monitor
     - [What does Application Insights monitor?](https://docs.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview#what-does-application-insights-monitor)
+    - Don't confuse with Azure HDInsights (managed Hadoop clusters)
 - **Azure Activity Logs**: record when resources are created or modified
 - **Metrics**: tell you how the resource is performing and the resources that it's consuming
     - Collected at regular intervals and are identified with a timestamp, a name, a value, and one or more defining labels
@@ -948,7 +949,7 @@ Service Health tracks 3 event types:
 - **Health history**: view older events; keeps track of inactive events for 90 days
 - Reports on service problems that affect a broad set of Azure customers
 
-**Resource Health**: helps you diagnose and obtain support when an Azure service issue affects your resources
+**Resource Health**: helps you diagnose and obtain support when an Azure service issue affects your resources.
 
 - A more personalized dashboard (relative to Azure Status); a more granular view into the health of your specific Azure resources
 - Shows all the times that your resources have been unavailable because of Azure service problems
@@ -960,13 +961,14 @@ Service Health tracks 3 event types:
 - Provides a management layer that enables you to create, update, and delete resources in your Azure subscription
 - Use access control, locks, and tags, to secure and organize your resources after deployment
 
-**Resource Manager template**: A JSON file that defines one or more resources to deploy to a resource group or subscription
+**Resource Manager template**: A JSON file that defines one or more resources to deploy to a resource group or subscription.
 
 - Used to deploy the resources consistently and repeatedly
 - Uses **declarative syntax**
 - Difference from Azure Blueprints:
     - A Resource Manager template is a document that doesn't exist natively in Azure
     - Blueprints preserve the definition (what _should_ be deployed) and the assignment (what _was_ deployed); this is not true for a template
+    - Blueprints are _broad_: a blueprint can contain multiple Resource Manager template (artifacts) and Policies
     - More detail: [How it's different from Resource Manager templates](https://docs.microsoft.com/en-us/azure/governance/blueprints/overview#how-its-different-from-resource-manager-templates)
 
 ### Resource groups
@@ -1052,7 +1054,7 @@ Factors affecting costs:
 
 ### Azure pricing calculator
 
-**Azure pricing calculator**: a free web-based tool that allows you to estimate Azure costs
+**Azure pricing calculator**: a free web-based tool that allows you to estimate Azure costs.
 
 - Input Azure services and modify properties and options of the services
 - Outputs the costs per service and total cost for the full estimate
@@ -1081,7 +1083,7 @@ Advisor makes cost recommendations in the following areas:
 - Historical breakdowns of what services you are spending your money on and how it is tracking against budgets that you have set
 - Set budgets, schedule reports, and analyze your cost areas
 
-**Azure Total Cost of Ownership (TCO) calculator**: predict your cost savings from a migration to cloud
+**Azure Total Cost of Ownership (TCO) calculator**: predict your cost savings from a migration to cloud.
 
 - You enter the details of your current on-premises infrastructure into TCO and tweak values of baseline assumptions
 - The TCO calculator generates a detailed report based on the details you enter and the adjustments you make
