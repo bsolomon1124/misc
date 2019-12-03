@@ -888,30 +888,51 @@ This section deals with how Microsoft, the cloud provider, manages the underlyin
 
 ### Monitor your service health
 
-**Azure Monitor**: comprehensive solution for collecting, analyzing, and acting on telemetry from your cloud and on-premises environments.
+**Azure Monitor**: collect, analyze, and act on on [telemetry](https://en.wikipedia.org/wiki/Telemetry) data from your cloud and on-premises environments.
 
-- **Activity Logs**: record when resources are created or modified
-- **Metrics**: tell you how the resource is performing and the resources that it's consuming
+- Begins collecting data as soon as you add a resource to a new Azure subscription
+- Can use autoscale to add or remove resources as appropriate (create rules that use metrics collected by Azure Monitor to determine when to automatically add resources)
+
+Components of Azure Monitor:
+
 - **Application Insights**: monitors the availability, performance, and usage of your web applications
+    - An Application Performance Management (APM) service for web developers
     - Visually analyze telemetry data
+    - You install a small instrumentation package in your application, which monitors your app and sends telemetry data to Azure Monitor
+    - [What does Application Insights monitor?](https://docs.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview#what-does-application-insights-monitor)
+- **Azure Activity Logs**: record when resources are created or modified
+- **Metrics**: tell you how the resource is performing and the resources that it's consuming
+    - Collected at regular intervals and are identified with a timestamp, a name, a value, and one or more defining labels
+    - Stored in a time-series database
 - **Azure Monitor for containers**: monitors the performance of container workloads
 - **Azure Monitor for VMs**: monitors your Azure VMs at scale
-- Begins collecting data as soon as you add a resource to a new Azure subscription
-- Can use autoscale to add or remove resources as appropriate
+- **Alerts** in Azure Monitor: proactively notify you of critical conditions and potentially attempt to take corrective action
 
-**Azure Service Health**: provides personalized guidance and support when issues with Azure services affect you.
+[**Azure Service Health**](https://docs.microsoft.com/en-us/azure/service-health/service-health-overview): provides personalized guidance and support when issues with Azure services affect you.
 
-- **Azure Status**: provides a global view of the health state of Azure services
-- **Service Health**: provides you with a customizable dashboard that tracks the state of your Azure services in the regions where you use them
-- **Resource Health**: helps you diagnose and obtain support when an Azure service issue affects your resources
-    - A more personalized dashboard (relative to Azure Status)
-- Health advisories: view Azure features that are planned to be deprecated
+- Notifies you about Azure service incidents and planned maintenance
+- A customizable dashboard that tracks the state of your Azure services in the regions where you use them
+- **Health alerts**: integrates with Azure Monitor to alert you via emails, text messages, and WebHook notifications
 
-Service Health: example use cases:
+Service Health tracks 3 event types:
 
-1. Be notified when your App Service usage exceeds a quota (**health advisory**)
-1. Respond to planned service outages in an area
-1. Implement a WebHook on your site to display health incidents
+1. **Service issues**: Problems in the Azure services that affect you right now
+1. **Planned maintenance**: Upcoming maintenance that can affect the availability of your services in the future
+1. **Health advisories**: Changes in Azure services that require your attention
+    - When Azure features are deprecated
+    - If you exceed a usage quota
+
+**Azure Status**: a global view of the health state of Azure services
+
+- An [outdated version of Service Health](https://docs.microsoft.com/en-us/azure/service-health/azure-status-overview)
+- Azure status page gets updated in real time as the health of Azure services change
+- **Health history**: view older events; keeps track of inactive events for 90 days
+- Reports on service problems that affect a broad set of Azure customers
+
+**Resource Health**: helps you diagnose and obtain support when an Azure service issue affects your resources
+
+- A more personalized dashboard (relative to Azure Status); a more granular view into the health of your specific Azure resources
+- Shows all the times that your resources have been unavailable because of Azure service problems
 
 ## Control and organize Azure resources with Azure Resource Manager ([home](#))
 
