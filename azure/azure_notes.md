@@ -934,10 +934,11 @@ Service Health: example use cases:
 **Resource group**: a logical container for resources deployed on Azure.
 
 - All resources must be in a resource group
-- A resource can only be a member of a single resource group
+- A resource can only be a member of _one_ resource group
 - If you delete a resource group, all resources contained within are also deleted
 - Function as a scope for applying RBAC permissions
 - A resource group sits within a subscription and within a specific region
+    - However, a resource group can contain resources that are located in different regions.
 - Quotas for resources in Resource Groups are per region rather than per subscription
 
 Use resource groups for organization:
