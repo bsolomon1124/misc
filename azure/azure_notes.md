@@ -77,12 +77,12 @@ Modules:
 ### Types of cloud services
 
 1. **Infrastructure as a service (IaaS)**: rented computing infrastructure (hardware), provisioned and managed over the Internet
-    - Example: Azure VM
+    - Example: Azure VM, SQL Server 2016
     - IaaS _simulates hardware_
 1. [**Platform as a service (PaaS)**](https://azure.microsoft.com/en-us/overview/what-is-paas/): provides an environment for building, testing, and deploying software applications without requiring the user to manage the infrastructure
-    - Example: Azure SQL Database, Azure API Management, Azure App Service, Azure Container Instances
+    - Example: Azure SQL Database, Azure API Management, Azure App Service, Azure Container Instances, IoT Hub
 1. [**Software as a service (SaaS)**](https://azure.microsoft.com/en-us/overview/what-is-saas/): software that is centrally hosted and managed for the end customer, usually subscription-based
-    - Examples: Office 365, Skype, and Dynamics CRM Online, enterprise resource planning (ERP), Azure IoT Central
+    - Examples: Office 365, Skype, and Dynamics CRM Online, enterprise resource planning (ERP), Azure IoT Central, Skype
 
 ![Service comparison](../imgs/azure-iaas-saas-paas.jpg)
 
@@ -614,6 +614,8 @@ Response stages:
 [**Identity management**](https://en.wikipedia.org/wiki/Identity_management), which is the proper authentication and assignment of privileges, has become the new primary security boundary.
 
 - **Authentication**: establishing the identity of a person or service looking to access a resource
+    - Ensures the user/PW combination is correct
+    - Establishes whether or not people are who they say they are
 - **Authorization**: establishing what level of access an authenticated person or service has
     - Authorization is _verifying that an authenticated user has access to certain functions_
 
@@ -677,12 +679,10 @@ RBAC examples:
 
 Built-in roles: Azure RBAC includes over 70 built-in roles. There are four fundamental RBAC roles:
 
-
 1. **Owner**: Has full access to all resources including the right to delegate access to others
 1. **Contributor**: Can create and manage all types of Azure resources but _cannot grant access to others_
 1. **Reader**: Can view existing Azure resources; cannot make changes
 1. **User Access Administrator**: Lets you manage user access to Azure resources
-
 
 Use the **Access control (IAM)** panel to view, grant, or remove access.
 
