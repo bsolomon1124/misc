@@ -460,30 +460,23 @@ Types of data that Azure storage is designed to hold:
 
 ### Storage options overview
 
-- **Azure SQL Database**: a relational database as a service (DaaS) based on the latest stable version of the Microsoft SQL Server database engine
-    - **Azure Database Migration Service**: used to migrate your existing SQL Server databases with minimal downtime
-    - Lets you access data from a SQL Server database engine without needing to deploy a VM
-- **Azure Cosmos DB**: a globally distributed database service
-    - Supports schema-less data (key-value and document data models) that lets you build highly responsive and Always On applications to support constantly changing data
-    - Accessed via SQL queries, or also supports NoSQL
-    - Can be stored as JSON
-- **Azure Blob Storage**: unstructured, meaning that there are no restrictions on the kinds of data it can hold
+- **Azure Blob Storage**: storage service for very large objects, such as video files or bitmaps.
+    - Unstructured
     - Blobs behave largely like files on a disk when it comes to reading and writing data
-    - Commonly used for logs, audio/video data, scientific data, disaster recovery
-    - Lets you stream large video or audio files directly to the user's browser
-- **Azure Data Lake Storage**: a large repository that stores both structured and unstructured data
-- **[Azure Data Lake Analytics](https://docs.microsoft.com/en-us/azure/data-lake-analytics/data-lake-analytics-overview)**: allows you to perform analytics on your data usage and prepare reports
-    - Uses U-SQL, a query language that extends the familiar, simple, declarative nature of SQL with the expressive power of C#
-    - Dynamic scaling: pay only for the processing power used
-- **Azure Files** ("file storage"): offers fully managed file shares in the cloud that are accessible via Server Message Block (SMB) protocol
+    - Commonly used for logs, audio/video data, scientific data, disaster recovery, bitmaps
+    - Lets you _stream_ large video or audio files directly to the user's browser
+- **Azure Files** ("file storage"): fully managed file shares in the cloud that are accessible via Server Message Block (SMB) protocol
     - Provides access to other VMs and on-prem resources
-- **Azure Queue**: storage service for storing large numbers of messages
-    - Provides asynchronous message queuing for communication between application components, whether they are running in the cloud, on the desktop, on-premises, or on mobile devices.
+    - Ceplace or supplement traditional on-premises file servers or NAS devices
 - **Azure Disk storage**: stores data as an attached virtual hard disk (VHD) that is available to the VM to which the disk is attached
     - Does not provide outside access (besides the VM)
     - The disks can be managed or unmanaged by Azure, and therefore managed and configured by the user
     - You are storing data that is not required to be accessed from outside the virtual machine to which the disk is attached
     - Offers both solid-state drives (SSDs) and traditional spinning hard disk drives (HDDs)
+- **Azure Queue**: storage service for storing large numbers of messages
+    - Provides asynchronous message queuing for communication between application components, whether they are running in the cloud, on the desktop, on-premises, or on mobile devices
+
+All of Blob, Files, and Disk provide client libraries and a REST interface.
 
 Read more: [Deciding when to use Azure Blobs, Azure Files, or Azure Disks](https://docs.microsoft.com/en-us/azure/storage/common/storage-decide-blobs-files-disks).
 
@@ -505,6 +498,26 @@ Encryption for storage services:
 ### Comparison between Azure data storage and on-premises storage
 
 ![On-prem versus Azure data storage](../imgs/azure-onprem-v-azure-storage.jpg)
+
+### Databases overview
+
+- **Azure SQL Database**: a general-purpose relational database, provided as a managed service (PaaS or "DaaS")
+
+    - Enables you to process both relational data and non-relational structures, such as graphs, JSON, spatial, and XML
+    - Based on the latest stable version of the Microsoft SQL Server database engine
+
+- **Azure Cosmos DB**: a globally distributed database service
+    - Supports schema-less data (key-value and document data models) that lets you build highly responsive and Always On applications to support constantly changing data
+    - Accessed via SQL queries, or also supports NoSQL
+    - Can be stored as JSON
+- **Azure Database Migration Service**: used to migrate your existing SQL Server databases with minimal downtime
+    - Lets you access data from a SQL Server database engine without needing to deploy a VM
+- **Azure Data Lake Storage**: a large repository that stores both structured and unstructured data
+- **[Azure Data Lake Analytics](https://docs.microsoft.com/en-us/azure/data-lake-analytics/data-lake-analytics-overview)**: allows you to perform analytics on your data usage and prepare reports
+    - Uses U-SQL, a query language that extends the familiar, simple, declarative nature of SQL with the expressive power of C#
+    - Dynamic scaling: pay only for the processing power used
+- **Azure Cache for Redis**: caches frequently used and static data to reduce data and application latency
+- [**SQL Server on VMs**](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/sql/provision-sql-server-linux-virtual-machine): manually provision/deploy SQL Server on a VM in the cloud
 
 ## Core Cloud Services - Azure networking options ([home](#))
 
@@ -775,9 +788,11 @@ What is the difference between an NSG and Firewall?
 
 > Use Azure Firewall to restrict network traffic _across subscriptions_.  Use an NSG to allow inbound traffic to a single VM from specific IPs.  (You associate an NSG with a subnet, which is part of a VNet, and in turn VMs are attached to a VNet.)
 
-**Azure ExpressRoute**: provides a dedicated, private connection between your private network and Azure.
+**Azure ExpressRoute**: a dedicated, private connection between your private network and Azure.
 
-- Lets you extend your on-premises networks into the Microsoft cloud over a private connection facilitated by a connectivity provider
+- Bypasses the public Internet -> more reliability, speed, lower latency
+- Create private connections between Azure datacenters and infrastructure on your premises
+- The private connection is facilitated by a connectivity provider
 
 **Microsoft Azure Information Protection** (AIP): classifies and optionally protects documents and emails by applying labels.
 
