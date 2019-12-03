@@ -14,7 +14,8 @@ Modules:
 1. [Apply and monitor infrastructure standards with Azure Policy](#apply-and-monitor-infrastructure-standards-with-azure-policy-home)
 1. [Control and organize Azure resources with Azure Resource Manager](#control-and-organize-azure-resources-with-azure-resource-manager-home)
 1. [Predict costs and optimize spending for Azure](#predict-costs-and-optimize-spending-for-azure-home)
-1. [Recap: Hierarchy of infrastructure](recap-hierarchy-of-infrastructure)
+1. [Recap: Hierarchy of infrastructure](#recap-hierarchy-of-infrastructure)
+1. ["Bonus": Areas not covered in modules](#bonus-areas-not-covered-in-modules)
 
 ## Cloud Concepts - Principles of cloud computing ([home](#))
 
@@ -240,9 +241,20 @@ See also: [Azure AD terminology](https://docs.microsoft.com/en-us/azure/active-d
 
 ### Azure Support
 
-The support plans available and how you're charged depends on the type of Azure customer you are, and the type of Azure subscription you have.
+The support plans available and how you're charged depends on the type of Azure customer you are, and the type of Azure subscription you have:
 
-See [this table](https://docs.microsoft.com/en-us/learn/modules/create-an-azure-account/6-support-options) of paid Azure support plans.
+1. Developer (least expensive):
+    - Business hours access to email support
+    - Response time: <8 business hours
+1. Standard:
+    - 24x7 access to email + phone support
+    - Response time: <1 hour
+1. Professional direct:
+    - Azure Engineering-led web seminars
+1. Premier (most expensive):
+    - Designated Technical Account Manager provides proactive guidance
+
+Full table [Azure support options](https://docs.microsoft.com/en-us/learn/modules/create-an-azure-account/6-support-options).
 
 ## Core Cloud Services - Manage services with the Azure portal ([home](#))
 
@@ -330,7 +342,8 @@ Features for scaling Azure VMs:
     - Scale Sets enable **autoscaling**
     - Automatically creates and integrates with Load Balancer or Application Gateway
     - Automatic distribution over Availability Sets and Availability Zones (but *not* Regions)
-- **Azure Batch**: scale to many VMs.  Enables large-scale job scheduling and compute management
+- **Azure Batch**: scale to many VMs; enables large-scale job scheduling and compute management
+    - Difference from Scale Sets: Azure Batch is a PaaS focused on running large scale batch jobs
 
 ### Containers
 
@@ -856,9 +869,6 @@ Examples:
 
 - Makes it easier, faster, and safer to stand up new environments within organizational compliance
 - Blueprint service is backed by Azure Cosmos DB
-- Difference from Resource Manager templates:
-    - A Resource Manager template is a document that doesn't exist natively in Azure
-    - Blueprints preserve the definition (what _should_ be deployed) and the assignment (what _was_ deployed); this is not true for a template
 - Difference from Azure Policy: a policy can be included in a blueprint
 
 ### How Microsoft manages resource security
@@ -904,6 +914,20 @@ Service Health: example use cases:
 1. Implement a WebHook on your site to display health incidents
 
 ## Control and organize Azure resources with Azure Resource Manager ([home](#))
+
+**Azure Resource Manager**: the deployment and management service for Azure
+
+- Provides a management layer that enables you to create, update, and delete resources in your Azure subscription
+- Use access control, locks, and tags, to secure and organize your resources after deployment
+
+**Resource Manager template**: A JSON file that defines one or more resources to deploy to a resource group or subscription
+
+- Used to deploy the resources consistently and repeatedly
+- Uses **declarative syntax**
+- Difference from Azure Blueprints:
+    - A Resource Manager template is a document that doesn't exist natively in Azure
+    - Blueprints preserve the definition (what _should_ be deployed) and the assignment (what _was_ deployed); this is not true for a template
+    - More detail: [How it's different from Resource Manager templates](https://docs.microsoft.com/en-us/azure/governance/blueprints/overview#how-its-different-from-resource-manager-templates)
 
 ### Resource groups
 
@@ -1073,3 +1097,46 @@ Resource Group          a logical container for resources
 
 Azure resource          the actual service (VM, subnet, app)
 ```
+
+## "Bonus": Areas not covered in modules
+
+### Internet of things (IoT)
+
+**Internet of things (IoT)**: the ability for online-capable devices to garner and then relay information for data analysis.
+
+**Azure IoT Hub**: Messaging hub that provides secure communications and monitoring between millions of IoT devices.
+
+- Write code to connect IoT devices
+- The core Azure PaaS that both Azure IoT Central and Azure IoT solution accelerators use
+- Provides for bidirectional connections between your IoT devices and an IoT app
+- "Hub" describes a central access point
+- Supports SDKs and protocols
+
+**IoT Central**: Fully-managed global IoT software as a service (SaaS) solution that makes it easy to connect, monitor, and manage your IoT assets at scale.
+
+- Does not require code
+
+**IoT Edge**: Push your data analysis models directly onto your IoT devices, allowing them to react quickly to state changes without needing to consult cloud-based AI models.
+
+- Analyze data directly on IoT devices rather than in the cloud, via standard containers
+- Reduces traffic volume between the cloud and IoT devices
+- Concept is to "offload" AI and analytics workloads to the edge
+
+More: [Compare Azure IoT Central and Azure IoT options](https://docs.microsoft.com/en-us/azure/iot-central/core/overview-iot-options)
+
+### Big data
+
+**Azure SQL Data Warehouse**: Cloud-based Enterprise Data Warehouse (EDW) that leverages massive parallel processing (MPP) to run complex queries quickly across petabytes of data.
+
+**Azure HDInsight**: Managed Hadoop clusters in the cloud.
+
+- Process batches using R, Python, SQL, Scala, and Java
+
+### Artificial intelligence
+
+**Azure Machine Learning Service**: Cloud-based environment you can use to develop, train, test, deploy, manage, and track machine learning models.
+
+- Can auto-generate a model and auto-tune it for you
+- Will let you start training on your local machine, and then scale out to the cloud
+
+**Azure Machine Learning Studio**: Collaborative, drag-and-drop visual workspace to build, test, and deploy ML solutions using pre-built algorithms.
