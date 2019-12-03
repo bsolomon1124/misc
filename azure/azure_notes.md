@@ -129,7 +129,10 @@ Special region:
 - Designed for organizations doing business in Germany and the EU that need a high level of security and compliance
 - Requires a separate account and has a distinct pricing structure
 
-**Data residency**: physical or geographic location of an organization's data or information. It defines the legal or regulatory requirements imposed on data based on the country or region in which it resides and is an important consideration when planning out your application data storage.
+**Data residency**: physical or geographic location of an organization's data or information.
+
+- Shapes the legal or regulatory requirements imposed on data based on the country or region in which it resides
+- An important consideration when planning out your application data storage
 
 Geographies are broken up into the following areas:
 
@@ -336,8 +339,9 @@ There are four common techniques for performing compute in Azure:
 
 Features for scaling Azure VMs:
 
-- **Availability sets**: a logical grouping of two or more VMs that help keep your application available during planned or unplanned maintenance
+- **Availability sets**: a logical grouping of two or more VMs _in the same data center_ that help keep your application available during planned or unplanned maintenance
     - Do not confuse with Availability Zones; availability sets are _separate deployments in the same data center_
+    - Goal: protect from hardware failures within data centers
 - **Virtual Machine Scale Sets**: let you create and manage a group of identical, load balanced VMs, without configuring a load balancer
     - Scale Sets enable **autoscaling**
     - Automatically creates and integrates with Load Balancer or Application Gateway
@@ -359,7 +363,7 @@ Azure supports Docker containers (a standardized container model):
 - **Azure Kubernetes Service** (AKS) - a complete orchestration\* service for containers with distributed architectures with multiple containers
     - You _deploy_ containers to a Kubernetes cluster
 
-<sup>\***Orchestration**: The task of automating, managing, and interacting with a large number of containers</sup>
+<sup>\***Orchestration**, in this context, is the task of automating, managing, and interacting with a large number of containers</sup>
 
 ### Microservices
 
@@ -873,14 +877,14 @@ Examples:
 
 ### How Microsoft manages resource security
 
-This section deals with how Microsoft, the cloud provider, manages the underlying resources you are building on.
+This section deals with how Microsoft, as cloud provider, manages the underlying resources you are building on.
 
 - **Microsoft Privacy Statement**: explains what personal data Microsoft processes, how Microsoft processes it, and for what purposes
     - Some Microsoft products require personal information or otherwise can't be used
     - Microsoft may share personal information with vendors on Microsoft's behalf
 - **Microsoft Trust Center**: a website resource containing information and details about how Microsoft implements and supports security, privacy, compliance, and transparency
-- **Service Trust Portal** (STP): the Microsoft public site for publishing audit reports and other compliance-related information relevant to Microsoft’s cloud services
-    - You could maintain and track compliance with FedRAMP, GDPR, etc
+- **Service Trust Portal** (STP): published audit reports and other compliance-related information relevant to Microsoft’s cloud services
+    - Gives you audit reports on Azure Cloud services about compliance with standards from ISO, SOC, NIST, FedRAMP, GDPR
 - **Compliance Manager**: enables you to track, assign, and verify your organization's regulatory compliance activities
     - A workflow-based risk assessment dashboard within the Service Trust Portal (https://servicetrust.microsoft.com)
     - Contains detailed information provided by Microsoft to auditors and regulators
