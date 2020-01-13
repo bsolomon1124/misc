@@ -67,7 +67,7 @@ The `$` is ubiquitous to jQuery.  You can use `jQuery`/`$` as both (1) a functio
 1578801409916
 ```
 
-(In JavaScript, [functions are objects](https://stackoverflow.com/q/7223585/7954504); functions are simply [added to the `jQuery` object](https://github.com/jquery/jquery/blob/d0ce00cdfa680f1f0c38460bc51ea14079ae8b07/src/deprecated.js#L67) as attributes.)
+(In JavaScript, [functions are objects](https://stackoverflow.com/q/7223585/7954504); functions are simply [added (_namespaced_) to the `jQuery` object](https://github.com/jquery/jquery/blob/d0ce00cdfa680f1f0c38460bc51ea14079ae8b07/src/deprecated.js#L67) as attributes.)
 
 Like many other (almost all) methods in the library, `$()` allows for method chaining.  That is, [`jQuery()` returns a `jQuery` object](https://learn.jquery.com/using-jquery-core/jquery-object/):
 
@@ -75,6 +75,11 @@ Like many other (almost all) methods in the library, `$()` allows for method cha
 $( "p" ).css( "color", "red" ).find( ".special" ).css( "color", "green" );
 
 $( "p" ).eq( 0 ) // First paragraph only
+
+// Make external links open in new window
+$('a[href^="http://"]')
+  .not('[target="_blank"]')
+  .attr('target', '_blank');
 ```
 
 The returned `jQuery` object contains a set of DOM elements that match the given criteria and also expose many of jQuery’s
@@ -272,3 +277,68 @@ let $allElements = $('*');
 ```
 
 Summary: `<link>`s and `<style>` goes in `<head>`, `<script>` at end of `<body>`.
+
+**Use methods over filters**.  That is, prefer:
+
+```javascript
+$('div').eq(1)
+```
+
+to:
+
+```javascript
+$('div:eq(1)')
+```
+
+One reason is for better performance.
+
+## Getters and Setters
+
+Many jQuery methods function simultaneously as getters and setters depending on how they are called.  An example is [`.attr()`](https://api.jquery.com/attr/):
+
+Its getter looks like `.attr( attributeName )`, while the setter is `.attr( attributeName, value )` (or a few other forms).
+
+```javascript
+// Get the value of an attribute for the first element in the set of matched elements
+let custAttr = $('#my-image').attr('data-custom');
+
+// Set one or more attributes for every matched element
+$('#my-image').attr('data-custom', 'newvalue');
+```
+
+TODO: [attributes versus properties](https://api.jquery.com/attr/)
+
+## `.html()` versus `.text()`
+
+`.html()`: Returns the HTML content of the first matched element.
+
+`.text()`: Returns a string that's the concatenation of all the texts in the matched set, including descendants.
+
+```node
+> let $ul = $(`<ul id="the-list">
+  <li>One</li><li>Two</li><li>Three</li><li>Four</li>
+</ul>`);
+
+> $ul.html()
+"
+  <li>One</li><li>Two</li><li>Three</li><li>Four</li>
+"
+
+> $ul.text()
+"
+  OneTwoThreeFour
+"
+```
+
+## Utility Functions
+
+TODO
+
+- `$.trim()`
+- `$.noConflict()`
+- `$.each()`
+- `$.grep()`
+- `$.map()`
+- `$.isNumeric(param)`
+- `$.type(value)`
+- `$.parseJSON()`
