@@ -1,0 +1,13 @@
+[credential]
+    helper = osxkeychain
+[color]
+    ui = true
+[alias]
+    sg = log --oneline --graph
+    sgs = log --oneline --graph -n 15
+    last = log -n 1
+    sb = status -sb
+    showlast = show -n 1
+    logrec = log --format='%h %Cgreen %ad %Creset %s' --no-merges --date='format:%b %d: %H:%M %z'
+[core]
+    editor = vim
