@@ -9,6 +9,7 @@
     sb = status -sb
     showlast = show -n 1
     logrec = log --format='%h %Cgreen %ad %Creset %s' --no-merges --date='format:%b %d: %H:%M %z'
+    logtab = log --format="%h %ad   | %<(15)%an| %s" --date=iso-strict-local
     sincetag = log "$(git describe --tags --abbrev=0)"..HEAD
 [core]
     editor = vim
